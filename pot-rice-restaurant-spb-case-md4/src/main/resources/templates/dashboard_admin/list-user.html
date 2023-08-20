@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <title>Danh sách khách hàng || Nhà Hàng Cơm Niêu HTD</title>
+    <link rel="icon" href="/assets/images/logo_icon.png">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/preview-image.css">
+    <link rel="stylesheet" href="/assets/css/custom-style.css">
+    <link rel="stylesheet" href="/assets/sweetalert2/sweetalert2.min.css">
+    <th:block th:replace="layout/header"/>
+</head>
+
+<body>
+
+<!--=============================
+    TOPBAR START
+==============================-->
+<th:block th:replace="layout/topbar"/>
+<!--=============================
+    BREADCRUMB START
+==============================-->
+<section class="tf__breadcrumb" style="background: url(/assets/images/counter_bg.jpg);">
+    <div class="tf__breadcrumb_overlay">
+        <div class="container">
+            <div class="tf__breadcrumb_text">
+                <h1>Trang quản lý</h1>
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="#">Trang quản lý</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=============================
+    BREADCRUMB END
+==============================-->
+
+
+<!--=========================
+    DASHBOARD START
+==========================-->
+<section class="tf__dashboard mt_100 xs_mt_70 mb_100 xs_mb_70">
+    <div class="tf__dashboard_area">
+        <div class="row">
+            <div class="col-xl-2 col-lg-4 wow fadeInUp" data-wow-duration="1s">
+
+                <th:block th:replace="/layout/layout_dashboard"/>
+
+                <div class="col-xl-10 col-lg-8 wow fadeInUp" data-wow-duration="1s">
+                    <div class="tf__dashboard_content">
+                        <div class="tf_dashboard_body">
+                            <h3>Danh sách khách hàng</h3>
+                            <div class="content">
+                                <table class="table table-hover" id="tbUser">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Tên</th>
+                                        <th>Tên tài khoản</th>
+                                        <th>Email</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Vai trò</th>
+                                        <th colspan="2" >Thao tác</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="tf__pagination mt_50">
+                            <div class="row">
+                                <div class="col-12">
+                                    <nav id="paginationNav">
+                                        <ul class="pagination justify-content-center">
+                                            <!-- Các nút phân trang sẽ được thêm vào đây -->
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</section>
+<!--=========================
+    DASHBOARD END
+==========================-->
+<!--=============================
+    FOOTER START
+==============================-->
+<th:block th:replace="/layout/footer"/>
+<!--=============================
+    FOOTER END
+==============================-->
+
+
+<!--=============================
+    SCROLL BUTTON START
+==============================-->
+<div class="tf__scroll_btn"><i class="fas fa-hand-pointer"></i></div>
+<!--=============================
+    SCROLL BUTTON END
+==============================-->
+<ul class="menu_icon d-flex flex-wrap" style="background-color: crimson">
+    <li>
+        <a class="btn" style="color: white; background-color: crimson" href="/dashboard/productsJob"><i class="fas fa-bell"></i></i>
+            <span class="cart-count" id="count-orders" style="color: white">0</span></a>
+    </li>
+</ul>
+
+
+<!--jquery library js-->
+<script src="/assets/js/jquery-3.6.0.min.js"></script>
+<!--bootstrap js-->
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+<!--font-awesome js-->
+<script src="/assets/js/Font-Awesome.js"></script>
+<!-- slick slider -->
+<script src="/assets/js/slick.min.js"></script>
+<!-- isotop js -->
+<script src="/assets/js/isotope.pkgd.min.js"></script>
+<!-- counter up js -->
+<script src="/assets/js/jquery.waypoints.min.js"></script>
+<script src="/assets/js/jquery.countup.min.js"></script>
+<!-- nice select js -->
+<script src="/assets/js/jquery.nice-select.min.js"></script>
+<!-- venobox js -->
+<script src="/assets/js/venobox.min.js"></script>
+<!-- sticky sidebar js -->
+<script src="/assets/js/sticky_sidebar.js"></script>
+<!-- wow js -->
+<script src="/assets/js/wow.min.js"></script>
+<!-- ex zoom js -->
+<script src="/assets/js/jquery.exzoom.js"></script>
+<script src="/assets/js/appBase.js"></script>
+<script src="/assets/js/app.js"></script>
+
+<!--main/custom js-->
+<script src="/assets/js/main.js"></script>
+
+<script src="/assets/js/jquery.validate.js"></script>
+<script src="/assets/js/magnific-popup-1.1.0.js"></script>
+<script src="/assets/js/notify-0.4.1.min.js"></script>
+<script src="/assets/sweetalert2/sweetalert2.all.min.js"></script>
+
+<script>
+    const page = {
+        url: {
+            getAllUser: AppBase.API_USERS,
+            getAllRole: AppBase.API_ROLE,
+            disableUser: AppBase.API_DELETE_USER,
+            restoreUser: AppBase.API_RESTORE_USER,
+            getAllBillsORDER: AppBase.API_BILLORDER,
+        },
+        elements: {},
+        loadData: {},
+        commands: {},
+        dialogs: {
+            elements: {},
+            commands: {},
+            loadData: {}
+        }
+    }
+    page.elements.tblUserBody = $('#tbUser tbody')
+    page.elements.roleSpan = $('#roleSpan')
+    page.elements.roleSelect = $('#roleSelect')
+    page.elements.countOrders = $('#count-orders')
+
+    let user = new User();
+
+
+
+    page.commands.renderUser = (user) => {
+        let tdDelete = user.deleted == false ?
+            `
+                <a class="btn btn-outline-danger delete" data-id="${user.id}" >
+                    <i class="fas fa-user-lock"></i>
+                </a>
+            ` :
+            `
+                <a class="btn btn-outline-primary restore" data-id="${user.id}" >
+                  <i class="fas fa-unlock-alt"></i>
+                </a>
+            `;
+        return `
+                <tr >
+                    <td>${user.id}</td>
+                    <td>${user.fullName}</td>
+                    <td>${user.username}</td>
+                    <td>${user.email}</td>
+                    <td>${user.phone}</td>
+                    <td><span id="roleSpan">
+                            ${user.role.code}
+                        </span>
+                        <select class="form-select" name="role" id="roleSelect" hidden="true">
+                        </select>
+                    </td>
+                    <td>
+                           ${tdDelete}
+                    </td>
+                </tr>
+            `
+    }
+
+    page.commands.countAllBillsORDER = () => {
+        $.ajax({
+            type: 'GET',
+            url: page.url.getAllBillsORDER,
+        })
+            .done((data) => {
+                page.elements.countOrders.text(0);
+                const count = data.length;
+                console.log(`Số lượng order: ${count}`);
+                page.elements.countOrders.text(count)
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            });
+    };
+
+
+    page.commands.getAllUsers = () => {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: 'GET',
+            url: page.url.getAllUser
+        })
+            .done((data) => {
+                $.each(data, (index, item) => {
+                    const str = page.commands.renderUser(item)
+                    page.elements.tblUserBody.append(str)
+                })
+                page.commands.updateRole();
+                // page.commands.restoreUser();
+                // page.commands.deleteUser();
+            })
+            .fail(function () {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            });
+    }
+
+    page.commands.getRoles = () => {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: 'GET',
+            url: page.url.getAllRole,
+        })
+            .done((data) => {
+                page.elements.roleSelect.empty();
+                $.each(data, function (index, item) {
+                    page.elements.roleSelect.append($('<option>').val(item.id).text(item.code));
+                })
+            })
+            .fail(function () {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            });
+    }
+
+    page.commands.updateRole = () => {
+        $('.update-role').on('click', () => {
+            page.elements.roleSpan.hide();
+            page.elements.roleSelect.removeAttr('hidden').show()
+            page.commands.getRoles();
+        })
+
+    }
+    page.commands.showDeleteConfirm = () => {
+
+        AppBase.SweetAlert.showDeleteConfirmDialog()
+            .then((result) => {
+                if (result.isConfirmed) {
+                    page.commands.deleteUser();
+
+                }
+            });
+    }
+    page.commands.showRestoreConfirm = () => {
+
+        AppBase.SweetAlert.showRestoreConfirmDialog()
+            .then((result) => {
+                if (result.isConfirmed) {
+                    page.commands.restoreUser();
+                }
+
+            });
+    }
+
+
+    page.commands.deleteUser = () => {
+        // page.elements.loader.removeClass("hide");
+
+        $.ajax({
+            type: "PATCH",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            url: page.url.disableUser + '/' + user.id,
+        }).done((data) => {
+
+            AppBase.SweetAlert.showSuccessAlert("Đã vô hiệu hóa tài khoản khách hàng");
+            let tdTemp =  $(`#tbUser tr a[data-id=${user.id}]`).parent();
+            tdTemp.empty();
+
+            let strUnlock = `
+                <a class="btn btn-outline-primary restore" data-id="${user.id}" >
+                  <i class="fas fa-unlock-alt"></i>
+                </a>
+            `
+            tdTemp.append(strUnlock);
+
+        }).fail(function (jqXHR) {
+            AppBase.SweetAlert.showErrorAlert(jqXHR.responseJSON.message);
+        }).always(function () {
+            page.elements.loader.addClass("hide");
+        });
+    }
+
+    page.commands.restoreUser = () => {
+        // page.elements.loader.removeClass("hide");
+
+        $.ajax({
+            type: "PATCH",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            url: page.url.restoreUser + '/' + user.id,
+        }).done((data) => {
+
+            AppBase.SweetAlert.showSuccessAlert("Đã khôi phục tài khoản khách hàng");
+            let tdTemp =  $(`#tbUser tr a[data-id=${user.id}]`).parent();
+            tdTemp.empty();
+
+            let strUnlock = `
+                <a class="btn btn-outline-danger delete" data-id="${user.id}" >
+                    <i class="fas fa-user-lock"></i>
+                </a>
+            `
+            tdTemp.append(strUnlock);
+
+        }).fail(function (jqXHR) {
+            AppBase.SweetAlert.showErrorAlert(jqXHR.responseJSON.message);
+        }).always(function () {
+            page.elements.loader.addClass("hide");
+        });
+    }
+
+    page.initializeControlEvent = () => {
+        page.elements.tblUserBody.on("click", ".delete", function () {
+            // page.elements.currentRow.val($(this).closest("tr").attr("id"));
+            user.id = $(this).data('id');
+            page.commands.showDeleteConfirm();
+        });
+         page.elements.tblUserBody.on("click", ".restore", function () {
+            // page.elements.currentRow.val($(this).closest("tr").attr("id"));
+            user.id = $(this).data('id');
+            page.commands.showRestoreConfirm();
+        });
+
+    }
+
+    page.loadData = () => {
+        page.commands.getAllUsers();
+        page.commands.countAllBillsORDER();
+        // page.commands.restoreUser();
+        // page.commands.deleteUser();
+
+    }
+    $(() => {
+        page.loadData();
+        page.initializeControlEvent();
+    })
+
+    const autoRefreshData = () => {
+        setInterval(() => {
+            page.commands.countAllBillsORDER();
+        }, 500);
+    };
+    autoRefreshData();
+
+</script>
+
+</body>
+</html>

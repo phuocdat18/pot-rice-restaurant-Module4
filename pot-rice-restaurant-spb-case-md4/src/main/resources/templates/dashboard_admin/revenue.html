@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <title>Doanh thu || Nhà Hàng Cơm Niêu HTD</title>
+    <link rel="icon" href="/assets/images/logo_icon.png">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/preview-image.css">
+    <link rel="stylesheet" href="/assets/css/custom-style.css">
+    <link rel="stylesheet" href="/assets/sweetalert2/sweetalert2.min.css">
+    <th:block th:replace="layout/header"/>
+    <link rel="stylesheet" href="/assets/v5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/revenue.css">
+
+    <style>
+        /*#tbAllRevenue {*/
+        /*    display: none;*/
+        /*}*/
+
+        #tbMonthRevenue {
+            display: none;
+        }
+
+        .showRevenue {
+            height: 30px;
+            width: 160px;
+            background-color: #ff7c08;
+            color: white;
+            border-radius: 10px;
+            margin: 7px;
+        }
+
+        .showRevenue:hover {
+            background-color: var(--colorBlack);
+            color: white;
+        }
+
+        .month:hover {
+            background-color: var(--colorBlack);
+            color: white;
+        }
+
+        .month {
+            text-align: center;
+            height: 30px;
+            width: 160px;
+            color: white;
+            background-color: #fd7e14;
+            border: none;
+            border-radius: 8px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<!--=============================
+    TOPBAR START
+==============================-->
+<th:block th:replace="layout/topbar"/>
+<!--=============================
+    BREADCRUMB START
+==============================-->
+<section class="tf__breadcrumb" style="background: url(/assets/images/counter_bg.jpg);">
+    <div class="tf__breadcrumb_overlay">
+        <div class="container">
+            <div class="tf__breadcrumb_text">
+                <h1>Trang quản lý</h1>
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="#">Trang quản lý</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=============================
+    BREADCRUMB END
+==============================-->
+
+
+<!--=========================
+    DASHBOARD START
+==========================-->
+<section class="tf__dashboard mt_100 xs_mt_70 mb_100 xs_mb_70">
+    <div class="tf__dashboard_area">
+        <div class="row">
+            <div class="col-xl-2 col-lg-4 wow fadeInUp" data-wow-duration="1s">
+
+                <th:block th:replace="/layout/layout_dashboard"/>
+
+                <div class="col-xl-10 col-lg-8 wow fadeInUp" data-wow-duration="1s">
+                    <div class="tf__dashboard_content">
+
+                        <div class="tf_dashboard_body">
+                            <h3>Revenue</h3>
+                            <select class="month " id="daySelector">
+                                <option value="0">...</option>
+                                <option value="1">Ngày 1</option>
+                                <option value="2">Ngày 2</option>
+                                <option value="3">Ngày 3</option>
+                                <option value="4">Ngày 4</option>
+                                <option value="5">Ngày 5</option>
+                                <option value="6">Ngày 6</option>
+                                <option value="7">Ngày 7</option>
+                                <option value="8">Ngày 8</option>
+                                <option value="9">Ngày 9</option>
+                                <option value="10">Ngày 10</option>
+                                <option value="11">Ngày 11</option>
+                                <option value="12">Ngày 12</option>
+                                <option value="13">Ngày 13</option>
+                                <option value="14">Ngày 14</option>
+                                <option value="15">Ngày 15</option>
+                                <option value="16">Ngày 16</option>
+                                <option value="17">Ngày 17</option>
+                                <option value="18">Ngày 18</option>
+                                <option value="19">Ngày 19</option>
+                                <option value="20">Ngày 20</option>
+                                <option value="21">Ngày 21</option>
+                                <option value="22">Ngày 22</option>
+                                <option value="23">Ngày 23</option>
+                                <option value="24">Ngày 24</option>
+                                <option value="25">Ngày 25</option>
+                                <option value="26">Ngày 26</option>
+                                <option value="27">Ngày 27</option>
+                                <option value="28">Ngày 28</option>
+                                <option value="29">Ngày 29</option>
+                                <option value="30">Ngày 30</option>
+                                <option value="31">Ngày 31</option>
+                            </select>
+                            <!--                            <button class="showRevenue" onclick="showTable('tbRevenue')"> Day Revenue</button>-->
+                            <!--                            <button class="showRevenue" onclick="getRevenueByMonth()">Month Revenue</button>-->
+
+                            <select class="month " id="monthSelector">
+                                <option value="0">...</option>
+                                <option value="1">Tháng 1</option>
+                                <option value="2">Tháng 2</option>
+                                <option value="3">Tháng 3</option>
+                                <option value="4">Tháng 4</option>
+                                <option value="5">Tháng 5</option>
+                                <option value="6">Tháng 6</option>
+                                <option value="7">Tháng 7</option>
+                                <option value="8">Tháng 8</option>
+                                <option value="9">Tháng 9</option>
+                                <option value="10">Tháng 10</option>
+                                <option value="11">Tháng 11</option>
+                                <option value="12">Tháng 12</option>
+                            </select>
+                            <select class="month" id="yearSelector">
+                                <option value="0">...</option>
+                                <option value="2023">2023</option>
+                                <option value="2023">2024</option>
+                                <option value="2023">2025</option>
+                            </select>
+                            <button class="showRevenue" onclick="showTable('tbMonthRevenue')">Revenue</button>
+                            <button class="showRevenue" onclick="showTable('tbAllRevenue')">Today Revenue</button>
+                        </div>
+
+
+                        <div class="content">
+                            <table id="tbMonthRevenue" class="table table-hover  ">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name Customer</th>
+                                    <th>Username</th>
+                                    <th>Total Amount</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th colspan="3" style="text-align: center"> Doanh thu hôm nay:</th>
+                                    <th><span style="color: red" id="totalMonthRevenue"></span></th>
+                                    <th></th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <div class="content">
+                            <table id="tbAllRevenue" class="table table-hover ">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name Customer</th>
+                                    <th>Username</th>
+                                    <th>Total Amount</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th colspan="3" style="text-align: center; "> Tổng doanh thu:</th>
+                                    <th><span style="color: red" id="totalAmountRevenueAll"></span></th>
+                                    <th></th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+</section>
+
+<!--=========================
+    DASHBOARD END
+==========================-->
+<!--=============================
+    FOOTER START
+==============================-->
+<th:block th:replace="/layout/footer"/>
+<!--=============================
+    FOOTER END
+==============================-->
+
+
+<!--=============================
+    SCROLL BUTTON START
+==============================-->
+<div class="tf__scroll_btn"><i class="fas fa-hand-pointer"></i></div>
+<!--=============================
+    SCROLL BUTTON END
+==============================-->
+<ul class="menu_icon d-flex flex-wrap" style="background-color: crimson">
+    <li>
+        <a class="btn" style="color: white; background-color: crimson" href="/dashboard/productsJob"><i class="fas fa-bell"></i></i>
+            <span class="cart-count" id="count-orders" style="color: white">0</span></a>
+    </li>
+</ul>
+
+
+<!--jquery library js-->
+<script src="/assets/js/jquery-3.6.0.min.js"></script>
+<!--bootstrap js-->
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+<!--font-awesome js-->
+<script src="/assets/js/Font-Awesome.js"></script>
+<!-- slick slider -->
+<script src="/assets/js/slick.min.js"></script>
+<!-- isotop js -->
+<script src="/assets/js/isotope.pkgd.min.js"></script>
+<!-- counter up js -->
+<script src="/assets/js/jquery.waypoints.min.js"></script>
+<script src="/assets/js/jquery.countup.min.js"></script>
+<!-- nice select js -->
+<script src="/assets/js/jquery.nice-select.min.js"></script>
+<!-- venobox js -->
+<script src="/assets/js/venobox.min.js"></script>
+<!-- sticky sidebar js -->
+<script src="/assets/js/sticky_sidebar.js"></script>
+<!-- wow js -->
+<script src="/assets/js/wow.min.js"></script>
+<!-- ex zoom js -->
+<script src="/assets/js/jquery.exzoom.js"></script>
+<script src="/assets/js/appBase.js"></script>
+<script src="/assets/js/app.js"></script>
+
+<!--main/custom js-->
+<script src="/assets/js/main.js"></script>
+
+<script src="/assets/js/jquery.validate.js"></script>
+<script src="/assets/js/magnific-popup-1.1.0.js"></script>
+<script src="/assets/js/notify-0.4.1.min.js"></script>
+<script src="/assets/sweetalert2/sweetalert2.all.min.js"></script>
+
+<script>
+    const page = {
+        urls: {
+            getAllCategories: AppBase.API_CATEGORY,
+            getAllProducts: AppBase.API_PRODUCT,
+            getAllCartDetails: AppBase.API_CART_DETAIL,
+            getAddToCart: AppBase.API_ADD_TO_CART,
+            getPayment: AppBase.API_PAYMENT,
+            getDelete: AppBase.API_DELETED_CART_ITEM,
+            getChangeQuantity: AppBase.API_CHANGE_QUANTITY,
+            getSearch: AppBase.API_SEARCH_PRODUCT,
+            getAllBillDetailsByBill: AppBase.API_BILL_DETAIL_BY_BILL,
+            getAllBills: AppBase.API_BILL,
+            getAllBillsORDER: AppBase.API_BILLORDER,
+
+            getAllProvinces: 'https://vapi.vnappmob.com/api/province/',
+            getAllDistricts: 'https://vapi.vnappmob.com/api/province/district/',
+            getAllWards: 'https://vapi.vnappmob.com/api/province/ward/'
+        },
+        elements: {},
+        commands: {},
+        dialogs: {
+            elements: {},
+            loadData: {},
+            commands: {}
+        },
+    }
+
+    page.elements.tbRevenue = $('#tbRevenue tbody')
+    page.elements.tbMonthRevenue = $('#tbMonthRevenue tbody')
+    page.elements.tbAllRevenue = $('#tbAllRevenue tbody')
+    page.elements.countOrders = $('#count-orders')
+
+
+    page.dialogs.elements.btnBillDetail = $('.btn-bill-detail')
+    page.dialogs.elements.mdBillDetail = $('#tbBill')
+    page.dialogs.elements.tbBillDtail = $('#tbBillDetail tbody')
+    page.dialogs.elements.btnCloseMdBillDetail = $('#btnCloseMdBillDetail')
+    page.elements.totalDayRevenue = $('#totalDayRevenue')
+    page.elements.totalMonthRevenue = $('#totalMonthRevenue')
+    page.elements.totalAmountRevenueAll = $('#totalAmountRevenueAll')
+
+
+    page.commands.getAllBillByDay = () => {
+        page.elements.tbMonthRevenue.empty();
+
+        const daySelector = document.getElementById("daySelector");
+        const monthSelector = document.getElementById("monthSelector");
+        const yearSelector = document.getElementById("yearSelector");
+        const day = daySelector.options[daySelector.selectedIndex].value;
+        const month = monthSelector.options[monthSelector.selectedIndex].value;
+        const year = yearSelector.options[yearSelector.selectedIndex].value;
+
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllBills
+        })
+            .done((data) => {
+                let totalAmount = 0;
+                let monthBills = [];
+
+                data.forEach((bill) => {
+                    const billDate = new Date(bill.createAt).getDate();
+                    const billMonth = new Date(bill.createAt).getMonth() + 1;
+                    const billYear = new Date(bill.createAt).getFullYear();
+
+                    // Kiểm tra điều kiện tìm kiếm và lấy danh sách hóa đơn phù hợp
+                    if (day && month && year && billDate == day && billMonth == month && billYear == year) {
+                        totalAmount += bill.totalAmount;
+                        monthBills.push(bill);
+                    } else if (day == 0 && month && year && billMonth == month && billYear == year) {
+                        totalAmount += bill.totalAmount;
+                        monthBills.push(bill);
+                    } else if (day == 0 && month == 0 && year && billYear == year) {
+                        totalAmount += bill.totalAmount;
+                        monthBills.push(bill);
+                    }  
+                });
+
+                // Hiển thị danh sách hóa đơn phù hợp
+                monthBills.forEach((bill) => {
+                    const str = page.commands.renderRevenue(bill);
+                    page.elements.tbMonthRevenue.prepend(str);
+                });
+
+                page.elements.totalMonthRevenue.text(totalAmount.toLocaleString('vi', {
+                    style: 'currency',
+                    currency: 'VND'
+                }));
+
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            });
+    }
+
+
+    page.commands.countAllBillsORDER = () => {
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllBillsORDER,
+        })
+            .done((data) => {
+                page.elements.countOrders.text(0);
+                const count = data.length;
+                console.log(`Số lượng order: ${count}`);
+                page.elements.countOrders.text(count)
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            });
+    };
+
+
+    page.commands.getAllBillByMonth = () => {
+        const monthSelector = document.getElementById("monthSelector");
+        const month = monthSelector.options[monthSelector.selectedIndex].value;
+        const year = new Date().getFullYear();
+
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllBills
+        })
+            .done((data) => {
+
+                let totalAmount = 0;
+                let monthBills = [];
+                data.forEach((bill, index) => {
+                    const billDate = new Date(bill.createAt).getMonth() + 1;
+                    if (billDate == month) {
+                        totalAmount += bill.totalAmount;
+                        monthBills.push(bill);
+                        const str = page.commands.renderRevenue(monthBills[monthBills.length - 1]);
+                        page.elements.tbMonthRevenue.prepend(str)
+                    }
+                });
+                page.elements.totalMonthRevenue.text(totalAmount.toLocaleString('vi', {
+                    style: 'currency',
+                    currency: 'VND'
+                }));
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            })
+    }
+
+
+    page.commands.getAllBills = () => {
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllBills
+        })
+            .done((data) => {
+                const today = new Date().toLocaleDateString('vi-VN');
+                let totalAmount = 0;
+                $.each(data, (index, item) => {
+                    const orderDate = new Date(item.createAt).toLocaleDateString('vi-VN');
+                    if (orderDate === today) {
+                    totalAmount = totalAmount + item.totalAmount;
+                    const str = page.commands.renderRevenue(item);
+                    page.elements.tbAllRevenue.prepend(str)
+                    }
+                })
+
+                page.elements.totalAmountRevenueAll.text(totalAmount.toLocaleString('vi', {
+                    style: 'currency',
+                    currency: 'VND'
+                }));
+
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            })
+    }
+
+
+    page.commands.renderRevenue = (obj) => {
+
+        let totalAmount = obj.totalAmount.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+        // let date = format(new Date(obj.date), 'dd/MM/yyyy');
+        return `
+        <tr id="tr_${obj.id}">
+            <td><span>${obj.id}</span></td>
+            <td><span>${obj.userDTO.fullName}</span></td>
+            <td><span>${obj.userDTO.username}</span></td>
+            <td>
+             <span>${totalAmount}</span>
+            </td>
+            <td><span>${obj.createAt}</span></td>
+            <td><span>${obj.status}</span></td>
+        </tr>
+    `;
+    }
+
+
+    page.loadData = () => {
+        page.commands.getAllBillByDay();
+        page.commands.getAllBills();
+        page.commands.countAllBillsORDER();
+        // page.commands.getAllBillByMonth();
+
+    }
+
+    page.initializeControlEvent = () => {
+
+    }
+
+    $(() => {
+        page.loadData();
+        page.initializeControlEvent();
+    })
+
+    // function toggleTable() {
+    //     var table = document.getElementById("tbAllRevenue");
+    //     if (table.style.display === "none") {
+    //         table.style.display = "table";
+    //     } else {
+    //         table.style.display = "none";
+    //     }
+    // }
+
+    function showTable(tableId) {
+
+        page.commands.getAllBillByDay();
+
+        var tableContainers = document.querySelectorAll('.table');
+        for (var i = 0; i < tableContainers.length; i++) {
+            tableContainers[i].style.display = 'none';
+        }
+
+        // Show selected table container
+        var selectedTableContainer = document.getElementById(tableId);
+        selectedTableContainer.style.display = 'inline-table';
+    }
+
+    const autoRefreshData = () => {
+        setInterval(() => {
+            page.commands.countAllBillsORDER();
+        }, 500);
+    };
+    autoRefreshData();
+
+
+</script>
+
+
+</body>
+</html>

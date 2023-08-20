@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <title>Trang chủ || Nhà Hàng Cơm Niêu HTD</title>
+    <link rel="icon" href="/assets/images/logo_icon.png">
+    <th:block th:replace="/layout/header"/>
+    <style>
+        .btn-search:hover {
+            background: var(--colorBlack);
+            /*padding: 12px 25px 12px 55px;*/
+            color: var(--colorWhite);
+        }
+        .tf__dashboard_menu ul li a.active,
+        .tf__dashboard_menu ul li a:hover {
+            background: #ffffff38 !important;
+        }
+    </style>
+</head>
+
+<body>
+
+<!--=============================
+    TOPBAR START
+==============================-->
+<th:block th:replace="/layout/topbar"/>
+<!--=============================
+    TOPBAR END
+==============================-->
+
+<!--=============================
+    BANNER START
+==============================-->
+<section class="tf__banner">
+    <div class="tf__banner_overlay">
+            <span class="banner_shape_1">
+                <img src="/assets/images/tree_5.png" alt="shape" class="img-fluid w-100">
+            </span>
+        <span class="banner_shape_2">
+                <img src="/assets/images/tree_3.png" alt="shape" class="img-fluid w-100">
+            </span>
+        <span class="banner_shape_3">
+                <img src="/assets/images/tree_4.png" alt="shape" class="img-fluid w-100">
+            </span>
+        <span class="banner_shape_4">
+                <img src="/assets/images/tree_6.png" alt="shape" class="img-fluid w-100">
+            </span>
+        <span class="banner_shape_5">
+                <img src="/assets/images/tree_7.png" alt="shape" class="img-fluid w-100">
+            </span>
+        <span class="banner_shape_6">
+                <img src="/assets/images/tree_2.png" alt="shape" class="img-fluid w-100">
+            </span>
+        <div class="col-12">
+            <div class="tf__banner_slider">
+                <div class="tf__banner_slider_overlay">
+                    <div class=" container">
+                        <div class="row justify-content-center">
+                            <div class="col-xxl-6 col-xl-6 col-md-10 col-lg-6">
+                                <div class="tf__banner_text wow fadeInLeft" data-wow-duration="1s">
+                                    <h3>Satisfy Your Cravings</h3>
+                                    <h1>Thưởng thức cơm niêu, tận hưởng hương vị đích thực!</h1>
+                                    <p>Khám phá hương vị độc đáo, thưởng thức niềm hạnh phúc từ món cơm niêu tinh tế, chỉ có tại nhà hàng chúng tôi!</p>
+                                    <form class="tf__menu_search_area">
+                                        <input  type="text" class="form-control" id="search" name="search" placeholder="Tìm kiếm...">
+                                            <button class="btn-search" type="button">
+                                                Tìm kiếm
+                                            </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-xxl-5 col-xl-6 col-sm-10 col-md-9 col-lg-6">
+                                <div class="tf__banner_img wow fadeInRight" data-wow-duration="1s">
+                                    <div class="img">
+                                        <img src="/assets/images/counter_bg.jpg" alt="food item"
+                                             class="img-fluid w-100">
+                                        <span>
+                                                35% off
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=============================
+    BANNER END
+==============================-->
+
+
+<!--=============================
+    MENU ITEM START
+==============================-->
+<section class="tf__menu mt_95 xs_mt_65">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 wow fadeInUp" data-wow-duration="1s">
+                <div class="tf__section_heading mb_25">
+                    <h4>Menu</h4>
+                    <h2>Món ngon đủ đầy</h2>
+                </div>
+            </div>
+
+
+            <div class="col-xl-6 col-lg-6 wow fadeInUp" data-wow-duration="1s">
+                <div class="menu_filter d-flex flex-wrap">
+                    <button class="item active" data-filter="*" onclick="reloadPage()">Tất cả</button>
+
+                    <button class="item"  id="category-potrice" name="category" value="1" >
+                        <label for="category-potrice" >Cơm niêu</label>
+                    </button>
+
+                    <button class="item" id="category-doankem" name="category" value="2" >
+                        <label for="category-doankem">Đồ ăn kèm</label>
+
+                    </button>
+
+                    <button class="item" id="category-douong" name="category" value="3" >
+                        <label for="category-douong">Đồ uống</label>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!--FOOD MENU-->
+        <div class="container">
+            <div class="row">
+                <div id="div-products" class="row product-carts">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<!--=============================
+    MENU ITEM END
+==============================-->
+
+
+
+<!--=============================
+   TESTIMONIAL  START
+==============================-->
+<section class="tf__testimonial pt_90 xs_pt_60 pb_100 xs_pb_70">
+    <div class="container">
+        <div class="row wow fadeInUp" data-wow-duration="1s">
+            <div class="col-md-8 col-lg-7 col-xl-6">
+                <div class="tf__section_heading mb_20">
+                    <h4>testimonial</h4>
+                    <h2>Đánh giá của thực khách</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row testi_slider">
+            <div class="col-xl-6 wow fadeInUp" data-wow-duration="1s">
+                <div class="tf__single_testimonial">
+                    <div class="tf__single_testimonial_img">
+                        <img src="/assets/images/a_minh.jpg" alt="testimonial" class="img-fluid w-100">
+                    </div>
+                    <div class="tf__single_testimonial_text">
+                        <h4>Minh Bùi</h4>
+                        <p class="designation">CodeGym Huế</p>
+                        <p class="feedback">Quán cơm niêu ấm cúng ấy, nơi tôi đã có những trải nghiệm thật tuyệt vời.
+                            Từ khi bước chân vào, không gian ấm áp và thoải mái đã chào đón tôi như một người bạn thân.
+                            Nhìn quanh, không gian được bài trí đơn giản nhưng tinh tế, tạo cảm giác thân quen và gần gũi.
+                            Điều đặc biệt khiến tôi ấn tượng là dịch vụ nhanh nhẹn, nhân viên vô cùng lịch sự và ân cần.</p>
+                        <span class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 wow fadeInUp" data-wow-duration="1s">
+                <div class="tf__single_testimonial">
+                    <div class="tf__single_testimonial_img">
+                        <img src="/assets/images/a_quang.jpg" alt="testimonial" class="img-fluid w-100">
+                    </div>
+                    <div class="tf__single_testimonial_text">
+                        <h4>Quang Đặng</h4>
+                        <p class="designation">CodeGym Huế</p>
+                        <p class="feedback">Mùi thơm đậm đà của cơm niêu khiến tôi không thể cưỡng lại và đã chọn ngay món này.
+                            Khi món ăn được đưa ra, tôi không khỏi trầm trồ trước cảnh tượng đẹp mắt và hấp dẫn trước mắt.
+                            Lớp cơm mềm mịn và thịt nướng chín mềm đều kết hợp với nhau tạo nên một hương vị đậm đà, độc đáo và khó quên.</p>
+                        <span class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 wow fadeInUp" data-wow-duration="1s">
+                <div class="tf__single_testimonial">
+                    <div class="tf__single_testimonial_img">
+                        <img src="/assets/images/a_vinh.jpg" alt="testimonial" class="img-fluid w-100">
+                    </div>
+                    <div class="tf__single_testimonial_text">
+                        <h4>Vinh Trần</h4>
+                        <p class="designation">CodeGym Huế</p>
+                        <p class="feedback"> Giá cả của các món ăn cũng khá hợp lý và phù hợp với chất lượng. Tôi cảm thấy hài lòng với số tiền tôi đã trả sau khi thưởng thức những món ăn tuyệt vời này.
+                            Tôi tin chắc rằng quán cơm niêu sẽ là một địa điểm mà tôi sẽ lựa chọn quay lại nhiều lần trong tương lai.</p>
+                        <span class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <i class="far fa-star"></i>
+                            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=============================
+    TESTIMONIAL END
+==============================-->
+
+<!--=============================
+    FOOTER START
+==============================-->
+<th:block th:replace="layout/footer"/>
+<!--=============================
+    FOOTER END
+==============================-->
+
+
+<!--=============================
+    SCROLL BUTTON START
+==============================-->
+<div class="tf__scroll_btn"><i class="fas fa-hand-pointer"></i></div>
+<!--=============================
+    SCROLL BUTTON END 
+==============================-->
+
+<ul class="menu_icon d-flex flex-wrap">
+    <li>
+        <a  class="btn" style="color: white" href="/shop/cart"><i class="fas fa-shopping-basket"></i>
+            <span class="cart-count" style="color: white" id="count-cart">0</span></a>
+    </li>
+</ul>
+<link rel="stylesheet" href="/assets/css/style.css">
+
+<!--jquery library js-->
+<th:block th:replace="layout/script"/>
+
+<script src="/assets/sweetalert2/sweetalert2.all.min.js"></script>
+
+<script>
+    const page = {
+        urls: {
+            getAllCategories: AppBase.API_CATEGORY,
+            getAllProducts: AppBase.API_PRODUCT,
+            getAllCartDetails: AppBase.API_CART_DETAIL,
+            getAddToCart: AppBase.API_ADD_TO_CART,
+            getPayment: AppBase.API_PAYMENT,
+            getDelete: AppBase.API_DELETED_CART_ITEM,
+            getChangeQuantity: AppBase.API_CHANGE_QUANTITY,
+            getSearch: AppBase.API_SEARCH_PRODUCT,
+
+            getAllProvinces: 'https://vapi.vnappmob.com/api/province/',
+            getAllDistricts: 'https://vapi.vnappmob.com/api/province/district/',
+            getAllWards: 'https://vapi.vnappmob.com/api/province/ward/'
+        },
+        elements: {},
+        commands: {},
+        dialogs: {
+            elements: {},
+            loadData: {},
+            commands: {}
+        },
+    }
+
+    page.elements.divProducts = $('#div-products');
+    page.elements.productCarts = $('#product-carts')
+    page.elements.inputSearch = $('#search')
+    page.elements.btnSearch = $('.btn-search')
+    page.elements.commonBtn = $('.common_btn')
+    page.elements.dropdownItem = $('.item')
+
+    page.elements.dropdownItem = $('.dropdown-item')
+
+
+    page.dialogs.elements.tbCart = $('#tbCart tbody')
+    page.dialogs.elements.modalCart = $('#mdCart')
+    page.dialogs.elements.totalAmount = $('#totalAmount')
+
+    page.dialogs.elements.btnAddCart = $('.btnAddCart')
+    page.elements.countCart = $('#count-cart')
+
+    page.dialogs.elements.payment = $('.payment-cart')
+    page.dialogs.elements.cancelPayment = $('.cancel-cart')
+
+    page.dialogs.elements.paymentDefult = $('#payment_defult')
+    page.dialogs.elements.frmPayment = $('#frmPayment')
+    page.dialogs.elements.changeQuantity = $('.changeQuantity')
+
+    page.elements.pagination = $('.pagination')
+
+
+    page.dialogs.elements.provinceCr = $('#provinceCr')
+    page.dialogs.elements.districtCr = $('#districtCr')
+    page.dialogs.elements.wardCr = $('#wardCr')
+    page.dialogs.elements.addressCr = $('#addressCr')
+
+    page.commands.getAllProducts = (pageProduct , pageSize) => {
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllProducts,
+            data: {
+                page: pageProduct,
+                pageSize: pageSize
+            }
+        })
+            .done((data) => {
+                console.log(data)
+                page.commands.loadProduct(data.content);
+                page.commands.displayPagination(data.totalPages, data.number + 1);
+
+                page.commands.doAddToCart();
+                page.commands.showCart();
+
+            })
+            .fail((jqXHR) => {
+                console.log(jqXHR)
+            })
+    }
+
+    page.commands.loadProduct = (products) => {
+        page.elements.productCarts.empty();
+        page.elements.divProducts.empty();
+
+        $.each(products, (index, item) => {
+            const str = page.commands.renderProduct(item);
+
+            page.elements.productCarts.prepend(str)
+            page.elements.divProducts.prepend(str)
+        })
+    }
+
+    page.commands.displayPagination = (totalPages, currentPage) => {
+        page.elements.pagination.empty();
+
+        let previousBtn = '<li class="page-item"><a class="page-link" onclick="page.commands.getAllProducts(' + (currentPage - 1) + ', )"><i class="fas fa-long-arrow-alt-left"></i></a></li>';
+        page.elements.pagination.append(previousBtn);
+
+        for (let i = 1; i <= totalPages; i++) {
+            let pageBtn = '<li class="page-item ' + (i === currentPage ? 'active' : '') + '"><a class="page-link" onclick="page.commands.getAllProducts(' + i + ', 10)">' + i + '</a></li>';
+            page.elements.pagination.append(pageBtn);
+        }
+
+        let nextBtn = '<li class="page-item"><a class="page-link" href="#" onclick="page.commands.getAllProducts(' + (currentPage + 1) + ', 10)"><i class="fas fa-long-arrow-alt-right"></i></a></li>';
+        page.elements.pagination.append(nextBtn);
+    };
+
+    page.commands.renderProduct = (obj) => {
+        const imageUrl = AppBase.BASE_URL_CLOUD_IMAGE + '/' + AppBase.IMAGE_SCALE_W_280_h_180_Q_100 + '/' + obj.avatar.fileFolder + '/' + obj.avatar.fileName;
+        const price = obj.price.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+        return `
+                <div class="col-xl-3 col-sm-6 col-lg-4 wow fadeInUp" data-wow-duration="1s">
+                <div class="tf__menu_item">
+                    <div class="tf__menu_item_img" title="product-detail" href="/shop/product-detail/${obj.id}">
+                        <img src="${imageUrl}" alt="menu" class="img-fluid w-100">
+
+<!--                        <img src="${imageUrl}" alt="menu" class="img-fluid w-100">-->
+                    </div>
+                    <div class="tf__menu_item_text">
+                        <a class="category" href="#">${obj.category.title}</a>
+                        <a class="title" title="Edit" href="/shop/product-detail/${obj.id}">${obj.title}</a>
+                    </div>
+                    <div class="tf__menu_item_text2">
+                            <p class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <i class="far fa-star"></i>
+                            <span>24</span>
+                        </p>
+                        <h5 class="price">${price}
+                        </h5>
+                        <input type="number" class="quantity-product" value="${obj.quantity}" hidden="true"></input>
+                    </div>
+                    <div class="tf__menu_item_text3">
+                        <a type="button" class="tf__add_to_cart btnAddCart" data-id="${obj.id}"  data-bs-toggle="modal" data-bs-target="#cartModal">
+                            Add to cart
+                        </a>
+                        <ul class="d-flex flex-wrap justify-content-end">
+                            <li><a href="#"><i class="fal fa-heart"></i></a></li>
+                            <li><a href="/shop/product-detail/${obj.id}"><i class="far fa-eye"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+           `;
+    }
+
+    page.commands.getAllCartDetail = () => {
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllCartDetails
+        })
+            .done((data) => {
+                let totalAmount = 0;
+                let count = 0;
+                $.each(data, (index, item) => {
+                    const str = page.commands.renderCart(item);
+                    totalAmount = totalAmount + item.amount;
+                    page.dialogs.elements.tbCart.prepend(str)
+                    count = count + item.quantity
+                })
+                page.elements.countCart.text(count)
+                page.dialogs.elements.totalAmount.text(totalAmount.toLocaleString('vi', {
+                    style: 'currency',
+                    currency: 'VND'
+                }));
+                page.commands.deleteProduct();
+                page.commands.changeQuantity();
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            })
+    }
+
+    page.commands.renderCart = (obj) => {
+        const imageUrl = AppBase.BASE_URL_CLOUD_IMAGE + '/' + AppBase.IMAGE_SCALE_W_280_h_180_Q_100 + '/' + obj.productDTO.avatar.fileFolder + '/' + obj.productDTO.avatar.fileName;
+        const price = obj.price.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+        const amount = obj.amount.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+        return `
+                <tr id="tr_${obj.id}">
+                    <td>
+                        <span class="product-id">${obj.id}</span>
+                    </td>
+                    <td>${obj.title}</td>
+                    <td>
+                         <img src="${imageUrl}" class="card-img-top" alt="...">
+                    </td>
+                    <td>${obj.unit}</td>
+                    <td>
+                        <span class="price-obj" hidden="true">${obj.price}</span>
+                        <span class="price">${price}</span>
+                    </td>
+                    <td>
+                        <button type="button" class="changeQuantity" data-id="${obj.id}">
+                            <input class="quantity-input" name="quantity" min="1" max="100" value="${obj.quantity}" type="number">
+                        </button>
+                    </td>
+                    <td>
+                        <span class="amount">${amount}</span>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-danger delete" data-id="${obj.id}" >
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            `;
+    }
+
+    page.commands.getProductById = (productId) => {
+        return $.ajax({
+            type: 'GET',
+            url: page.url.getAllProduct + '/' + productId
+        });
+    }
+
+
+
+    page.commands.search = (pageProduct , pageSize) => {
+        let keyword = page.elements.inputSearch.val();
+        let categoryIds = '';
+        $("button[name='category'].active").each(function () {
+            categoryIds = categoryIds + $(this).val() + ',';
+        });
+
+        let priceRanges = [];
+        let minPrice, maxPrice;
+        let count = 0;
+        if ($("#p1").is(":checked")) {
+            count += 1;
+            priceRanges.push(+$("#p1").data('minprice'));
+            priceRanges.push(+$("#p1").data('maxprice'));
+        }
+        if ($("#p2").is(":checked")) {
+            count += 1;
+            priceRanges.push(+$("#p2").data('minprice'));
+            priceRanges.push(+$("#p2").data('maxprice'));
+        }
+        if ($("#p3").is(":checked")) {
+            count += 1;
+            priceRanges.push(+$("#p3").data('minprice'));
+            priceRanges.push($("#p3").data('maxprice'));
+        }
+        if ($("#p4").is(":checked")) {
+            count += 1;
+            priceRanges.push(+$("#p4").data('minprice'));
+            priceRanges.push(+$("#p4").data('maxprice'));
+        }
+        if ($("#p5").is(":checked")) {
+            count += 1;
+            priceRanges.push(+$("#p5").data('minprice'));
+            priceRanges.push(+$("#p5").data('maxprice'));
+        }
+        priceRanges.sort(function (a, b) {
+            return a - b
+        });
+        if(count === 0) {
+            minPrice = '';
+            maxPrice = '';
+        } else {
+            minPrice = Number(priceRanges[0]);
+            maxPrice = Number(priceRanges[priceRanges.length - 1]);
+        }
+
+
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: 'GET',
+            url: page.urls.getSearch,
+            data: {
+                search: keyword,
+                ids: categoryIds,
+                minPrice: minPrice,
+                maxPrice: maxPrice,
+                page: pageProduct,
+                pageSize: pageSize
+            },
+            dataType: 'json',
+        })
+            .done((data) => {
+                if(data === undefined) {
+                    page.elements.pagination.empty();
+                    page.elements.productCarts.empty();
+                    page.elements.divProducts.empty();
+                    AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageEn.ERROR_FIND_PRODUCT);
+                }
+
+                page.commands.loadProduct(data.content);
+                page.commands.displayPaginationSearch(data.totalPages, data.number + 1);
+
+                page.commands.doAddToCart();
+                page.commands.showCart();
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            })
+    }
+
+    page.commands.displayPaginationSearch = (totalPages, currentPage) => {
+
+        page.elements.pagination.empty();
+
+        let previousBtn = '<li class="page-item"><a class="page-link"  onclick="page.commands.search(' + (currentPage - 1) + ', 8)"> <i class="fas fa-long-arrow-alt-left"></i></a></li>';
+        page.elements.pagination.append(previousBtn);
+
+        for (let i = 1; i <= totalPages; i++) {
+            let pageBtn = '<li class="page-item ' + (i === currentPage ? 'active' : '') + '"><a class="page-link"  onclick="page.commands.search(' + i + ', 8)">' + i + '</a></li>';
+            page.elements.pagination.append(pageBtn);
+        }
+
+        let nextBtn = '<li class="page-item"><a class="page-link"  onclick="page.commands.search(' + (currentPage + 1) + ', 8)"><i class="fas fa-long-arrow-alt-right"></i></a></li>';
+        page.elements.pagination.append(nextBtn);
+    };
+
+
+    page.commands.showCart = () => {
+        $('.modal-cart').on('click', () => {
+            page.commands.addEventChangeProvince();
+            page.commands.addEventChangeDistrict();
+            page.dialogs.elements.modalCart.addClass('show');
+            page.dialogs.elements.modalCart.modal('show');
+            page.commands.closeFrmPayment();
+        })
+    }
+
+    page.commands.doAddToCart = () => {
+        $('.btnAddCart').on('click', function () {
+            let productId = $(this).data('id');
+            let cartItem = {
+                productId: productId,
+                quantity: 1
+            }
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: 'POST',
+                url: page.urls.getAddToCart,
+                data: JSON.stringify(cartItem)
+            })
+                .done((data) => {
+                    page.dialogs.elements.tbCart.empty();
+                    let totalAmount = 0;
+                    let count = 0;
+                    $.each(data, (index, item) => {
+                        const str = page.commands.renderCart(item);
+                        totalAmount = totalAmount + item.amount;
+                        page.dialogs.elements.tbCart.prepend(str)
+                        count = count + item.quantity
+                    })
+                    page.elements.countCart.text(count)
+                    page.dialogs.elements.totalAmount.text(totalAmount.toLocaleString('vi', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }));
+                    page.commands.deleteProduct();
+                    page.commands.changeQuantity();
+                })
+                .fail((err) => {
+                    AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+                })
+        })
+    }
+
+    page.commands.deleteProduct = () => {
+        $('.delete').on('click', function () {
+            let cartDetailId = $(this).data('id')
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085D6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    page.dialogs.commands.doDelete(cartDetailId);
+                }
+            })
+        })
+    }
+
+    page.dialogs.commands.doDelete = (cartDetailId) => {
+        $.ajax({
+            type: "DELETE",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: page.urls.getDelete + '/' + cartDetailId,
+        }).done((data) => {
+
+            AppBase.SweetAlert.showSuccessAlert(AppBase.AlertMessageEn.SUCCESS_DELETED);
+
+            page.dialogs.elements.tbCart.empty();
+            let totalAmount = 0;
+            let count = 0;
+            $.each(data, (index, item) => {
+                const str = page.commands.renderCart(item);
+                totalAmount = totalAmount + item.amount;
+                page.dialogs.elements.tbCart.prepend(str)
+                count = count + item.quantity
+            })
+            page.elements.countCart.text(count)
+            page.dialogs.elements.totalAmount.text(totalAmount.toLocaleString('vi', {
+                style: 'currency',
+                currency: 'VND'
+            }));
+            page.commands.deleteProduct();
+            page.commands.changeQuantity();
+
+            page.commands.handleImagePopup();
+
+        }).fail(function (jqXHR) {
+            AppBase.SweetAlert.showErrorAlert(jqXHR.responseJSON.message);
+        })
+    }
+
+
+    page.commands.closeFrmPayment = () => {
+        $('.btnClose').on('click', () => {
+            page.dialogs.elements.frmPayment.trigger("reset");
+            $("#mdCart .modal-alert-danger").removeClass("show").addClass("hide").empty();
+            $("#frmPayment input.error").removeClass("error");
+        })
+    }
+
+    page.commands.changeQuantity = () => {
+        $('.changeQuantity').on('click', function () {
+            let cartDetailId = $(this).data('id');
+            let quantity = $(this).find('.quantity-input').val()
+            if(Number(quantity) <= 0) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085D6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        page.dialogs.commands.doDelete(cartDetailId);
+                    }else {
+                        $('.quantity-input').val('1')
+                    }
+                })
+            }
+            else {
+                let cartDetail = {
+                    quantity: quantity
+                }
+                $.ajax({
+                    type: "PATCH",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    url: page.urls.getChangeQuantity + '/' + cartDetailId,
+                    data: JSON.stringify(cartDetail)
+                })
+                    .done((data) => {
+                        page.dialogs.elements.tbCart.empty();
+                        let totalAmount = 0;
+                        let count = 0;
+                        $.each(data, (index, item) => {
+                            const str = page.commands.renderCart(item);
+                            totalAmount = totalAmount + item.amount;
+                            page.dialogs.elements.tbCart.prepend(str)
+                            count = count + item.quantity
+                        })
+                        page.elements.countCart.text(count)
+                        page.dialogs.elements.totalAmount.text(totalAmount.toLocaleString('vi', {
+                            style: 'currency',
+                            currency: 'VND'
+                        }));
+                        page.commands.deleteProduct();
+                        page.commands.changeQuantity();
+                    })
+                    .fail((err) => {
+                        console.log(err)
+                        AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+                    })
+            }
+        })
+    }
+
+
+    page.commands.getPayment = () => {
+        let pay = $('.payment_defult:checked').val();
+
+        let bill = new Bill();
+        if (pay === 'momo') {
+            bill = {
+                locationRegionReqDTO: {
+                    provinceId: page.dialogs.elements.provinceCr.val(),
+                    provinceName: page.dialogs.elements.provinceCr.find('option:selected').text(),
+                    districtId: page.dialogs.elements.districtCr.val(),
+                    districtName: page.dialogs.elements.districtCr.find('option:selected').text(),
+                    wardId: page.dialogs.elements.wardCr.val(),
+                    wardName: page.dialogs.elements.wardCr.find('option:selected').text(),
+                    address: page.dialogs.elements.addressCr.val()
+                },
+                status: "DONE"
+            }
+        }
+        if (pay === 'cod') {
+            bill = {
+                locationRegionReqDTO: {
+                    provinceId: page.dialogs.elements.provinceCr.val(),
+                    provinceName: page.dialogs.elements.provinceCr.find('option:selected').text(),
+                    districtId: page.dialogs.elements.districtCr.val(),
+                    districtName: page.dialogs.elements.districtCr.find('option:selected').text(),
+                    wardId: page.dialogs.elements.wardCr.val(),
+                    wardName: page.dialogs.elements.wardCr.find('option:selected').text(),
+                    address: page.dialogs.elements.addressCr.val()
+                },
+                status: "ORDER"
+            }
+        }
+        console.log(bill)
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: 'POST',
+            url: page.urls.getPayment,
+            data: JSON.stringify(bill)
+        })
+            .done((data) => {
+                console.log(data)
+                AppBase.SweetAlert.showSuccessAlert(AppBase.AlertMessageEn.SUCCESS_PAYMENT);
+                page.dialogs.elements.tbCart.empty()
+                page.commands.getAllCartDetail();
+                page.dialogs.elements.modalCart.removeClass('show');
+                page.dialogs.elements.modalCart.modal('hide')
+
+                $('#totalAmount').text('');
+                page.dialogs.elements.frmPayment.trigger("reset");
+                $("#mdCart .modal-alert-danger").removeClass("show").addClass("hide").empty();
+                $("#frmPayment input.error").removeClass("error");
+            })
+            .fail((jqXHR) => {
+                // console.log(jqXHR.messages)
+                AppBase.SweetAlert.showErrorAlert(jqXHR.responseJSON.message);
+            })
+    }
+
+    page.dialogs.loadData.getAllProvinces = () => {
+        return $.ajax({
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            type: 'GET',
+            url: page.urls.getAllProvinces,
+        })
+            .done((res) => {
+                const data = res.results
+                page.dialogs.elements.provinceCr.empty();
+                $.each(data, (index, item) => {
+                    let str = `<option value="${item.province_id}">${item.province_name}</option>`;
+                    page.dialogs.elements.provinceCr.append(str);
+                })
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_400);
+            })
+
+    }
+
+    page.commands.addEventChangeProvince = () => {
+        page.dialogs.elements.provinceCr.on("change", function () {
+            let provinceId = $(this).val();
+            if (provinceId !== 0) {
+                page.dialogs.loadData.getAllDistricts(provinceId).then(() => {
+                    let districtId = page.dialogs.elements.districtCr.val();
+                    page.dialogs.loadData.getAllWards(districtId);
+                })
+            }
+        })
+    }
+
+
+    page.dialogs.loadData.getAllDistricts = (provinceId) => {
+        return $.ajax({
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            type: 'GET',
+            url: page.urls.getAllDistricts + provinceId,
+        })
+            .done((res) => {
+                const data = res.results
+                page.dialogs.elements.districtCr.empty();
+                $.each(data, (index, item) => {
+                    let str = `<option value="${item.district_id}">${item.district_name}</option>`;
+                    page.dialogs.elements.districtCr.append(str);
+                })
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_400);
+            })
+    }
+
+    page.commands.addEventChangeDistrict = () => {
+
+        page.dialogs.elements.districtCr.on("change", function () {
+            let districtId = $(this).val();
+            if (districtId !== 0) {
+                page.dialogs.loadData.getAllWards(districtId);
+            }
+
+        })
+    }
+
+    page.dialogs.loadData.getAllWards = (districtId) => {
+        return $.ajax({
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            type: 'GET',
+            url: page.urls.getAllWards + districtId,
+        })
+            .done((res) => {
+                const data = res.results
+                page.dialogs.elements.wardCr.empty();
+                $.each(data, (index, item) => {
+                    let str = `<option value="${item.ward_id}">${item.ward_name}</option>`;
+                    page.dialogs.elements.wardCr.append(str);
+                })
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_400);
+            })
+    }
+
+    page.commands.resetLocationRegion = () => {
+        page.dialogs.loadData.getAllProvinces().then(() => {
+            const provinceId = page.dialogs.elements.provinceCr.val()
+            page.dialogs.loadData.getAllDistricts(provinceId).then(() => {
+                const districtId = page.dialogs.elements.districtCr.val()
+                page.dialogs.loadData.getAllWards(districtId)
+            });
+        });
+    }
+
+    function reloadPage() {
+        // Sử dụng location.reload() để tải lại trang
+        location.reload();
+    }
+
+    page.dialogs.elements.frmPayment.validate({
+        rules: {
+            payment_method: {
+                required: true,
+            },
+            provinceCr: {
+                required: true,
+            },
+            districtCr: {
+                required: true,
+            },
+            wardCr: {
+                required: true,
+            },
+            addressCr: {
+                required: true,
+                minlength: 5,
+                maxlength: 100
+            }
+        },
+        messages: {
+            payment_method: {
+                required: "Vui lòng chọn phương thức thanh toán.",
+            },
+            provinceCr: {
+                required: "Select province",
+            },
+            districtCr: {
+                required: "Select district",
+            },
+            wardCr: {
+                required: "Select ward"
+            },
+            addressCr: {
+                required: 'Địa chỉ không được để trống',
+                minlength: 'Địa chỉ không được nhỏ hơn ${0} ký tự',
+                maxlength: 'Địa chỉ không được quá ${0} ký tự'
+            }
+        },
+        errorLabelContainer: "#mdCart .modal-alert-danger",
+        errorPlacement: function (error, element) {
+            error.appendTo("#mdCart .modal-alert-danger");
+        },
+        showErrors: function (errorMap, errorList) {
+            if (this.numberOfInvalids() > 0) {
+                $("#mdCart .modal-alert-danger").removeClass("hide").addClass("show");
+            } else {
+                $("#mdCart .modal-alert-danger").removeClass("show").addClass("hide").empty();
+                $("#frmPayment input.error").removeClass("error");
+            }
+            this.defaultShowErrors();
+        },
+        submitHandler: function () {
+            page.commands.getPayment();
+        }
+    })
+
+
+    page.loadData = () => {
+        page.commands.getAllCartDetail();
+        page.commands.getAllProducts(1,8);
+        page.commands.resetLocationRegion();
+
+    }
+
+    page.initializeControlEvent = () => {
+        page.dialogs.elements.payment.on('click', () => {
+            page.dialogs.elements.frmPayment.trigger('submit');
+        });
+
+        $("#search").on('keydown', (event) => {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                page.commands.search(1,8);
+            }
+        });
+        $('.dropdown-item').on('click', () => {
+            page.commands.search(1,8);
+        });
+
+        $('.btn-search').on('click', () => {
+            page.commands.search(1,8);
+        });
+
+        $('.item').on('click', function () {
+            page.commands.search( 1,8);
+        });
+    }
+
+    $(() => {
+        page.loadData();
+        page.initializeControlEvent();
+    })
+
+
+</script>
+
+</body>
+
+</html>

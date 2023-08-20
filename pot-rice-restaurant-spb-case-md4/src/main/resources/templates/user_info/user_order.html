@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+
+    <title>Đơn hàng || Nhà Hàng Cơm Niêu HTD</title>
+    <link rel="icon" href="/assets/images/logo_icon.png">
+
+    <th:block th:replace="layout/header"/>
+</head>
+
+<body>
+
+<!--=============================
+    TOPBAR START
+==============================-->
+<th:block th:replace="layout/topbar"/>
+<!--=============================
+    BREADCRUMB START
+==============================-->
+<section class="tf__breadcrumb" style="background: url(/assets/images/counter_bg.jpg);">
+    <div class="tf__breadcrumb_overlay">
+        <div class="container">
+            <div class="tf__breadcrumb_text">
+                <h1>Trang cá nhân</h1>
+                <ul>
+                    <li><a href="/shop">Trang chủ</a></li>
+                    <li><a href="#">Đơn hàng</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=============================
+    BREADCRUMB END
+==============================-->
+
+
+<!--=========================
+    DASHBOARD START
+==========================-->
+<section class="tf__dashboard mt_60 xs_mt_70 mb_100 xs_mb_70">
+    <div class="container">
+        <div class="tf__dashboard_area">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 wow fadeInUp" data-wow-duration="1s">
+
+                    <th:block th:replace="layout/user_layout_dashboard"/>
+                    <div class="col-xl-9 col-lg-8 wow fadeInUp" data-wow-duration="1s">
+                        <div class="tf__dashboard_content">
+                            <div class="tf_dashboard_body">
+                                <h3>Danh sách đơn hàng</h3>
+                                <div class="tf_dashboard_order">
+                                    <div class="table-responsive" id="account-history-bill">
+                                        <input type="button" id="idUser" th:value="${user.id}" hidden="true">
+
+                                        <table class="table table-hover" id="tbBill">
+
+                                            <thead>
+                                            <tr >
+                                                <th>Mã đơn</th>
+                                                <th>Ngày</th>
+                                                <th>Tổng tiền</th>
+                                                <th>Địa chỉ</th>
+                                                <th>Tình trạng</th>
+                                                <th>Chi tiết</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!--=========================
+    DASHBOARD END
+==========================-->
+
+
+<!--=============================
+    FOOTER START
+==============================-->
+<th:block th:replace="layout/footer"/>
+<!--=============================
+    FOOTER END
+==============================-->
+
+
+<!--=============================
+    SCROLL BUTTON START
+==============================-->
+<div class="tf__scroll_btn"><i class="fas fa-hand-pointer"></i></div>
+<!--=============================
+    SCROLL BUTTON END
+==============================-->
+
+
+<!--jquery library js-->
+<th:block th:replace="layout/script"/>
+
+
+<script>
+    const page = {
+        urls: {
+            getAllCategories: AppBase.API_CATEGORY,
+            getAllProducts: AppBase.API_PRODUCT,
+            getAllCartDetails: AppBase.API_CART_DETAIL,
+            getAddToCart: AppBase.API_ADD_TO_CART,
+            getPayment: AppBase.API_PAYMENT,
+            getDelete: AppBase.API_DELETED_CART_ITEM,
+            getChangeQuantity: AppBase.API_CHANGE_QUANTITY,
+            getSearch: AppBase.API_SEARCH_PRODUCT,
+            getAllBillDetails: AppBase.API_BILL_DETAIL_BY_USER,
+            getAllBills: AppBase.API_BILL,
+
+            getAllProvinces: 'https://vapi.vnappmob.com/api/province/',
+            getAllDistricts: 'https://vapi.vnappmob.com/api/province/district/',
+            getAllWards: 'https://vapi.vnappmob.com/api/province/ward/'
+        },
+        elements: {},
+        commands: {},
+        dialogs: {
+            elements: {},
+            loadData: {},
+            commands: {}
+        },
+    }
+
+    page.elements.productCarts = $('#product-carts')
+    page.elements.inputSearch = $('#search')
+    page.elements.btnSearch = $('.btn-search')
+
+
+    page.dialogs.elements.tbCart = $('#tbCart tbody')
+    page.dialogs.elements.modalCart = $('#mdCart')
+    page.dialogs.elements.totalAmount = $('#totalAmount')
+
+    page.dialogs.elements.btnAddCart = $('.btnAddCart')
+    page.elements.countCart = $('#count-cart')
+
+    page.dialogs.elements.payment = $('.payment-cart')
+    page.dialogs.elements.cancelPayment = $('.cancel-cart')
+
+    page.dialogs.elements.paymentDefult = $('#payment_defult')
+    page.dialogs.elements.frmPayment = $('#frmPayment')
+    page.dialogs.elements.changeQuantity = $('.changeQuantity')
+
+    page.elements.pagination = $('.pagination')
+
+
+    page.dialogs.elements.provinceCr = $('#provinceCr')
+    page.dialogs.elements.districtCr = $('#districtCr')
+    page.dialogs.elements.wardCr = $('#wardCr')
+    page.dialogs.elements.addressCr = $('#addressCr')
+
+    page.elements.tbBill = $('#tbBill tbody')
+    page.elements.totalAmountBill = $('#totalAmount-bill')
+
+    let user = new User();
+    let userId = $('#idUser').val();
+
+
+
+    page.commands.getAllBillsByIdUser = () => {
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllBills + '/' + userId
+        })
+            .done((data) => {
+                console.log(data)
+                $.each(data, (index, item) => {
+                    const str = page.commands.renderHistoryBill(item);
+                    page.elements.tbBill.prepend(str)
+                })
+                page.elements.totalAmountBill.text(totalAmount.toLocaleString('vi', {
+                    style: 'currency',
+                    currency: 'VND'
+                }));
+            })
+            .fail((jqXHR) => {
+                console.log(jqXHR)
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            })
+    }
+
+
+
+    page.commands.renderHistoryBill = (obj) => {
+        const amount = obj.totalAmount.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+        return `
+            <tr id="tr_${obj.id}">
+            <td>
+                        <span class="product-id">${obj.id}</span>
+                    </td>
+                    <td>${obj.createAt}</td>
+                    <td>
+                        <span class="amount">${amount}</span>
+                    </td>
+                    <td>
+                        <span class="province">${obj.locationRegionDTO.provinceName},${obj.locationRegionDTO.districtName},${obj.locationRegionDTO.wardName},${obj.locationRegionDTO.address}</span>
+                    </td>
+
+                    <td>
+                        <span class="province">${obj.status}</span>
+                    </td>
+                    <td><a href='/shop/my-order-detail?id=${obj.id}'>Chi tiết</a></td>
+                </tr>
+        `;
+    }
+
+
+
+
+
+    page.loadData = () => {
+
+        page.commands.getAllBillsByIdUser();
+
+    }
+
+    page.initializeControlEvent = () => {
+
+    }
+
+    $(() => {
+        page.loadData();
+        page.initializeControlEvent();
+    })
+
+</script>
+
+
+</body>
+
+</html>

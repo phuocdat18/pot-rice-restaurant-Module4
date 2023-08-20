@@ -1,0 +1,55 @@
+<th:block fragmen="layout_dasboard">
+    <div class="tf__dashboard_menu">
+        <div class="dasboard_header">
+            <div class="dasboard_header_img">
+                <img src="/assets/images/avatar2.jpg" alt="user" class="img-fluid w-100">
+<!--                <label for="upload"><i class="far fa-camera"></i></label>-->
+<!--                <input type="file" id="upload" hidden>-->
+            </div>
+            <h2>Admin</h2>
+        </div>
+        <ul>
+            <li>
+                <th:block th:if="${active} == products">
+                    <a class="active" href="/dashboard/products"><span><i class="fas fa-coins"></i></span>
+                        Danh sách sản phẩm</a>
+                </th:block>
+                <th:block th:if="${active} != products">
+                    <a href="/dashboard/products"><span><i class="fas fa-coins"></i></i></span>
+                        Danh sách sản phẩm</a>
+                </th:block>
+            </li>
+            <li>
+                <th:block th:if="${active} == customers">
+                    <a class="active" href="/dashboard/customers"><span><i class="fas fa-user"></i></span>DS khách hàng</a>
+                </th:block>
+                <th:block th:if="${active} != customers">
+                    <a href="/dashboard/customers"><span><i class="fas fa-user"></i></span>DS khách hàng</a>
+                </th:block>
+            </li>
+
+            <li>
+                <th:block th:if="${active} == revenue">
+                    <a class="active" href="/dashboard/revenue"><span><i class="fas fa-dollar-sign"></i></span>
+                        Doanh thu</a>
+                </th:block>
+                <th:block th:if="${active} != revenue">
+                    <a href="/dashboard/revenue"><span><i class="fas fa-dollar-sign"></i></span>
+                        Doanh thu</a>
+                </th:block>
+            </li>
+            <li>
+                <th:block th:if="${active} == productsJob">
+                    <a class="active"  href="/dashboard/productsJob"><span><i class="fas fa-motorcycle"></i></span>
+                        Danh sách đơn hàng</a>
+                </th:block>
+                <th:block th:if="${active} != productsJob">
+                    <a href="/dashboard/productsJob"><span><i class="fas fa-motorcycle"></i></span>
+                        Danh sách đơn hàng</a>
+                </th:block>
+            </li>
+
+        </ul>
+    </div>
+    </div>
+</th:block>

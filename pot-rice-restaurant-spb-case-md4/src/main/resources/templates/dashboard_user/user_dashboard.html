@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <title>RegFood || Restaurant HTML Template</title>
+    <th:block th:replace="layout/header"/>
+</head>
+
+<body>
+
+<!--=============================
+    TOPBAR START
+==============================-->
+<th:block th:replace="layout/topbar"/>
+<!--=============================
+    BREADCRUMB START
+==============================-->
+<section class="tf__breadcrumb" style="background: url(/assets/images/counter_bg.jpg);">
+    <div class="tf__breadcrumb_overlay">
+        <div class="container">
+            <div class="tf__breadcrumb_text">
+                <h1>user dashboard</h1>
+                <ul>
+                    <li><a href="index.html">home</a></li>
+                    <li><a href="#">dashboard</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=============================
+    BREADCRUMB END
+==============================-->
+
+
+<!--=========================
+    DASHBOARD START
+==========================-->
+<section class="tf__dashboard mt_100 xs_mt_70 mb_100 xs_mb_70">
+    <div class="container">
+        <div class="tf__dashboard_area">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 wow fadeInUp" data-wow-duration="1s">
+
+                    <th:block th:replace="/layout/user_layout_dashboard"/>
+
+                    <div class="col-xl-9 col-lg-8 wow fadeInUp" data-wow-duration="1s">
+                        <div class="tf__dashboard_content">
+                            <div class="tf_dashboard_body">
+                                <h3>Parsonal Information
+                                    <a class="dash_add_new_address" href="dashboard_info_edit.html">edit</a>
+                                </h3>
+
+                                <div class="tf_dash_personal_info">
+                                    <div class="personal_info_text">
+                                        <p><span>Name:</span> Hasib Ahmed</p>
+                                        <p><span>Email:</span> hasibahmed@gmail.com</p>
+                                        <p><span>Phone:</span> 023 434 54354</p>
+                                        <p><span>Address:</span> 7232 Broadway Suite 308, Jackson Heights,
+                                            11372, NY, United States </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=========================
+    DASHBOARD END
+==========================-->
+
+
+<!--=============================
+    FOOTER START
+==============================-->
+<th:block th:replace="layout/footer"/>
+<!--=============================
+    FOOTER END
+==============================-->
+
+
+<!--=============================
+    SCROLL BUTTON START
+==============================-->
+<div class="tf__scroll_btn"><i class="fas fa-hand-pointer"></i></div>
+<!--=============================
+    SCROLL BUTTON END
+==============================-->
+
+
+<!--jquery library js-->
+<th:block th:replace="layout/script"/>
+
+</body>
+
+</html>

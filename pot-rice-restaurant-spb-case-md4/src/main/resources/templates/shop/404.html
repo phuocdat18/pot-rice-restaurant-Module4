@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
+  <title>Lỗi || Nhà Hàng Cơm Niêu HTD</title>
+  <link rel="icon" href="/assets/images/logo_icon.png">
+
+  <th:block th:replace="layout/header"/>
+</head>
+
+<body>
+
+<!--=============================
+    TOPBAR START
+==============================-->
+<th:block th:replace="layout/topbar"/>
+<!--=============================
+    404 PAGE START
+==============================-->
+<section class="tf__404">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-5 col-md-7 m-auto">
+        <div class="tf__404_text wow fadeInUp" data-wow-duration="1s">
+          <img src="/assets/images/404_img.png" alt="404" class="img-fluid w-100">
+          <h2>Bạn không được cấp quyền truy cập trang này</h2>
+          <p>Vui lòng đăng nhập.</p>
+          <a class="common_btn" href="/login">Đăng nhập</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--=============================
+    404 PAGE END
+==============================-->
+
+
+<!--=============================
+    FOOTER START
+==============================-->
+<th:block th:replace="layout/footer"/>
+<!--=============================
+    FOOTER END
+==============================-->
+
+
+<!--=============================
+    SCROLL BUTTON START
+==============================-->
+<div class="tf__scroll_btn"><i class="fas fa-hand-pointer"></i></div>
+<!--=============================
+    SCROLL BUTTON END
+==============================-->
+
+
+<!--jquery library js-->
+<th:block th:replace="layout/script"/>
+
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<th:block th:fragment="modal_update">
+
+    <div class="modal fade" id="mdUpdate" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+         data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal update product</h1>
+                    <button type="button" class="btn-close btnClose" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="error-area"></div>
+<!--                    <div class="modal-alert-danger hide">-->
+                    </div>
+                    <form method="post" id="frmUpdateUser" enctype="multipart/form-data">
+                        <div class="container">
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-lg-6 form-group">
+                                            <label for="userNameUp" class="form-label">Name</label>
+                                            <input type="text" class="form-control" id="userNameUp"
+                                                   name="userNameUp"
+                                                   placeholder="Tên...">
+                                            <div class="form-message"></div>
+                                        </div>
+                                        <div class="col-lg-6 form-group">
+                                            <label for="userEmailUp" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="userEmailUp"
+                                                   name="userEmailUp"
+                                                   placeholder="Email...">
+                                            <div class="form-message"></div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 form-group">
+                                        <label for="userPhoneUp" class="form-label">Phone</label>
+                                        <input type="text" class="form-control" id="userPhoneUp"
+                                               name="userPhoneUp"
+                                               placeholder="Số điện thoại...">
+                                        <div class="form-message"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary btnClose" data-bs-dismiss="modal">
+                                Hủy
+                            </button>
+                            <button type="submit" id="btnUpdate" class="btn btn-outline-primary">Cập nhật</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+    </div>
+
+</th:block>

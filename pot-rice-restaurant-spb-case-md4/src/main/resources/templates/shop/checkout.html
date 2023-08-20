@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
+  <title>RegFood || Restaurant HTML Template</title>
+  <link rel="icon" href="/assets/images/logo_icon.png">
+  <th:block th:replace="layout/header"/>
+</head>
+
+<body>
+
+<!--=============================
+    TOPBAR START
+==============================-->
+<th:block th:replace="layout/topbar"/>
+<!--=============================
+    BREADCRUMB START
+==============================-->
+<section class="tf__breadcrumb" style="background: url('/assets/images/counter_bg.jpg');">
+  <div class="tf__breadcrumb_overlay">
+    <div class="container">
+      <div class="tf__breadcrumb_text">
+        <h1>checkout</h1>
+        <ul>
+          <li><a href="/shop">home</a></li>
+          <li><a href="#">checkout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!--=============================
+    BREADCRUMB END
+==============================-->
+
+
+<!--============================
+    CHECK OUT PAGE START
+==============================-->
+<section class="tf__cart_view mt_100 xs_mt_70 mb_100 xs_mb_70">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-8 col-lg-7 wow fadeInUp" data-wow-duration="1s">
+        <div class="tf__checkout_form">
+          <div class="tf__check_form">
+            <div class="tf__address_modal">
+              <div class="modal fade" id="address_modal" data-bs-backdrop="static"
+                   data-bs-keyboard="false" tabindex="-1" aria-labelledby="address_modalLabel"
+                   aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="address_modalLabel">add new address
+                      </h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal"
+                              aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <div class="row">
+                          <div class="col-md-6 col-lg-12 col-xl-6">
+                            <div class="tf__check_single_form">
+                              <input type="text" placeholder="First Name">
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-lg-12 col-xl-6">
+                            <div class="tf__check_single_form">
+                              <input type="text" placeholder="Last Name">
+                            </div>
+                          </div>
+                          <div class="col-md-12 col-lg-12 col-xl-12">
+                            <div class="tf__check_single_form">
+                              <input type="text"
+                                     placeholder="Company Name (Optional)">
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-lg-12 col-xl-6">
+                            <div class="tf__check_single_form">
+                              <select class="select_js">
+                                <option value="">select country</option>
+                                <option value="">bangladesh</option>
+                                <option value="">nepal</option>
+                                <option value="">japan</option>
+                                <option value="">korea</option>
+                                <option value="">thailand</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-lg-12 col-xl-6">
+                            <div class="tf__check_single_form">
+                              <input type="text" placeholder="Street Address *">
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-lg-12 col-xl-6">
+                            <div class="tf__check_single_form">
+                              <input type="text"
+                                     placeholder="Apartment, suite, unit, etc. (optional)">
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-lg-12 col-xl-6">
+                            <div class="tf__check_single_form">
+                              <input type="text" placeholder="Town / City *">
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-lg-12 col-xl-6">
+                            <div class="tf__check_single_form">
+                              <input type="text" placeholder="State *">
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-lg-12 col-xl-6">
+                            <div class="tf__check_single_form">
+                              <input type="text" placeholder="Zip *">
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-lg-12 col-xl-6">
+                            <div class="tf__check_single_form">
+                              <input type="text" placeholder="Phone *">
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-lg-12 col-xl-6">
+                            <div class="tf__check_single_form">
+                              <input type="email" placeholder="Email *">
+                            </div>
+                          </div>
+                          <div class="col-md-12 col-lg-12 col-xl-12">
+                            <div class="tf__check_single_form">
+                              <h5>Additional Information</h5>
+                              <textarea cols="3" rows="4"
+                                        placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="tf__check_single_form m-0">
+                              <button type="submit" class="common_btn">add
+                                address</button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <form>
+              <div class="row mt_30">
+                <div class="col-12">
+                  <h5>billing address</h5>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-6">
+                  <div class="tf__check_single_form">
+                    <input type="text" placeholder="First Name">
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-6">
+                  <div class="tf__check_single_form">
+                    <input type="text" placeholder="Last Name">
+                  </div>
+                </div>
+                <div class="col-md-12 col-lg-12 col-xl-12">
+                  <div class="tf__check_single_form">
+                    <input type="text" placeholder="Company Name (Optional)">
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-6">
+                  <div class="tf__check_single_form">
+                    <select class="select_js">
+                      <option value="">select country</option>
+                      <option value="">bangladesh</option>
+                      <option value="">nepal</option>
+                      <option value="">japan</option>
+                      <option value="">korea</option>
+                      <option value="">thailand</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-6">
+                  <div class="tf__check_single_form">
+                    <input type="text" placeholder="Street Address *">
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-6">
+                  <div class="tf__check_single_form">
+                    <input type="text" placeholder="Apartment, suite, unit, etc. (optional)">
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-6">
+                  <div class="tf__check_single_form">
+                    <input type="text" placeholder="Town / City *">
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-6">
+                  <div class="tf__check_single_form">
+                    <input type="text" placeholder="State *">
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-6">
+                  <div class="tf__check_single_form">
+                    <input type="text" placeholder="Zip *">
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-6">
+                  <div class="tf__check_single_form">
+                    <input type="text" placeholder="Phone *">
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-12 col-xl-6">
+                  <div class="tf__check_single_form">
+                    <input type="email" placeholder="Email *">
+                  </div>
+                </div>
+                <div class="col-md-12 col-lg-12 col-xl-12">
+                  <div class="tf__check_single_form mt_30 mb-0">
+                    <h5>Additional Information</h5>
+                    <textarea cols="3" rows="4"
+                              placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-5 wow fadeInUp" data-wow-duration="1s">
+        <div id="sticky_sidebar" class="tf__cart_list_footer_button">
+          <div class="tf__cart_list_footer_button_text">
+            <h6>total cart (02)</h6>
+            <p>subtotal: <span>$124.00</span></p>
+            <p>delivery: <span>$00.00</span></p>
+            <p>discount: <span>$10.00</span></p>
+            <p class="total"><span>total:</span> <span>$134.00</span></p>
+            <form>
+              <input type="text" placeholder="Coupon Code">
+              <button type="submit">apply</button>
+            </form>
+            <a class="common_btn" href="payment.html">checkout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--============================
+    CHECK OUT PAGE END
+==============================-->
+
+
+<!--=============================
+    FOOTER START
+==============================-->
+<th:block th:replace="layout/footer"/>
+<!--=============================
+    FOOTER END
+==============================-->
+
+
+<!--=============================
+    SCROLL BUTTON START
+==============================-->
+<div class="tf__scroll_btn"><i class="fas fa-hand-pointer"></i></div>
+<!--=============================
+    SCROLL BUTTON END
+==============================-->
+
+
+<!--jquery library js-->
+<th:block th:replace="layout/script"/>
+
+</body>
+
+</html>

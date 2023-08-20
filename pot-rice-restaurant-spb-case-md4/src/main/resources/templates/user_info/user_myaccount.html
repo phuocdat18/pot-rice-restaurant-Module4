@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <title>Tài khoản cá nhân || Nhà Hàng Cơm Niêu HTD</title>
+    <link rel="icon" href="/assets/images/logo_icon.png">
+    <th:block th:replace="layout/header"/>
+</head>
+
+<body>
+
+<!--=============================
+    TOPBAR START
+==============================-->
+<th:block th:replace="layout/topbar"/>
+<!--=============================
+    BREADCRUMB START
+==============================-->
+<section class="tf__breadcrumb" style="background: url(/assets/images/counter_bg.jpg);">
+    <div class="tf__breadcrumb_overlay">
+        <div class="container">
+            <div class="tf__breadcrumb_text">
+                <h1>Trang cá nhân</h1>
+                <ul>
+                    <li><a href="/shop">Trang chủ</a></li>
+                    <li><a href="#">Trang cá nhân</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=============================
+    BREADCRUMB END
+==============================-->
+
+
+<!--=========================
+    DASHBOARD START
+==========================-->
+<section class="tf__dashboard mt_100 xs_mt_70 mb_100 xs_mb_70">
+    <div class="container">
+        <div class="tf__dashboard_area">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 wow fadeInUp" data-wow-duration="1s">
+
+                    <th:block th:replace="layout/user_layout_dashboard"/>
+
+                    <div class="col-xl-9 col-lg-8 wow fadeInUp" data-wow-duration="1s">
+                        <div class="tf__dashboard_content">
+                            <div class="tf_dashboard_body">
+                                <h3>Thông tin cá nhân
+                                    <button class="dash_add_new_address edit" id="btnUpdateUser">Chỉnh sửa</button>
+                                </h3>
+
+                                <div class="tf_dash_personal_info">
+                                    <div class="personal_info_text">
+                                        <input type="button" id="idUser" th:value="${user.id}" hidden="true">
+                                        <p><span>Tên:</span> <span id="fullNameUpdate" th:text="${user.fullName}"></span></p>
+                                        <p><span>Email:</span> <span id="emailUpdate" th:text="${user.email}"></span></p>
+                                        <p><span>Số điện thoại:</span> <span id="phoneUpdate" th:text="${user.phone}"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=========================
+    DASHBOARD END
+==========================-->
+
+
+
+<!--=============================
+    FOOTER START
+==============================-->
+<th:block th:replace="layout/footer"/>
+<!--=============================
+    FOOTER END
+==============================-->
+
+
+<!--=============================
+    SCROLL BUTTON START
+==============================-->
+<div class="tf__scroll_btn"><i class="fas fa-hand-pointer"></i></div>
+<!--=============================
+    SCROLL BUTTON END
+==============================-->
+
+
+<!--jquery library js-->
+<th:block th:replace="layout/script"/>
+<th:block th:replace="/user_info/modal_update"/>
+
+
+
+<script>
+    const page = {
+        url: {
+            getAllUsers: AppBase.API_USERS,
+            doUpdateUser: AppBase.API_USER_UPDATE,
+
+        },
+        elements: {},
+        loadData: {},
+        commands: {},
+        dialogs: {
+            elements: {},
+            commands: {},
+            loadData: {}
+        }
+    }
+
+
+    page.elements.loader = $(".loader");
+    page.elements.tempProduct = $("#tempProduct");
+    page.elements.currentRow = $("#currentRow");
+
+    page.elements.btnShowUpdateForm = $("#btnUpdateUser");
+    page.dialogs.elements.frmUpdateUser = $('#frmUpdateUser');
+    page.dialogs.elements.modalUpdate = $('#mdUpdate')
+    page.dialogs.elements.errorUpdateArea = $('#mdUpdate .modal-body .modal-alert-danger')
+    page.dialogs.elements.errorUpdateAreaModal = $('#mdUpdate .modal-body .error-area')
+    page.dialogs.elements.userNameUp = $('#userNameUp')
+    page.dialogs.elements.userEmailUp = $('#userEmailUp')
+    page.dialogs.elements.userPhoneUp = $('#userPhoneUp')
+    page.dialogs.elements.btnUpdate = $('#btnUpdate')
+
+
+
+
+    let user = new User();
+    let userId = $('#idUser').val();
+
+    console.log(userId)
+
+
+    page.commands.getUserById = () => {
+        return $.ajax({
+            type: 'GET',
+            url: page.url.getAllUsers + '/' + userId
+        });
+    }
+
+    page.commands.showUpdateUser = () => {
+
+        page.elements.btnShowUpdateForm.on("click", function () {
+
+            page.commands.getUserById().then((data) => {
+                if (data !== {}) {
+                    user = data;
+
+                    page.dialogs.elements.userNameUp.val(user.fullName);
+                    page.dialogs.elements.userEmailUp.val(user.email);
+                    page.dialogs.elements.userPhoneUp.val(user.phone);
+
+                    page.dialogs.elements.modalUpdate.modal('show');
+
+                    // page.dialogs.elements.errorUpdateArea.empty();
+                    page.dialogs.elements.errorUpdateAreaModal.empty();
+
+
+                } else {
+                    alert('User not found');
+                }
+
+            })
+            page.commands.clearForm();
+        });
+
+    }
+
+    page.dialogs.commands.updateUser = () => {
+
+        page.elements.loader.removeClass("hide");
+        page.dialogs.elements.btnUpdate.prop('disabled', true);
+        // page.commands.showLoadingSpinner();
+
+
+        let formData = new FormData();
+        formData.append("fullName", page.dialogs.elements.userNameUp.val());
+        formData.append("email", page.dialogs.elements.userEmailUp.val());
+        formData.append("phone", page.dialogs.elements.userPhoneUp.val());
+
+
+        $.ajax({
+            type: "PATCH",
+            contentType: false,
+            cache: false,
+            processData: false,
+            url: page.url.doUpdateUser + '/' + userId,
+            data: formData
+        }).done((data) => {
+            user = data;
+            page.dialogs.elements.modalUpdate.modal('hide');
+
+            AppBase.SweetAlert.showSuccessAlert(AppBase.AlertMessageEn.SUCCESS_UPDATED);
+            // location.reload(true);
+            $("#fullNameUpdate").text(data.fullName);
+            $("#emailUpdate").text(data.email);
+            $("#phoneUpdate").text(data.phone);
+
+            // page.commands.showUpdateUser();
+
+            page.dialogs.elements.frmUpdateUser.trigger("reset");
+
+
+        })
+            .fail((jqXHR) => {
+                const responseJSON = jqXHR.responseJSON;
+
+                page.dialogs.elements.errorUpdateAreaModal.empty();
+                let str = '';
+                $.each(responseJSON, (k, v) => {
+                    str += `<label for="${k}Up">${v}</label>`
+
+                })
+                page.dialogs.elements.errorUpdateAreaModal.append(str).removeClass('hide').removeAttr('style').addClass('show');
+
+                console.log(jqXHR);
+    }).always(function () {
+            page.elements.loader.addClass("hide");
+            page.dialogs.elements.btnUpdate.prop('disabled', false);
+        });
+    }
+
+    page.commands.clearForm = () => {
+        $('.btnClose').on('click', () => {
+
+            // page.dialogs.elements.errorUpdateArea.removeClass("show").addClass("hide").empty();
+            $("#mdUpdate .error-area").removeClass("show").addClass("hide").empty();
+            $("#frmUpdateUser input.error").removeClass("error");
+            page.dialogs.elements.frmUpdateUser.trigger("reset");
+        })
+    }
+
+
+    page.dialogs.elements.frmUpdateUser.validate({
+        rules: {
+            userNameUp: {
+                required: true,
+                number: false
+            },
+
+            userPhoneUp: {
+                required: true,
+                number: true
+            },
+            userEmailUp: {
+                required: true
+            },
+        },
+        messages: {
+            userNameUp: {
+                required: "Vui lòng nhập tên khách hàng.",
+                number: "Tên vui lòng không nhập số"
+            },
+            userPhoneUp: {
+                required: "Vui lòng nhập số điện thoại.",
+                number: "Số điện thoại phải là số."
+            },
+            userEmailUp: {
+                required: "Vui lòng nhập email."
+            }
+        },
+        errorLabelContainer: "#mdUpdate .error-area",
+        errorPlacement: function (error, element) {
+            error.appendTo("#mdUpdate .error-area");
+        },
+        showErrors: function (errorMap, errorList) {
+            if (this.numberOfInvalids() > 0) {
+                page.dialogs.elements.errorUpdateAreaModal.removeClass("hide").addClass("show");
+            } else {
+                page.dialogs.elements.errorUpdateAreaModal.removeClass("show").addClass("hide").empty();
+                $("#frmUpdateUser input.error").removeClass("error");
+            }
+            this.defaultShowErrors();
+        },
+        submitHandler: function () {
+            page.dialogs.commands.updateUser();
+        }
+    })
+
+    page.initializeControlEvent = () => {
+        page.commands.showUpdateUser();
+
+        page.dialogs.elements.btnUpdate.on("click", function () {
+            console.log('ok')
+            page.dialogs.elements.frmUpdateUser.trigger('submit');
+        });
+    }
+
+
+    page.loadData = () => {
+
+    }
+
+    $(() => {
+        page.loadData();
+        page.initializeControlEvent();
+
+    })
+
+
+</script>
+
+</body>
+
+</html>

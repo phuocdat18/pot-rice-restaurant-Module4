@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <title>RegFood || Restaurant HTML Template</title>
+    <link rel="icon" href="/assets/images/logo_icon.png">
+    <style>
+        /*.column {*/
+        /*    float: left;*/
+        /*    width: 20%;*/
+        /*    padding: 10px;*/
+        /*    height: 200px; !* có thể tùy chỉnh chiều cao để phù hợp với nội dung *!*/
+        /*    box-sizing: border-box;*/
+        /*    border: 1px solid #ccc;*/
+        /*}*/
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .accept {
+            background-color: #ff7c08;
+            color: white;
+            border-radius: 5px;
+            width: 90px;
+        }
+
+        .accept:hover {
+            background-color: #231f40;
+            color: white;
+        }
+
+        .views {
+            background-color: #ff7c08;
+            color: white;
+            border-radius: 5px;
+            width: 90px;
+        }
+
+        .views:hover {
+            background-color: #231f40;
+            color: white;
+        }
+
+        .title h3 {
+            margin-bottom: 10px;
+        }
+
+        .column {
+            border: none;
+        }
+    </style>
+    <th:block th:replace="/layout/header"/>
+</head>
+
+<body>
+
+<!--=============================
+    TOPBAR START
+==============================-->
+<th:block th:replace="/layout/topbar"/>
+<!--=============================
+    TOPBAR END
+==============================-->
+<!--=============================
+    BREADCRUMB START
+==============================-->
+
+<!--=============================
+    BREADCRUMB END
+==============================-->
+
+
+<!--============================
+    CART VIEW START
+==============================-->
+<section class="tf__cart_view mt_100 xs_mt_70 mb_100 xs_mb_70" id="mdCart" style="padding-top: 100px">
+    <div class="tf__dashboard_area">
+        <div class="row">
+            <div class="col-xl-2 col-lg-4 wow fadeInUp" data-wow-duration="1s">
+                <th:block th:replace="/layout/layout_dashboard"/>
+                <div class="col-xl-10 col-lg-8 wow fadeInUp" data-wow-duration="1s">
+                    <div class="row title">
+                        <h3>Đơn hàng mới</h3>
+                        <div class="column">
+                            <ul style="overflow-y: scroll; max-height: 350px; min-height: 150px;">
+                                <table class="table table-hover" id="newOrder">
+                                    <input type="text" hidden="true" id="billId" th:value="${idBill}" >
+                                    <th:block th:replace="/layout/layout_order"/>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row title">
+                        <h3>Đơn hàng đang được thực hiện</h3>
+                        <div class="column">
+                            <ul style="overflow-y: scroll; max-height: 350px; min-height: 150px;">
+                                <table class="table table-hover" id="orderLoading">
+                                    <th:block th:replace="/layout/layout_order"/>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row title">
+                        <h3>Đơn hàng đang được giao</h3>
+                        <div class="column">
+                            <ul style="overflow-y: scroll; max-height: 350px; min-height: 150px;">
+                                <table class="table table-hover" id="orderShipping">
+                                    <th:block th:replace="/layout/layout_order"/>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row title">
+                        <h3>Đơn hàng đã giao</h3>
+                        <div class="column">
+                            <ul style="overflow-y: scroll; max-height: 350px; min-height: 150px;">
+                                <table class="table table-hover" id="orderDone">
+                                    <th:block th:replace="/layout/layout_order"/>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!--============================
+    CART VIEW END
+==============================-->
+
+
+<!--=============================
+    FOOTER START
+==============================-->
+<th:block th:replace="layout/footer"/>
+<!--=============================
+    FOOTER END
+==============================-->
+
+
+<!--=============================
+    SCROLL BUTTON START
+==============================-->
+<div class="tf__scroll_btn"><i class="fas fa-hand-pointer"></i></div>
+<!--=============================
+    SCROLL BUTTON END
+==============================-->
+
+<ul class="menu_icon d-flex flex-wrap" style="background-color: crimson">
+    <li>
+        <a class="btn" style="color: white; background-color: crimson" href="/dashboard/productsJob"><i class="fas fa-bell"></i></i>
+            <span class="cart-count" id="count-orders" style="color: white">0</span></a>
+    </li>
+</ul>
+
+<!--jquery library js-->
+<th:block th:replace="layout/script"/>
+
+<th:block th:replace="/dashboard_admin/modalBillDetail"/>
+
+<script src="/assets/sweetalert2/sweetalert2.all.min.js"></script>
+
+<script>
+    const page = {
+        urls: {
+            getAllCategories: AppBase.API_CATEGORY,
+            getAllProducts: AppBase.API_PRODUCT,
+            getAllCartDetails: AppBase.API_CART_DETAIL,
+            getAddToCart: AppBase.API_ADD_TO_CART,
+            getPayment: AppBase.API_PAYMENT,
+            getDelete: AppBase.API_DELETED_CART_ITEM,
+            getChangeQuantity: AppBase.API_CHANGE_QUANTITY,
+            getSearch: AppBase.API_SEARCH_PRODUCT,
+            getAllBillDetails: AppBase.API_BILL_DETAIL_BY_USER,
+            getAllBills: AppBase.API_BILL,
+            getBillDetailsByBillId: AppBase.API_BILL_DETAIL_BY_BILL,
+            getAllBillsORDER: AppBase.API_BILLORDER,
+            getAllBillsLOADING: AppBase.API_BILLLOADING,
+            getAllBillsSHIPPING: AppBase.API_BILLSHIPPING,
+            getStatusBill: AppBase.API_STATUS_BILL,
+
+            getAllProvinces: 'https://vapi.vnappmob.com/api/province/',
+            getAllDistricts: 'https://vapi.vnappmob.com/api/province/district/',
+            getAllWards: 'https://vapi.vnappmob.com/api/province/ward/'
+        },
+        elements: {},
+        commands: {},
+        dialogs: {
+            elements: {},
+            loadData: {},
+            commands: {}
+        },
+    }
+
+    page.elements.productCarts = $('#product-carts')
+    page.elements.inputSearch = $('#search')
+    page.elements.btnSearch = $('.btn-search')
+
+
+    page.elements.newOrder = $('#newOrder tbody')
+    page.elements.orderLoading = $('#orderLoading tbody')
+    page.elements.orderShipping = $('#orderShipping tbody')
+    page.elements.orderDone = $('#orderDone tbody')
+    page.dialogs.elements.tbCart = $('#tbCart tbody')
+    page.dialogs.elements.modalCart = $('#mdCart')
+    page.dialogs.elements.totalAmount = $('#totalAmount')
+    page.elements.countNewOrder = $('#countNewOrder')
+
+    page.dialogs.elements.btnAddCart = $('.btnAddCart')
+    page.elements.countCart = $('#count-cart')
+
+    page.dialogs.elements.payment = $('.payment-cart')
+    page.dialogs.elements.cancelPayment = $('.cancel-cart')
+
+    page.dialogs.elements.paymentDefult = $('#payment_defult')
+    page.dialogs.elements.frmPayment = $('#frmPayment')
+    page.dialogs.elements.changeQuantity = $('.changeQuantity')
+
+    page.elements.pagination = $('.pagination')
+    page.elements.countOrders = $('#count-orders')
+
+
+    page.dialogs.elements.provinceCr = $('#provinceCr')
+    page.dialogs.elements.districtCr = $('#districtCr')
+    page.dialogs.elements.wardCr = $('#wardCr')
+    page.dialogs.elements.addressCr = $('#addressCr')
+
+    page.elements.tbBill = $('#tbBill tbody')
+    page.elements.totalAmountBill = $('#totalAmount-bill')
+
+    page.elements.btnBillDetailModal = $("#btnBillDetail");
+    page.dialogs.elements.tbBillDetail = $('#tbBillDetail tbody')
+    page.dialogs.elements.modalBillDetail = $('#modalBillDetail')
+    page.dialogs.elements.btnCloseMdBillDetail = $('#btnCloseMdBillDetail')
+
+    page.dialogs.elements.totalAmountDetail = $('#totalAmountDetail')
+    page.dialogs.elements.subTotalAmount = $('#subTotalAmount')
+    page.dialogs.elements.vat = $('#vat')
+
+
+
+    // page.elements.totalAmountRevenue = $('#totalAmountRevenue')
+
+    let user = new User();
+    let userId = $('#idUser').val();
+    // let billId = $('#billId').val();
+
+
+    page.commands.getAllProducts = (pageProduct, pageSize) => {
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllProducts,
+            data: {
+                page: pageProduct,
+                pageSize: pageSize
+            }
+        })
+            .done((data) => {
+                console.log(data)
+                page.commands.loadProduct(data.content);
+                page.commands.displayPagination(data.totalPages, data.number + 1);
+
+
+                page.commands.doAddToCart();
+                page.commands.showCart();
+
+            })
+            .fail((jqXHR) => {
+                console.log(jqXHR)
+            })
+    }
+
+    page.commands.loadProduct = (products) => {
+        page.elements.productCarts.empty();
+
+        $.each(products, (index, item) => {
+            const str = page.commands.renderProduct(item);
+
+            page.elements.productCarts.prepend(str)
+        })
+    }
+
+    page.commands.displayPagination = (totalPages, currentPage) => {
+        page.elements.pagination.empty();
+
+        let previousBtn = '<li class="page-item"><a class="page-link" href="#" onclick="page.commands.getAllProducts(' + (currentPage - 1) + ', 10)">Previous</a></li>';
+        page.elements.pagination.append(previousBtn);
+
+        for (let i = 1; i <= totalPages; i++) {
+            let pageBtn = '<li class="page-item ' + (i === currentPage ? 'active' : '') + '"><a class="page-link" href="#" onclick="page.commands.getAllProducts(' + i + ', 10)">' + i + '</a></li>';
+            page.elements.pagination.append(pageBtn);
+        }
+
+        let nextBtn = '<li class="page-item"><a class="page-link" href="#" onclick="page.commands.getAllProducts(' + (currentPage + 1) + ', 10)">Next</a></li>';
+        page.elements.pagination.append(nextBtn);
+    };
+
+    page.commands.renderProduct = (obj) => {
+        const imageUrl = AppBase.BASE_URL_CLOUD_IMAGE + '/' + AppBase.IMAGE_SCALE_W_280_h_180_Q_100 + '/' + obj.avatar.fileFolder + '/' + obj.avatar.fileName;
+        const price = obj.price.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+        return `
+                <div class="card product-cart col-2">
+                    <a title="product-detail" href="shop/product-detail/${obj.id}" class="btn btn-outline-primary product-detail">
+                        <img src="${imageUrl}" class="card-img-top" alt="..." height="200px">
+                    </a>
+                    <div class="card-body">
+                        <div>
+                            <a title="Edit" href="shop/product-detail/${obj.id}" class="btn btn-outline-primary product-detail">
+                                <h5 class="card-title">${obj.title}</h5>
+                            </a>
+                        </div>
+                        <div>
+                            <span class="product-price">${price}</span>
+<!--                            <span class="product-unit">${obj.unit}</span>-->
+                        </div>
+                        <input type="number" class="quantity-product" value="${obj.quantity}" hidden="true"></input>
+                    </div>
+                    <div class="card-footer">
+                          <button type="button" class="btn btn-outline-primary btnAddCart" data-id="${obj.id}">Add to cart</button>
+                    </div>
+                </div>
+            `;
+    }
+
+    page.commands.getAllCartDetail = () => {
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllCartDetails
+        })
+            .done((data) => {
+                let totalAmount = 0;
+                let count = 0;
+                $.each(data, (index, item) => {
+                    const str = page.commands.renderCart(item);
+                    totalAmount = totalAmount + item.amount;
+                    page.dialogs.elements.tbCart.prepend(str)
+                    count = count + item.quantity
+                })
+                page.elements.countCart.text(count)
+                page.dialogs.elements.totalAmount.text(totalAmount.toLocaleString('vi', {
+                    style: 'currency',
+                    currency: 'VND'
+                }));
+                page.commands.deleteProduct();
+                page.commands.changeQuantity();
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            })
+    }
+
+    page.commands.renderCart = (obj) => {
+        const imageUrl = AppBase.BASE_URL_CLOUD_IMAGE + '/' + AppBase.IMAGE_SCALE_W_280_h_180_Q_100 + '/' + obj.productDTO.avatar.fileFolder + '/' + obj.productDTO.avatar.fileName;
+        const price = obj.price.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+        const amount = obj.amount.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+        return `
+                <tr id="tr_${obj.id}">
+                    <td>
+                        <span class="product-id">${obj.id}</span>
+                    </td>
+                    <td>${obj.title}</td>
+                    <td>
+                         <img src="${imageUrl}" class="card-img-top" alt="...">
+                    </td>
+                    <td>${obj.unit}</td>
+                    <td>
+                        <span class="price-obj" hidden="true">${obj.price}</span>
+                        <span class="price">${price}</span>
+                    </td>
+                    <td>
+                        <button type="button" class="changeQuantity" data-id="${obj.id}">
+                            <input class="quantity-input" name="quantity" min="1" max="100" value="${obj.quantity}" type="number">
+                        </button>
+                    </td>
+                    <td>
+                        <span class="amount">${amount}</span>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-danger delete" data-id="${obj.id}" >
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            `;
+    }
+
+    page.commands.countAllBillsORDER = () => {
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllBillsORDER,
+        })
+            .done((data) => {
+                page.elements.countOrders.text(0);
+                const count = data.length;
+                console.log(`Số lượng order: ${count}`);
+                page.elements.countOrders.text(count)
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            });
+    };
+
+
+    page.commands.getAllBillsORDER = () => {
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllBillsORDER,
+        })
+            .done((data) => {
+                const today = new Date().toLocaleDateString('vi-VN');
+                let totalAmount = 0;
+                // let count = 0;
+                page.elements.newOrder.empty();
+                $.each(data, (index, item) => {
+                    const orderDate = new Date(item.createAt).toLocaleDateString('vi-VN');
+                    if (orderDate === today) {
+                        const str = page.commands.renderHistoryBill(item);
+                        const tr = $(str);
+                        page.elements.newOrder.prepend(tr);
+
+                        tr.find('button.accept ').click(() => {
+                            const id = item.id;
+                            page.commands.getPaymentRECEIVE(id);
+                            tr.remove();
+                            const str2 = page.commands.renderHistoryBill(item);
+                            const tr2 = $(str2);
+                            page.elements.orderLoading.prepend(tr2);
+                            tr2.find('button.accept').text('Giao hàng');
+                            tr2.find('button.accept').click(() => {
+                                const id2 = item.id;
+                                page.commands.getPaymentSHIPPING(id2);
+                                tr2.remove();
+                                const str3 = page.commands.renderHistoryBill(item);
+                                const tr3 = $(str3);
+                                page.elements.orderShipping.prepend(tr3);
+                                tr3.find('button.accept').text('Đã giao');
+                                tr3.find('button.accept').click(() => {
+                                    const id3 = item.id;
+                                    page.commands.getPaymentDONE(id3);
+                                    tr3.remove();
+                                    const str4 = page.commands.renderHistoryBill(item);
+                                    const tr4 = $(str4);
+                                    page.elements.orderDone.prepend(tr4);
+                                    tr4.find('button.accept').text('Hoàn thành');
+                                    tr4.find('button.accept').prop('disabled', true);
+                                });
+                            });
+                        });
+                    }
+                });
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            });
+    };
+
+    page.commands.getPaymentRECEIVE = (id) => {
+        const url = `${page.urls.getStatusBill}/${id}`;
+        const bill = {
+            status: 'LOADING',
+        };
+
+        $.ajax({
+            type: 'PATCH',
+            url: url,
+            data: JSON.stringify(bill),
+            contentType: 'application/json',
+            dataType: 'json',
+        })
+            .done((data) => {
+                console.log(data);
+            })
+            .fail((jqXHR, textStatus, errorThrown) => {
+                console.error('Error:', errorThrown);
+            });
+    };
+
+    page.commands.getPaymentSHIPPING = (id) => {
+        const url = `${page.urls.getStatusBill}/${id}`;
+        const bill = {
+            status: 'SHIPPING',
+        };
+
+        $.ajax({
+            type: 'PATCH',
+            url: url,
+            data: JSON.stringify(bill),
+            contentType: 'application/json',
+            dataType: 'json',
+        })
+            .done((data) => {
+                console.log(data);
+            })
+            .fail((jqXHR, textStatus, errorThrown) => {
+                console.error('Error:', errorThrown);
+            });
+    };
+
+    page.commands.getPaymentDONE = (id) => {
+        const url = `${page.urls.getStatusBill}/${id}`;
+        const bill = {
+            status: 'DONE'
+        };
+
+        $.ajax({
+            type: 'PATCH',
+            url: url,
+            data: JSON.stringify(bill),
+            contentType: 'application/json',
+            dataType: 'json'
+        })
+            .done((data) => {
+                console.log(data);
+            })
+            .fail((jqXHR, textStatus, errorThrown) => {
+                console.error('Error:', errorThrown);
+            });
+    }
+
+    page.commands.getAllBillsShip = () => {
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllBillsLOADING,
+        })
+            .done((data) => {
+                page.elements.orderLoading.empty();
+                $.each(data, (index, item) => {
+                        const str2 = page.commands.renderHistoryBill(item);
+                        const tr2 = $(str2);
+                        page.elements.orderLoading.prepend(tr2);
+                        tr2.find('button.accept').text('Giao hàng');
+                        tr2.find('button.accept').click(() => {
+                            const id2 = item.id;
+                            page.commands.getPaymentSHIPPING(id2);
+                            tr2.remove();
+                            const str3 = page.commands.renderHistoryBill(item);
+                            const tr3 = $(str3);
+                            page.elements.orderShipping.prepend(tr3);
+                            tr3.find('button.accept').text('Đã giao');
+                            tr3.find('button.accept').click(() => {
+                                const id3 = item.id;
+                                page.commands.getPaymentDONE(id3);
+                                tr3.remove();
+                                const str4 = page.commands.renderHistoryBill(item);
+                                const tr4 = $(str4);
+                                page.elements.orderDone.prepend(tr4);
+                                tr4.find('button.accept').text('Hoàn thành');
+                                tr4.find('button.accept').prop('disabled', true);
+                            });
+                    });
+                });
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            });
+    };
+
+    page.commands.getAllBillsDone = () => {
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllBillsSHIPPING,
+        })
+            .done((data) => {
+                const today = new Date().toLocaleDateString('vi-VN');
+                page.elements.orderShipping.empty();
+                $.each(data, (index, item) => {
+                        const str3 = page.commands.renderHistoryBill(item);
+                        const tr3 = $(str3);
+                        page.elements.orderShipping.prepend(tr3);
+                        tr3.find('button.accept').text('Đã giao');
+                        tr3.find('button.accept').click(() => {
+                            const id3 = item.id;
+                            page.commands.getPaymentDONE(id3);
+                            tr3.remove();
+                            const orderDate = new Date(item.createAt).toLocaleDateString('vi-VN');
+                            if (orderDate === today) {
+                                const str4 = page.commands.renderHistoryBill(item);
+                                const tr4 = $(str4);
+                                page.elements.orderDone.prepend(tr4);
+                                tr4.find('button.accept').text('Hoàn thành');
+                                tr4.find('button.accept').prop('disabled', true);
+                            }
+                        });
+                });
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            });
+    };
+
+    page.commands.getAllBills = () => {
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllBills,
+        })
+            .done((data) => {
+                const today = new Date().toLocaleDateString('vi-VN');
+                page.elements.orderDone.empty();
+                $.each(data, (index, item) => {
+                    const orderDate = new Date(item.createAt).toLocaleDateString('vi-VN');
+                    if (orderDate === today) {
+                        const str4 = page.commands.renderHistoryBill(item);
+                        const tr4 = $(str4);
+                        page.elements.orderDone.prepend(tr4);
+                        tr4.find('button.accept').text('Hoàn thành');
+                        tr4.find('button.accept').prop('disabled', true);
+                    }
+                });
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            });
+    };
+
+
+    page.commands.renderHistoryBill = (obj) => {
+        const feeShip = 15000;
+        const vat = obj.totalAmount*0.1;
+        const amount = (obj.totalAmount + feeShip + vat).toLocaleString('vi', {style: 'currency', currency: 'VND'});
+        return `
+        <tr id="tr_${obj.id}">
+            <td>
+                <span class="product-id">${obj.id}</span>
+            </td>
+            <td>
+                <span class="product-id">${obj.userDTO.fullName}</span>
+            </td>
+            <td>${obj.createAt}</td>
+            <td>
+                <span class="amount">${amount}</span>
+            </td>
+            <td>
+                <span class="province">${obj.locationRegionDTO.provinceName},${obj.locationRegionDTO.districtName},${obj.locationRegionDTO.wardName},${obj.locationRegionDTO.address}</span>
+            </td>
+            <td>
+                <button class="views view-bill-detail" data-bill-id="${obj.id}" type="button">Xem</button>
+            </td>
+            <td>
+                <button class="accept" type="button">Nhận đơn</button>
+            </td>
+        </tr>
+    `;
+    };
+
+    page.commands.getAllBillDetailsByBillId = (billId) => {
+        return $.ajax({
+            type: 'GET',
+            url: page.urls.getBillDetailsByBillId +'/'+ billId
+        })
+    }
+
+    page.commands.renderBillDetail = (obj) => {
+        const imageUrl = AppBase.BASE_URL_CLOUD_IMAGE + '/' + AppBase.IMAGE_SCALE_W_280_h_180_Q_100 + '/' + obj.product.productAvatar.fileFolder + '/' + obj.product.productAvatar.fileName;
+        const price = obj.price.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+        const amount = obj.amount.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+        return `
+            <tr id="tr_${obj.id}">
+                    <td>
+                        <span class="product-id">${obj.id}</span>
+                    </td>
+                    <td>${obj.title}</td>
+                    <td>
+                        <span class="price-obj" hidden="true">${obj.price}</span>
+                        <span class="price">${price}</span>
+                    </td>
+                    <td>
+                        <span class="quantity">${obj.quantity}</span>
+                    </td>
+                    <td>
+                        <span class="amount">${amount}</span>
+                    </td>
+
+                </tr>
+        `;
+    }
+
+    page.commands.showModalBillDetail = (billId) => {
+        page.commands.getAllBillDetailsByBillId(billId).then((data) => {
+            console.log(data)
+            page.dialogs.elements.tbBillDetail.empty()
+            let feeShip = 15000;
+            let totalQuantity = 0;
+            let subTotalAmount = 0
+            let totalAmount = 0;
+            $.each(data, (index, item) => {
+                subTotalAmount = subTotalAmount + item.amount;
+                totalQuantity = totalQuantity + item.quantity;
+                const str = page.commands.renderBillDetail(item)
+                page.dialogs.elements.tbBillDetail.append(str);
+            })
+            $("#totalQuantity").text(totalQuantity);
+
+            page.elements.totalAmountBill.text(totalAmount.toLocaleString('vi', {
+                style: 'currency',
+                currency: 'VND'
+            }));
+            let vat = (subTotalAmount * 10) / 100;
+            totalAmount = subTotalAmount + vat +feeShip;
+            page.dialogs.elements.totalAmountDetail.text(totalAmount.toLocaleString('vi', {
+                style: 'currency',
+                currency: 'VND'
+            }));
+            page.dialogs.elements.subTotalAmount.text(subTotalAmount.toLocaleString('vi', {
+                style: 'currency',
+                currency: 'VND'
+            }));
+            page.dialogs.elements.vat.text(vat.toLocaleString('vi', {
+                style: 'currency',
+                currency: 'VND'
+            }));
+
+            page.dialogs.elements.modalBillDetail.modal('show');
+        })
+            .catch((error) => {
+                console.log(error);
+                alert('Error getAllBillDetailsByBillId ')
+            })
+
+    }
+
+    page.commands.handleCloseModalBillDetail = () => {
+        page.dialogs.elements.tbBillDetail.empty()
+    }
+
+    page.commands.renderHistoryBillDetail = (obj) => {
+        const price= obj.price.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+        const amountDetail = (obj.price*obj.quantity).toLocaleString('vi', {style: 'currency', currency: 'VND'});
+        return `
+            <tr id="tr_${obj.id}">
+            <td>
+                        <span class="product-id">${obj.id}</span>
+                    </td>
+                    <td>
+                        <span class="product-id">${obj.title}</span>
+                    </td>
+                    <td></td>
+                    <td>
+                        <span class="province">${price}</span>
+                    </td>
+                    <td>${obj.quantity}</td>
+
+                    <td>
+                        <span class="amount">${amountDetail}</span>
+                    </td>
+                </tr>
+        `;
+    }
+
+
+    page.commands.getProductById = (productId) => {
+        return $.ajax({
+            type: 'GET',
+            url: page.url.getAllProduct + '/' + productId
+        });
+    }
+
+
+    page.commands.search = (pageProduct, pageSize) => {
+        let keyword = page.elements.inputSearch.val();
+        let categoryIds = '';
+        $("input[name='category']:checked").each(function () {
+            categoryIds = categoryIds + $(this).val() + ',';
+        });
+
+
+        let priceRanges = [];
+        let minPrice, maxPrice;
+        let count = 0;
+        if ($("#p1").is(":checked")) {
+            count += 1;
+            priceRanges.push(+$("#p1").data('minprice'));
+            priceRanges.push(+$("#p1").data('maxprice'));
+        }
+        if ($("#p2").is(":checked")) {
+            count += 1;
+            priceRanges.push(+$("#p2").data('minprice'));
+            priceRanges.push(+$("#p2").data('maxprice'));
+        }
+        if ($("#p3").is(":checked")) {
+            count += 1;
+            priceRanges.push(+$("#p3").data('minprice'));
+            priceRanges.push($("#p3").data('maxprice'));
+        }
+        if ($("#p4").is(":checked")) {
+            count += 1;
+            priceRanges.push(+$("#p4").data('minprice'));
+            priceRanges.push(+$("#p4").data('maxprice'));
+        }
+        if ($("#p5").is(":checked")) {
+            count += 1;
+            priceRanges.push(+$("#p5").data('minprice'));
+            priceRanges.push(+$("#p5").data('maxprice'));
+        }
+        priceRanges.sort(function (a, b) {
+            return a - b
+        });
+        if (count === 0) {
+            minPrice = '';
+            maxPrice = '';
+        } else {
+            minPrice = Number(priceRanges[0]);
+            maxPrice = Number(priceRanges[priceRanges.length - 1]);
+        }
+
+
+        console.log(minPrice)
+        console.log(maxPrice)
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: 'GET',
+            url: page.urls.getSearch,
+            data: {
+                search: keyword,
+                ids: categoryIds,
+                minPrice: minPrice,
+                maxPrice: maxPrice,
+                page: pageProduct,
+                pageSize: pageSize
+            },
+            dataType: 'json',
+        })
+            .done((data) => {
+                if (data === undefined) {
+                    page.elements.pagination.empty();
+                    page.elements.productCarts.empty();
+                    AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageEn.ERROR_FIND_PRODUCT);
+                }
+
+                page.commands.loadProduct(data.content);
+                page.commands.displayPaginationSearch(data.totalPages, data.number + 1);
+
+                page.commands.doAddToCart();
+                page.commands.showCart();
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            })
+    }
+
+    page.commands.displayPaginationSearch = (totalPages, currentPage) => {
+
+        page.elements.pagination.empty();
+
+        let previousBtn = '<li class="page-item"><a class="page-link" href="#" onclick="page.commands.search(' + (currentPage - 1) + ', 10)">Previous</a></li>';
+        page.elements.pagination.append(previousBtn);
+
+        for (let i = 1; i <= totalPages; i++) {
+            let pageBtn = '<li class="page-item ' + (i === currentPage ? 'active' : '') + '"><a class="page-link" href="#" onclick="page.commands.search(' + i + ', 10)">' + i + '</a></li>';
+            page.elements.pagination.append(pageBtn);
+        }
+
+        let nextBtn = '<li class="page-item"><a class="page-link" href="#" onclick="page.commands.search(' + (currentPage + 1) + ', 10)">Next</a></li>';
+        page.elements.pagination.append(nextBtn);
+    };
+
+
+    page.commands.showCart = () => {
+        $('.modal-cart').on('click', () => {
+            page.commands.addEventChangeProvince();
+            page.commands.addEventChangeDistrict();
+            page.dialogs.elements.modalCart.addClass('show');
+            page.dialogs.elements.modalCart.modal('show');
+            page.commands.closeFrmPayment();
+        })
+    }
+
+    page.commands.doAddToCart = () => {
+        $('.btn-addCart').on('click', function () {
+            let productId = $(this).data('id');
+            let cartItem = {
+                productId: productId,
+                quantity: 1
+            }
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: 'POST',
+                url: page.urls.getAddToCart,
+                data: JSON.stringify(cartItem)
+            })
+                .done((data) => {
+                    page.dialogs.elements.tbCart.empty();
+                    let totalAmount = 0;
+                    let count = 0;
+                    $.each(data, (index, item) => {
+                        const str = page.commands.renderCart(item);
+                        totalAmount = totalAmount + item.amount;
+                        page.dialogs.elements.tbCart.prepend(str)
+                        count = count + item.quantity
+                    })
+                    page.elements.countCart.text(count)
+                    page.dialogs.elements.totalAmount.text(totalAmount.toLocaleString('vi', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }));
+                    page.commands.deleteProduct();
+                    page.commands.changeQuantity();
+                })
+                .fail((err) => {
+                    AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+                })
+        })
+    }
+
+    page.commands.deleteProduct = () => {
+        $('.delete').on('click', function () {
+            let cartDetailId = $(this).data('id')
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085D6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    page.dialogs.commands.doDelete(cartDetailId);
+                }
+            })
+        })
+    }
+
+    page.dialogs.commands.doDelete = (cartDetailId) => {
+        $.ajax({
+            type: "DELETE",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: page.urls.getDelete + '/' + cartDetailId,
+        }).done((data) => {
+
+            AppBase.SweetAlert.showSuccessAlert(AppBase.AlertMessageEn.SUCCESS_DELETED);
+
+            page.dialogs.elements.tbCart.empty();
+            let totalAmount = 0;
+            let count = 0;
+            $.each(data, (index, item) => {
+                const str = page.commands.renderCart(item);
+                totalAmount = totalAmount + item.amount;
+                page.dialogs.elements.tbCart.prepend(str)
+                count = count + item.quantity
+            })
+            page.elements.countCart.text(count)
+            page.dialogs.elements.totalAmount.text(totalAmount.toLocaleString('vi', {
+                style: 'currency',
+                currency: 'VND'
+            }));
+            page.commands.deleteProduct();
+            page.commands.changeQuantity();
+
+            page.commands.handleImagePopup();
+
+        }).fail(function (jqXHR) {
+            AppBase.SweetAlert.showErrorAlert(jqXHR.responseJSON.message);
+        })
+    }
+
+
+    page.commands.closeFrmPayment = () => {
+        $('.btnClose').on('click', () => {
+            page.dialogs.elements.frmPayment.trigger("reset");
+            $("#mdCart .modal-alert-danger").removeClass("show").addClass("hide").empty();
+            $("#frmPayment input.error").removeClass("error");
+        })
+    }
+
+    page.commands.changeQuantity = () => {
+        $('.changeQuantity').on('click', function () {
+            let cartDetailId = $(this).data('id');
+            let quantity = $(this).find('.quantity-input').val()
+            if (Number(quantity) <= 0) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085D6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        page.dialogs.commands.doDelete(cartDetailId);
+                    } else {
+                        $('.quantity-input').val('1')
+                    }
+                })
+            } else {
+                let cartDetail = {
+                    quantity: quantity
+                }
+                $.ajax({
+                    type: "PATCH",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    url: page.urls.getChangeQuantity + '/' + cartDetailId,
+                    data: JSON.stringify(cartDetail)
+                })
+                    .done((data) => {
+                        page.dialogs.elements.tbCart.empty();
+                        let totalAmount = 0;
+                        let count = 0;
+                        $.each(data, (index, item) => {
+                            const str = page.commands.renderCart(item);
+                            totalAmount = totalAmount + item.amount;
+                            page.dialogs.elements.tbCart.prepend(str)
+                            count = count + item.quantity
+                        })
+                        page.elements.countCart.text(count)
+                        page.dialogs.elements.totalAmount.text(totalAmount.toLocaleString('vi', {
+                            style: 'currency',
+                            currency: 'VND'
+                        }));
+                        page.commands.deleteProduct();
+                        page.commands.changeQuantity();
+                    })
+                    .fail((err) => {
+                        console.log(err)
+                        AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+                    })
+            }
+        })
+    }
+
+    page.dialogs.loadData.getAllProvinces = () => {
+        return $.ajax({
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            type: 'GET',
+            url: page.urls.getAllProvinces,
+        })
+            .done((res) => {
+                const data = res.results
+                page.dialogs.elements.provinceCr.empty();
+                $.each(data, (index, item) => {
+                    let str = `<option value="${item.province_id}">${item.province_name}</option>`;
+                    page.dialogs.elements.provinceCr.append(str);
+                })
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_400);
+            })
+
+    }
+
+    page.commands.addEventChangeProvince = () => {
+        page.dialogs.elements.provinceCr.on("change", function () {
+            let provinceId = $(this).val();
+            if (provinceId !== 0) {
+                page.dialogs.loadData.getAllDistricts(provinceId).then(() => {
+                    let districtId = page.dialogs.elements.districtCr.val();
+                    page.dialogs.loadData.getAllWards(districtId);
+                })
+            }
+        })
+    }
+
+
+    page.dialogs.loadData.getAllDistricts = (provinceId) => {
+        return $.ajax({
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            type: 'GET',
+            url: page.urls.getAllDistricts + provinceId,
+        })
+            .done((res) => {
+                const data = res.results
+                page.dialogs.elements.districtCr.empty();
+                $.each(data, (index, item) => {
+                    let str = `<option value="${item.district_id}">${item.district_name}</option>`;
+                    page.dialogs.elements.districtCr.append(str);
+                })
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_400);
+            })
+    }
+
+    page.commands.addEventChangeDistrict = () => {
+
+        page.dialogs.elements.districtCr.on("change", function () {
+            let districtId = $(this).val();
+            if (districtId !== 0) {
+                page.dialogs.loadData.getAllWards(districtId);
+            }
+
+        })
+    }
+
+    page.dialogs.loadData.getAllWards = (districtId) => {
+        return $.ajax({
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            type: 'GET',
+            url: page.urls.getAllWards + districtId,
+        })
+            .done((res) => {
+                const data = res.results
+                page.dialogs.elements.wardCr.empty();
+                $.each(data, (index, item) => {
+                    let str = `<option value="${item.ward_id}">${item.ward_name}</option>`;
+                    page.dialogs.elements.wardCr.append(str);
+                })
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_400);
+            })
+    }
+
+    page.commands.resetLocationRegion = () => {
+        page.dialogs.loadData.getAllProvinces().then(() => {
+            const provinceId = page.dialogs.elements.provinceCr.val()
+            page.dialogs.loadData.getAllDistricts(provinceId).then(() => {
+                const districtId = page.dialogs.elements.districtCr.val()
+                page.dialogs.loadData.getAllWards(districtId)
+            });
+        });
+    }
+
+    page.dialogs.elements.frmPayment.validate({
+        rules: {
+            payment_method: {
+                required: true,
+            },
+            provinceCr: {
+                required: true,
+            },
+            districtCr: {
+                required: true,
+            },
+            wardCr: {
+                required: true,
+            },
+            addressCr: {
+                required: true,
+                minlength: 5,
+                maxlength: 100
+            }
+        },
+        messages: {
+            payment_method: {
+                required: "Vui lòng chọn phương thức thanh toán.",
+            },
+            provinceCr: {
+                required: "Select province",
+            },
+            districtCr: {
+                required: "Select district",
+            },
+            wardCr: {
+                required: "Select ward"
+            },
+            addressCr: {
+                required: 'Địa chỉ không được để trống',
+                minlength: 'Địa chỉ không được nhỏ hơn ${0} ký tự',
+                maxlength: 'Địa chỉ không được quá ${0} ký tự'
+            }
+        },
+        errorLabelContainer: "#mdCart .modal-alert-danger",
+        errorPlacement: function (error, element) {
+            error.appendTo("#mdCart .modal-alert-danger");
+        },
+        showErrors: function (errorMap, errorList) {
+            if (this.numberOfInvalids() > 0) {
+                $("#mdCart .modal-alert-danger").removeClass("hide").addClass("show");
+            } else {
+                $("#mdCart .modal-alert-danger").removeClass("show").addClass("hide").empty();
+                $("#frmPayment input.error").removeClass("error");
+            }
+            this.defaultShowErrors();
+        },
+        submitHandler: function () {
+            page.commands.getPayment();
+        }
+    })
+
+    page.loadData = () => {
+        page.commands.getAllCartDetail();
+        page.commands.getAllProducts(1, 10);
+        page.commands.resetLocationRegion();
+        page.commands.getAllBillsORDER();
+        page.commands.getAllBillsShip();
+        page.commands.getAllBillsDone();
+        page.commands.getAllBills();
+        page.commands.countAllBillsORDER();
+
+    }
+
+    page.initializeControlEvent = () => {
+        page.dialogs.elements.payment.on('click', () => {
+            page.dialogs.elements.frmPayment.trigger('submit');
+        });
+
+        $("#search").on('keydown', (event) => {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                page.commands.search(1, 10);
+            }
+        });
+
+        $('.btn-search').on('click', () => {
+            page.commands.search(1, 10);
+        });
+
+        page.elements.newOrder.on('click', '.view-bill-detail', function () {
+            const billId = $(this).data('bill-id')
+            page.commands.showModalBillDetail(billId);
+        })
+        page.elements.orderLoading.on('click', '.view-bill-detail', function () {
+            const billId = $(this).data('bill-id')
+            page.commands.showModalBillDetail(billId);
+        })
+        page.elements.orderShipping.on('click', '.view-bill-detail', function () {
+            const billId = $(this).data('bill-id')
+            page.commands.showModalBillDetail(billId);
+        })
+        page.elements.orderDone.on('click', '.view-bill-detail', function () {
+            const billId = $(this).data('bill-id')
+            page.commands.showModalBillDetail(billId);
+        })
+
+        page.dialogs.elements.btnCloseMdBillDetail.on('click', () =>  {
+            page.commands.handleCloseModalBillDetail();
+        })
+    }
+
+    $(() => {
+        page.loadData();
+        page.initializeControlEvent();
+    })
+    const autoRefreshData = () => {
+        setInterval(() => {
+            page.commands.getAllBillsORDER();
+            page.commands.getAllBillsShip();
+            page.commands.getAllBillsDone();
+            page.commands.getAllBills();
+            page.commands.countAllBillsORDER();
+        }, 500);
+    };
+    autoRefreshData();
+
+
+</script>
+</body>
+
+</html>

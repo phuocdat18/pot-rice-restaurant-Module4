@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <title>Quản lý || Nhà Hàng Cơm Niêu HTD</title>
+    <link rel="icon" href="/assets/images/logo_icon.png">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/preview-image.css">
+    <link rel="stylesheet" href="/assets/css/custom-style.css">
+    <link rel="stylesheet" href="/assets/sweetalert2/sweetalert2.min.css">
+    <th:block th:replace="layout/header"/>
+</head>
+<style>
+    .btn-category {
+        background: #ff7c08;
+        text-transform: capitalize;
+        color: var(--colorWhite);
+        padding: 12px 40px 12px 40px;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 600;
+        position: relative;
+        transition: all linear .3s;
+        -webkit-transition: all linear .3s;
+        -moz-transition: all linear .3s;
+        -ms-transition: all linear .3s;
+        -o-transition: all linear .3s;
+    }
+</style>
+<body>
+
+<!--=============================
+    TOPBAR START
+==============================-->
+<th:block th:replace="layout/topbar"/>
+<!--=============================
+    BREADCRUMB START
+==============================-->
+<section class="tf__breadcrumb">
+    <div>
+        <div class="container">
+            <div class="tf__breadcrumb_text">
+                <h1>Trang quản lý</h1>
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="#">Trang quản lý</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=============================
+    BREADCRUMB END
+==============================-->
+
+
+<!--=========================
+    DASHBOARD START
+==========================-->
+<section class="tf__dashboard mt_35 xs_mt_70 xs_mb_70">
+        <div class="tf__dashboard_area">
+            <div class="row">
+                <div class="col-xl-2 col-lg-4 wow fadeInUp" data-wow-duration="1s">
+
+                   <th:block th:replace="/layout/layout_dashboard"/>
+
+                    <div class="col-xl-10 col-lg-8 wow fadeInUp" data-wow-duration="1s">
+                        <div class="tf__dashboard_content">
+                            <div class="tf_dashboard_body">
+                                <h3>Danh sách sản phẩm
+                                    <button class="dash_add_new_address" id="btnCreateProduct">Thêm sản phẩm</button>
+                                </h3>
+                                <div class="content">
+                                    <table class="table table-hover" id="tbProduct">
+                                        <thead>
+                                        <tr style="background-color: #ff7c08; color: white">
+                                            <th scope="col">#</th>
+                                            <th scope="col">Tên sản phẩm</th>
+                                            <th scope="col">Ảnh</th>
+                                            <th scope="col">Giá</th>
+                                            <th scope="col" style="width: 70px">Đơn vị</th>
+                                            <th scope="col">Mô tả</th>
+                                            <th scope="col">Loại</th>
+                                            <th scope="col" colspan="2">Thao tác</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="tf__pagination mt_50">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <nav id="paginationNav">
+                                            <ul class="pagination justify-content-center">
+                                                <!-- Các nút phân trang sẽ được thêm vào đây -->
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</section>
+<!--=========================
+    DASHBOARD END
+==========================-->
+<div class="container">
+    <th:block th:replace="/dashboard_admin/modalCreate"/>
+    <th:block th:replace="/dashboard_admin/modalUpdate"/>
+</div>
+
+<th:block th:replace="/dashboard_admin/frm_list_table :: frm_list_table"/>
+
+<!--=============================
+    FOOTER START
+==============================-->
+<th:block th:replace="/layout/footer"/>
+<!--=============================
+    FOOTER END
+==============================-->
+
+
+<!--=============================
+    SCROLL BUTTON START
+==============================-->
+<div class="tf__scroll_btn"><i class="fas fa-hand-pointer"></i></div>
+<!--=============================
+    SCROLL BUTTON END
+==============================-->
+
+<ul class="menu_icon d-flex flex-wrap" style="background-color: crimson">
+    <li>
+        <a class="btn" style="color: white; background-color: crimson" href="/dashboard/productsJob"><i class="fas fa-bell"></i></i>
+            <span class="cart-count" id="count-orders" style="color: white">0</span></a>
+    </li>
+</ul>
+
+<!--jquery library js-->
+<script src="/assets/js/jquery-3.6.0.min.js"></script>
+<!--bootstrap js-->
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+<!--font-awesome js-->
+<script src="/assets/js/Font-Awesome.js"></script>
+<!-- slick slider -->
+<script src="/assets/js/slick.min.js"></script>
+<!-- isotop js -->
+<script src="/assets/js/isotope.pkgd.min.js"></script>
+<!-- counter up js -->
+<script src="/assets/js/jquery.waypoints.min.js"></script>
+<script src="/assets/js/jquery.countup.min.js"></script>
+<!-- nice select js -->
+<script src="/assets/js/jquery.nice-select.min.js"></script>
+<!-- venobox js -->
+<script src="/assets/js/venobox.min.js"></script>
+<!-- sticky sidebar js -->
+<script src="/assets/js/sticky_sidebar.js"></script>
+<!-- wow js -->
+<script src="/assets/js/wow.min.js"></script>
+<!-- ex zoom js -->
+<script src="/assets/js/jquery.exzoom.js"></script>
+<script src="/assets/js/appBase.js"></script>
+<script src="/assets/js/app.js"></script>
+
+<!--main/custom js-->
+<script src="/assets/js/main.js"></script>
+
+<script src="/assets/js/jquery.validate.js"></script>
+<script src="/assets/js/magnific-popup-1.1.0.js"></script>
+<script src="/assets/js/notify-0.4.1.min.js"></script>
+<script src="/assets/sweetalert2/sweetalert2.all.min.js"></script>
+
+<script>
+    const page = {
+        url: {
+            getAllProduct: AppBase.API_PRODUCT,
+            getAllCategories: AppBase.API_CATEGORY,
+
+            doCreate: AppBase.API_CREATE_PRODUCT,
+            doUpdate: AppBase.API_UPDATE_PRODUCT,
+            doDelete: AppBase.API_DELETE_PRODUCT,
+            getAllBillsORDER: AppBase.API_BILLORDER,
+            getSearch: AppBase.API_SEARCH_PRODUCT,
+        },
+        elements: {},
+        loadData: {},
+        commands: {},
+        dialogs: {
+            elements: {},
+            commands: {},
+            loadData: {}
+        }
+    }
+
+    page.elements.frmListProduct = $('#tbProduct tbody')
+
+    page.elements.loader = $(".loader");
+    page.elements.tempProduct = $("#tempProduct");
+    page.elements.currentRow = $("#currentRow");
+    page.elements.btnShowCreateForm = $("#btnCreateProduct");
+
+    page.elements.pagination = $('.pagination')
+    page.elements.countOrders = $('#count-orders')
+    page.elements.dropdownItem = $('.dropdown-item')
+
+
+    page.dialogs.elements.frmCreateProduct = $('#frmCreateProduct');
+    page.dialogs.elements.modalCreate = $('#modalCreateProduct')
+    page.dialogs.elements.errorCreateArea = $('#modalCreateProduct .modal-body .modal-alert-danger')
+    page.dialogs.elements.productName = $('#productName')
+    page.dialogs.elements.productPrice = $('#productPrice')
+    page.dialogs.elements.productUnit = $('#productUnit')
+    page.dialogs.elements.description = $('#description')
+    page.dialogs.elements.btnCreate = $('#btnCreate')
+    page.dialogs.elements.categorySelectCreate = $('#categorySelectCreate')
+
+    page.elements.btnShowUpdateForm = $("a.edit");
+    page.dialogs.elements.frmUpdateProduct = $('#frmUpdateProduct');
+    page.dialogs.elements.modalUpdate = $('#modalUpdate')
+    page.dialogs.elements.errorUpdateArea = $('#modalUpdate .modal-body .modal-alert-danger')
+    page.dialogs.elements.productNameUp = $('#productNameUp')
+    page.dialogs.elements.productQuantityUp = $('#productQuantityUp')
+    page.dialogs.elements.productPriceUp = $('#productPriceUp')
+    page.dialogs.elements.productUnitUp = $('#productUnitUp')
+    page.dialogs.elements.descriptionUp = $('#descriptionUp')
+    page.dialogs.elements.btnUpdate = $('#btnUpdate')
+    page.dialogs.elements.categorySelectUpdate = $('#categorySelectUpdate')
+
+
+    page.dialogs.elements.wrapper = $("section .wrapper");
+    page.dialogs.elements.imageFileCreate = $("#imageFile");
+    page.dialogs.elements.imageFileUpdate = $("#imageFile");
+    page.dialogs.elements.wrapperContent = $("section .wrapper .content");
+    page.dialogs.elements.imagePreview = $("section .image-preview canvas");
+    page.dialogs.elements.canvasCreate = $("#canvasCreate");
+    page.dialogs.elements.canvasUpdate = $("#canvasUpdate");
+    page.dialogs.elements.contextCreate = page.dialogs.elements.canvasCreate[0].getContext('2d');
+    page.dialogs.elements.contextUpdate = page.dialogs.elements.canvasUpdate[0].getContext('2d');
+    page.dialogs.elements.imagePreview.css("display", "none");
+    page.dialogs.elements.divImagePreviewCreate = $("#modalCreateProduct div.image-preview, #modalCreateProduct div.file-name");
+    page.dialogs.elements.divImagePreviewUpdate = $("#modalUpdate div.image-preview, #modalUpdate div.file-name");
+    page.dialogs.elements.btnClearImagePreview = $(".clear-image-preview i");
+
+
+    // page.elements.btnDelete = $("#tempProduct body");
+    let productId = 0;
+
+    let product = new Product();
+    let avatar = new Avatar();
+
+    let tempProduct = jQuery.validator.format($.trim(page.elements.tempProduct.val().toString()));
+
+    page.commands.addRow = (price) => {
+        let image_thumbnail = AppBase.BASE_URL_CLOUD_IMAGE + "/" + AppBase.IMAGE_SCALE_W_100_h_80_Q_90 + "/" + avatar.fileFolder + "/" + avatar.fileName;
+        let imageFileUrl = AppBase.BASE_URL_CLOUD_IMAGE + "/" + avatar.fileFolder + "/" + avatar.fileName;
+        let aClass = "image-popup-vertical-fit";
+        page.elements.frmListProduct.append($(tempProduct(product.id, product.title, price, product.quantity, product.unit, product.description, product.categoryTitle, imageFileUrl, image_thumbnail, aClass)));
+
+    }
+
+    page.commands.replace = (productId, price) => {
+        let image_thumbnail = AppBase.BASE_URL_CLOUD_IMAGE + "/" + AppBase.IMAGE_SCALE_W_100_h_80_Q_90 + "/" + avatar.fileFolder + "/" + avatar.fileName;
+        let imageFileUrl = AppBase.BASE_URL_CLOUD_IMAGE + "/" + avatar.fileFolder + "/" + avatar.fileName;
+        let aClass = "image-popup-vertical-fit";
+
+        $('#tr_' + productId).replaceWith($(tempProduct(product.id, product.title, price, product.quantity, product.unit, product.description, product.categoryTitle, imageFileUrl, image_thumbnail, aClass)));
+    }
+
+    page.commands.countAllBillsORDER = () => {
+        $.ajax({
+            type: 'GET',
+            url: page.url.getAllBillsORDER,
+        })
+            .done((data) => {
+                page.elements.countOrders.text(0);
+                const count = data.length;
+                console.log(`Số lượng order: ${count}`);
+                page.elements.countOrders.text(count)
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            });
+    };
+
+
+    page.commands.getAllProduct = (pageProduct, pageSize) => {
+        $.ajax({
+            type: 'GET',
+            url: page.url.getAllProduct,
+            data: {
+                page: pageProduct,
+                pageSize: pageSize
+            }
+        })
+            .done((data) => {
+                console.log(data)
+                page.elements.frmListProduct.empty();
+                let price = 0;
+                $.each(data.content, (index, item) => {
+                    product = new Product(item.id, item.title, item.price, item.quantity, item.unit, item.description, item.category.title);
+                    avatar = item.avatar;
+                    price = product.price.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+                    page.commands.addRow(price);
+
+                })
+                page.commands.displayPagination(data.totalPages, data.number + 1);
+                page.commands.showCreateModal();
+                page.commands.showUpdateModal();
+            })
+            .fail(function () {
+                console.log()
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            });
+    }
+
+    page.commands.displayPagination = (totalPages, currentPage) => {
+        page.elements.pagination.empty();
+
+        let previousBtn = '<li class="page-item"><a class="page-link"onclick="page.commands.getAllProduct(' + (currentPage - 1) + ', 10)"><i class="fas fa-long-arrow-alt-left"></i></a></li>';
+        page.elements.pagination.append(previousBtn);
+
+        for (let i = 1; i <= totalPages; i++) {
+            let pageBtn = '<li class="page-item ' + (i === currentPage ? 'active' : '') + '"><a class="page-link" onclick="page.commands.getAllProduct(' + i + ', 10)">' + i + '</a></li>';
+            page.elements.pagination.append(pageBtn);
+        }
+
+        let nextBtn = '<li class="page-item"><a class="page-link"onclick="page.commands.getAllProduct(' + (currentPage + 1) + ', 10)"><i class="fas fa-long-arrow-alt-right"></i></a></li>';
+        page.elements.pagination.append(nextBtn);
+    };
+
+    page.commands.getProductById = (productId) => {
+        return $.ajax({
+            type: 'GET',
+            url: page.url.getAllProduct + '/' + productId
+        });
+    }
+
+    page.commands.getCategories = () => {
+
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: 'GET',
+            url: page.url.getAllCategories,
+        })
+            .done((data) => {
+                page.dialogs.elements.categorySelectCreate.empty();
+                page.dialogs.elements.categorySelectUpdate.empty();
+
+                $.each(data, function (index, item) {
+                    page.dialogs.elements.categorySelectCreate.append($('<option>').val(item.id).text(item.title));
+                    page.dialogs.elements.categorySelectUpdate.append($('<option>').val(item.id).text(item.title));
+                })
+            })
+            .fail((jqXHR, textStatus, errorThrown) => {
+                console.log('Error: ' + textStatus + ' ' + errorThrown);
+            })
+    }
+
+    page.commands.showCreateModal = () => {
+        page.elements.btnShowCreateForm.on("click", function () {
+            delete product.id;
+            page.commands.getCategories();
+            page.dialogs.elements.modalCreate.modal('show');
+            page.commands.clearForm();
+        });
+
+    }
+
+
+    page.commands.showUpdateModal = () => {
+
+        $('a.edit').on("click", function () {
+            page.commands.getCategories();
+            productId = $(this).data('id');
+            page.commands.getProductById(productId).then((data) => {
+                if (data !== {}) {
+                    product = data;
+                    avatar = product.avatar;
+
+                    page.dialogs.elements.productNameUp.val(product.title);
+                    page.dialogs.elements.productPriceUp.val(product.price);
+                    page.dialogs.elements.productUnitUp.val(product.unit);
+                    page.dialogs.elements.productQuantityUp.val(product.quantity);
+                    page.dialogs.elements.categorySelectUpdate.val(product.category.id);
+
+
+                    page.dialogs.elements.descriptionUp.val(product.description);
+
+
+
+                    page.dialogs.commands.loadImageToCanvasUpdate(null, "", avatar.fileUrl);
+
+                    page.dialogs.elements.modalUpdate.modal('show');
+
+                    page.dialogs.elements.errorUpdateArea.empty();
+
+                } else {
+                    alert('Customer not found');
+                }
+
+            })
+            page.commands.clearForm();
+        });
+
+        // page.commands.getCategories();
+        // page.dialogs.elements.modalUpdate.modal('show');
+    }
+
+    page.commands.showDeleteConfirm = () => {
+
+        AppBase.SweetAlert.showDeleteConfirmDialog()
+            .then((result) => {
+                if (result.isConfirmed) {
+                    page.commands.deleteProduct();
+                }
+            });
+    }
+
+    page.dialogs.commands.loadImageToCanvas = (imageFile, fileType, imageUrl) => {
+        page.dialogs.elements.imagePreview.css("display", "");
+        page.dialogs.elements.wrapper.addClass("active");
+        page.dialogs.elements.wrapperContent.css("opacity", 0);
+
+        let imageObj = new Image();
+
+        imageObj.onload = function () {
+            page.dialogs.elements.contextCreate.canvas.width = imageObj.width;
+            page.dialogs.elements.contextCreate.canvas.height = imageObj.height;
+            page.dialogs.elements.contextCreate.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height);
+
+        };
+
+        if (fileType === "BINARY") {
+            imageObj.src = URL.createObjectURL(imageFile);
+        } else {
+            imageObj.src = imageUrl;
+        }
+    }
+
+    page.dialogs.commands.loadImageToCanvasUpdate = (imageFile, fileType, imageUrl) => {
+        page.dialogs.elements.imagePreview.css("display", "");
+        page.dialogs.elements.wrapper.addClass("active");
+        page.dialogs.elements.wrapperContent.css("opacity", 0);
+
+        let imageObj = new Image();
+
+        imageObj.onload = function () {
+            page.dialogs.elements.contextUpdate.canvas.width = imageObj.width;
+            page.dialogs.elements.contextUpdate.canvas.height = imageObj.height;
+            page.dialogs.elements.contextUpdate.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height);
+
+        };
+
+        if (fileType === "BINARY") {
+            imageObj.src = URL.createObjectURL(imageFile);
+        } else {
+            imageObj.src = imageUrl;
+        }
+    }
+
+    page.dialogs.commands.changeImagePreviewCreate = () => {
+        let imageFile = page.dialogs.elements.imageFileCreate[0].files[0];
+
+
+        if (imageFile) {
+            let reader = new FileReader();
+
+            reader.readAsDataURL(imageFile);
+
+            reader.onload = function (e) {
+                if (e.target.readyState === FileReader.DONE) {
+                    page.dialogs.commands.loadImageToCanvas(imageFile, "BINARY", null);
+                }
+            }
+        } else {
+            page.dialogs.elements.clearImagePreview();
+        }
+    }
+
+    page.dialogs.commands.changeImagePreviewUpdate = () => {
+        let imageFile = page.dialogs.elements.imageFileUpdate[0].files[0];
+
+
+        if (imageFile) {
+            let reader = new FileReader();
+
+            reader.readAsDataURL(imageFile);
+
+            reader.onload = function (e) {
+                if (e.target.readyState === FileReader.DONE) {
+                    page.dialogs.commands.loadImageToCanvasUpdate(imageFile, "BINARY", null);
+                }
+            }
+        } else {
+            page.dialogs.elements.clearImagePreview();
+        }
+    }
+
+    page.dialogs.commands.createProduct = () => {
+        // page.commands.showLoadingSpinner();
+        page.elements.loader.removeClass("hide");
+        page.dialogs.elements.btnCreate.prop('disabled', true);
+
+
+        let formData = new FormData();
+        formData.append("title", page.dialogs.elements.productName.val());
+        formData.append("price", page.dialogs.elements.productPrice.val());
+        formData.append("unit", page.dialogs.elements.productUnit.val());
+        formData.append("description", page.dialogs.elements.description.val());
+        // formData.append("quantity", page.dialogs.elements.quantity.val())
+        formData.append("categoryId", page.dialogs.elements.categorySelectCreate.val());
+        formData.append("avatar", page.dialogs.elements.imageFileCreate[0].files[0]);
+
+        $.ajax({
+            type: "POST",
+            contentType: false,
+            cache: false,
+            processData: false,
+            url: page.url.doCreate,
+            data: formData
+        }).done((data) => {
+            console.log(data)
+            product = new Product(data.id, data.title, data.price,100, data.unit, data.description, data.categoryTitle);
+            avatar = data.avatar;
+            price = product.price.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+            page.commands.addRow(price);
+
+            AppBase.SweetAlert.showSuccessAlert(AppBase.AlertMessageEn.SUCCESS_CREATED);
+
+            page.dialogs.elements.modalCreate.modal('hide');
+            page.commands.handleImagePopup();
+            // page.commands.hideLoadingSpinner();
+            page.dialogs.elements.clearImagePreview()
+            page.dialogs.elements.frmCreateProduct.trigger("reset");
+        })
+            .fail((err) => {
+            console.log(err)
+            AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+        })
+            .always(function () {
+            page.elements.loader.addClass("hide");
+            page.dialogs.elements.btnCreate.prop('disabled', false);
+        });
+    }
+
+    page.dialogs.commands.updateProduct = () => {
+
+        page.elements.loader.removeClass("hide");
+        page.dialogs.elements.btnUpdate.prop('disabled', true);
+        // page.commands.showLoadingSpinner();
+
+
+        let formData = new FormData();
+        formData.append("title", page.dialogs.elements.productNameUp.val());
+        formData.append("price", page.dialogs.elements.productPriceUp.val());
+        formData.append("unit", page.dialogs.elements.productUnitUp.val());
+        formData.append("description", page.dialogs.elements.descriptionUp.val());
+        formData.append("categoryId", page.dialogs.elements.categorySelectUpdate.val());
+        formData.append("quantity", page.dialogs.elements.productQuantityUp.val());
+
+        if (page.dialogs.elements.imageFileUpdate[0].files[0] != null) {
+            formData.append("avatar", page.dialogs.elements.imageFileUpdate[0].files[0]);
+        }
+        $.ajax({
+            type: "PATCH",
+            contentType: false,
+            cache: false,
+            processData: false,
+            url: page.url.doUpdate + '/' + productId,
+            data: formData
+        }).done((data) => {
+            product = data;
+            avatar = product.avatar;
+            let price = product.price.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+            page.commands.replace(productId, price);
+
+            AppBase.SweetAlert.showSuccessAlert(AppBase.AlertMessageEn.SUCCESS_UPDATED);
+
+            page.dialogs.elements.modalUpdate.modal('hide');
+
+            page.commands.handleImagePopup();
+            page.commands.showUpdateModal();
+            // page.commands.hideLoadingSpinner();
+            page.dialogs.elements.clearImagePreview()
+            page.dialogs.elements.frmUpdateProduct.trigger("reset");
+
+        }).fail((err) => {
+            console.log(err)
+            AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_400);
+        }).always(function () {
+            page.elements.loader.addClass("hide");
+            page.dialogs.elements.btnUpdate.prop('disabled', false);
+        });
+    }
+
+    page.commands.deleteProduct = () => {
+        page.elements.loader.removeClass("hide");
+
+        $.ajax({
+            type: "DELETE",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: page.url.doDelete + '/' + product.id,
+        }).done((data) => {
+
+            AppBase.SweetAlert.showSuccessAlert(AppBase.AlertMessageEn.SUCCESS_DELETED);
+
+            $("#tr_" + product.id).remove();
+
+            page.commands.handleImagePopup();
+
+        }).fail(function (jqXHR) {
+            AppBase.SweetAlert.showErrorAlert(jqXHR.responseJSON.message);
+        }).always(function () {
+            page.elements.loader.addClass("hide");
+        });
+    }
+
+    page.commands.handleImagePopup = () => {
+
+        $('.image-popup-vertical-fit').magnificPopup({
+            type: 'image',
+            closeOnContentClick: true,
+            mainClass: 'mfp-img',
+            image: {
+                verticalFit: true
+            },
+            gallery: {
+                enabled: true
+            }
+        });
+
+        $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
+            disableOn: 700,
+            type: 'iframe',
+            mainClass: 'mfp-fade',
+            removalDelay: 160,
+            preloader: false,
+            fixedContentPos: false
+        });
+    }
+
+    // page.commands.showLoadingSpinner = () => {
+    //     $('#loading').append('<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>')
+    // }
+    //
+    // page.commands.hideLoadingSpinner = () => {
+    //     $('#loading').remove();
+    // }
+
+
+    page.dialogs.elements.clearImagePreview = () => {
+        page.dialogs.elements.imageFileCreate.val("");
+        page.dialogs.elements.imageFileUpdate.val("");
+        page.dialogs.elements.imagePreview.css("display", "none");
+        page.dialogs.elements.wrapper.removeClass("active");
+        page.dialogs.elements.wrapperContent.css("opacity", 1);
+    }
+
+    page.commands.clearForm = () => {
+        $('.btnClose').on('click', () => {
+            page.dialogs.elements.clearImagePreview();
+
+            $("#modalCreateProduct .modal-alert-danger").removeClass("show").addClass("hide").empty();
+            $("#frmCreateProduct input.error").removeClass("error");
+            page.dialogs.elements.frmCreateProduct.trigger("reset");
+
+            $("#modalUpdate .modal-alert-danger").removeClass("show").addClass("hide").empty();
+            $("#frmUpdateProduct input.error").removeClass("error");
+            page.dialogs.elements.frmUpdateProduct.trigger("reset");
+        })
+    }
+
+    page.dialogs.elements.frmCreateProduct.validate({
+        rules: {
+            productName: {
+                required: true,
+            },
+            productPrice: {
+                required: true,
+                min: 100,
+                max: 999999999,
+                number: true
+            },
+            productUnit: {
+                required: true
+            },
+            categorySelectCreate: {
+                required: true,
+                number: true
+
+            }
+        },
+        messages: {
+            productName: {
+                required: "Vui lòng nhập tên sản phẩm.",
+            },
+            productPrice: {
+                required: "Vui lòng nhập giá.",
+                number: "Giá sản phẩm phải là số.",
+                min: "Giá sản phẩm tối thiểu là 100 VNĐ.",
+                max: "Giá sản phẩm tối đa là 999.999.999 VNĐ."
+            },
+            productUnit: {
+                required: "Vui lòng nhập loại sản phẩm."
+            },
+            categorySelectCreate: {
+                required: "Vui lòng nhập loại sản phâ.",
+                number: "mã category không đúng. vui lòng chọn lại."
+            }
+        },
+        errorLabelContainer: "#modalCreateProduct .modal-alert-danger",
+        errorPlacement: function (error, element) {
+            error.appendTo("#modalCreateProduct .modal-alert-danger");
+        },
+        showErrors: function (errorMap, errorList) {
+            if (this.numberOfInvalids() > 0) {
+                $("#modalCreateProduct .modal-alert-danger").removeClass("hide").addClass("show");
+            } else {
+                $("#modalCreateProduct .modal-alert-danger").removeClass("show").addClass("hide").empty();
+                $("#frmCreateProduct input.error").removeClass("error");
+            }
+            this.defaultShowErrors();
+        },
+        submitHandler: function () {
+            page.dialogs.commands.createProduct();
+        }
+    })
+
+    page.dialogs.elements.frmUpdateProduct.validate({
+        rules: {
+            productNameUp: {
+                required: true,
+            },
+            productPriceUp: {
+                required: true,
+                min: 100,
+                max: 999999999,
+                number: true
+            },
+            productQuantityUp: {
+                required: true,
+                min: 1,
+                max: 999,
+                number: true
+            },
+            productUnitUp: {
+                required: true
+            },
+            categorySelectUpdate: {
+                required: true,
+                number: true
+
+            }
+        },
+        messages: {
+            productNameUp: {
+                required: "Vui lòng nhập tên sản phẩm.",
+            },
+            productPriceUp: {
+                required: "Vui lòng nhập giá.",
+                number: "Giá sản phẩm phải là số.",
+                min: "Giá sản phẩm tối thiểu là 100 VNĐ.",
+                max: "Giá sản phẩm tối đa là 999.999.999 VNĐ."
+            },
+            productQuantityUp: {
+                required: "Vui lòng nhập số lượng sản phẩm.",
+                number: "Số lượng sản phẩm phải là số.",
+                min: "Số lượng sản phẩm tối thiểu là 1.",
+                max: "Số lượng sản phẩm tối đa là 999."
+            },
+            productUnitUp: {
+                required: "Vui lòng nhập loại sản phẩm."
+            },
+            categorySelectUpdate: {
+                required: "Vui lòng nhập loại sản phâ.",
+                number: "mã category không đúng. vui lòng chọn lại."
+            }
+        },
+        errorLabelContainer: "#modalUpdate .modal-alert-danger",
+        errorPlacement: function (error, element) {
+            error.appendTo("#modalUpdate .modal-alert-danger");
+        },
+        showErrors: function (errorMap, errorList) {
+            if (this.numberOfInvalids() > 0) {
+                $("#modalUpdate .modal-alert-danger").removeClass("hide").addClass("show");
+            } else {
+                $("#modalUpdate .modal-alert-danger").removeClass("show").addClass("hide").empty();
+                $("#frmUpdateProduct input.error").removeClass("error");
+            }
+            this.defaultShowErrors();
+        },
+        submitHandler: function () {
+            page.dialogs.commands.updateProduct();
+        }
+    })
+
+    page.commands.search = (pageProduct , pageSize) => {
+        let keyword = page.elements.inputSearch.val();
+        let categoryIds = '';
+        $("input[name='category']:checked").each(function () {
+            categoryIds = categoryIds + $(this).val() + ',';
+        });
+
+
+        let priceRanges = [];
+        let minPrice, maxPrice;
+        let count = 0;
+        if ($("#p1").is(":checked")) {
+            count += 1;
+            priceRanges.push(+$("#p1").data('minprice'));
+            priceRanges.push(+$("#p1").data('maxprice'));
+        }
+        if ($("#p2").is(":checked")) {
+            count += 1;
+            priceRanges.push(+$("#p2").data('minprice'));
+            priceRanges.push(+$("#p2").data('maxprice'));
+        }
+        if ($("#p3").is(":checked")) {
+            count += 1;
+            priceRanges.push(+$("#p3").data('minprice'));
+            priceRanges.push($("#p3").data('maxprice'));
+        }
+        if ($("#p4").is(":checked")) {
+            count += 1;
+            priceRanges.push(+$("#p4").data('minprice'));
+            priceRanges.push(+$("#p4").data('maxprice'));
+        }
+        if ($("#p5").is(":checked")) {
+            count += 1;
+            priceRanges.push(+$("#p5").data('minprice'));
+            priceRanges.push(+$("#p5").data('maxprice'));
+        }
+        priceRanges.sort(function (a, b) {
+            return a - b
+        });
+        if(count === 0) {
+            minPrice = '';
+            maxPrice = '';
+        } else {
+            minPrice = Number(priceRanges[0]);
+            maxPrice = Number(priceRanges[priceRanges.length - 1]);
+        }
+
+
+        console.log(minPrice)
+        console.log(maxPrice)
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: 'GET',
+            url: page.urls.getSearch,
+            data: {
+                search: keyword,
+                ids: categoryIds,
+                minPrice: minPrice,
+                maxPrice: maxPrice,
+                page: pageProduct,
+                pageSize: pageSize
+            },
+            dataType: 'json',
+        })
+            .done((data) => {
+                if(data === undefined) {
+                    page.elements.pagination.empty();
+                    page.elements.productCarts.empty();
+                    page.elements.divProducts.empty();
+                    page.elements.frmListProduct.empty();
+                    AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageEn.ERROR_FIND_PRODUCT);
+                }
+
+                page.commands.loadProduct(data.content);
+                page.commands.displayPaginationSearch(data.totalPages, data.number + 1);
+
+                page.commands.doAddToCart();
+                page.commands.showCart();
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            })
+    }
+
+    page.initializeControlEvent = () => {
+        $('.dropdown-item').on('click', () => {
+            page.commands.search(1,8);
+        });
+
+        page.dialogs.elements.btnCreate.on("click", function () {
+            page.dialogs.elements.frmCreateProduct.trigger('submit');
+
+        });
+
+        page.dialogs.elements.btnUpdate.on("click", function () {
+            page.dialogs.elements.frmUpdateProduct.trigger('submit');
+        });
+
+        page.elements.frmListProduct.on("click", ".delete", function () {
+            // page.elements.currentRow.val($(this).closest("tr").attr("id"));
+            product.id = $(this).data('id');
+            page.commands.showDeleteConfirm();
+        });
+         page.elements.frmListProduct.on("click", ".restore", function () {
+            // page.elements.currentRow.val($(this).closest("tr").attr("id"));
+            product.id = $(this).data('id');
+            page.commands.showRestoreConfirm();
+        });
+          page.elements.frmListProduct.on("click", ".edit", function () {
+            // page.elements.currentRow.val($(this).closest("tr").attr("id"));
+            product.id = $(this).data('id');
+            page.commands.showUpdateModal();
+        });
+
+
+
+        page.dialogs.elements.divImagePreviewCreate.on("click", function () {
+            page.dialogs.elements.imageFileCreate.trigger("click");
+
+        });
+        page.dialogs.elements.divImagePreviewUpdate.on("click", function () {
+            page.dialogs.elements.imageFileUpdate.trigger("click");
+        });
+
+
+        page.dialogs.elements.imageFileCreate.on("change", function () {
+            page.dialogs.commands.changeImagePreviewCreate();
+        });
+        page.dialogs.elements.imageFileUpdate.on("change", function () {
+            page.dialogs.commands.changeImagePreviewUpdate();
+        });
+
+        page.dialogs.elements.btnClearImagePreview.on("click", function () {
+            page.dialogs.elements.clearImagePreview();
+        });
+
+        page.commands.handleImagePopup();
+
+    }
+
+
+    page.loadData = () => {
+        page.commands.getAllProduct(1, 10);
+        page.commands.countAllBillsORDER();
+    }
+
+    $(() => {
+        page.loadData();
+        page.initializeControlEvent();
+    })
+
+    const autoRefreshData = () => {
+        setInterval(() => {
+            page.commands.countAllBillsORDER();
+        }, 500);
+    };
+    autoRefreshData();
+
+</script>
+
+</body>
+
+</html>

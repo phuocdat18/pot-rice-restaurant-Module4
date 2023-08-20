@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <title>Đăng nhập || Nhà Hàng Cơm Niêu HTD</title>
+    <link rel="icon" href="/assets/images/logo_icon.png">
+    <th:block th:replace="layout/header"/>
+</head>
+<style>
+    label.error {
+        display: list-item;
+    }
+
+    input.error {
+        border: solid 1px red;
+    }
+
+    .error-message {
+        color: red;
+        width: 500px;
+        float: left;
+        padding-left: 60px;
+    }
+</style>
+
+<body>
+
+<!--=============================
+    TOPBAR START
+==============================-->
+<section class="tf__topbar">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-sm-6 col-md-8">
+                <ul class="tf__topbar_info d-flex flex-wrap d-none d-sm-flex">
+                    <li>
+                        <a href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWsdBqCPSBskMPRHHvkHmJPTTVDJNZxbQLCKxmPBNxBXqkvdhLTzVMCHbfmzgMLbvtlKsktBb" target="_blank">nguyenphuocdat18@gmail.com</a>
+                    </li>
+                    <li class="d-none d-md-block"><a href="https://www.facebook.com/groupcall/ROOM:/?call_id=1819783208&has_video=false&initialize_video=false&is_e2ee_mandated=false&nonce=l91hm9og6xc9&referrer_context=zenon_precall&thread_type=1&users_to_ring[0]=100012718507997&use_joining_context=true&peer_id=100012718507997" target="_blank"><i class="fas fa-phone-alt"></i>
+                        +0856419555</a></li>
+                </ul>
+            </div>
+            <div class="col-xl-6 col-sm-6 col-md-4">
+                <ul class="topbar_icon d-flex flex-wrap">
+                    <li><a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a> </li>
+                    <li><a href="https://mail.google.com/" target="_blank"><i class="fab fa-google-plus-g"></i></a></li>
+                    <li><a href="https://www.instagram.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=============================
+    TOPBAR END
+==============================-->
+
+
+<!--=============================
+    MENU START
+==============================-->
+<nav class="navbar navbar-expand-lg main_menu">
+    <div class="container" style="justify-content: center">
+        <a class="navbar-brand">
+            <img src="/assets/images/logo.png" alt="RegFood" class="img-fluid">
+        </a>
+    </div>
+    </div>
+</nav>
+
+<!--=========================
+    SIGNIN START
+==========================-->
+<section class="tf__signin pt_100 xs_pt_70 pb_100 xs_pb_70" style="margin-top: 100px">
+    <div class="container">
+        <div class="row justify-content-center wow fadeInUp" data-wow-duration="1s">
+            <div class="col-xl-5 col-sm-10 col-md-8 col-lg-6">
+                <div class="tf__login_area">
+                    <h2>Welcome back!</h2>
+                    <p>sign in to continue</p>
+                    <div class="error-message"></div>
+                    <form method="post" class="sign-in-form" id="frmLogin">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="tf__login_imput">
+                                    <input type="text" id="usernameLog" placeholder="Username"/>
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="tf__login_imput">
+                                    <input type="password" id="passwordLog" placeholder="Password"/>
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="tf__login_imput tf__login_check_area">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                               id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Remember Me
+                                        </label>
+                                    </div>
+                                    <a href="forgot_password.html">Quên mật khẩu ?</a>
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <button type="button" id="btnLogin" value="Login" class="btn-search">Đăng nhập</button>
+                            </div>
+                        </div>
+                    </form>
+                    <p class="or"><span>or</span></p>
+                    <ul class="d-flex">
+                        <li><a href="https://www.facebook.com/winanh.1803" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.instagram.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                        <li><a href=""><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://mail.google.com/" target="_blank"><i class="fab fa-google-plus-g"></i></a></li>
+                    </ul>
+                    <p class="create_account">Chưa có tài khoản ? <a href="/register">Đăng ký</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=========================
+    SIGNIN END
+==========================-->
+
+
+<!--=============================
+    FOOTER START
+==============================-->
+<th:block th:replace="layout/footer"/>
+<!--=============================
+    FOOTER END
+==============================-->
+
+
+<!--=============================
+    SCROLL BUTTON START
+==============================-->
+<div class="tf__scroll_btn"><i class="fas fa-hand-pointer"></i></div>
+<!--=============================
+    SCROLL BUTTON END
+==============================-->
+
+
+<!--jquery library js-->
+<th:block th:replace="layout/script"/>
+
+
+<script>
+    const page = {
+        urls: {
+            login: AppBase.API_LOGIN
+        },
+        elements: {},
+        commands: {},
+        dialogs: {
+            elements: {},
+            commands: {}
+        },
+    }
+    page.elements.frmLogin = $("#frmLogin");
+    page.elements.usnLogin = $("#usernameLog");
+    page.elements.pwdLogin = $("#passwordLog");
+
+    page.elements.btnLogin = $("#btnLogin");
+    page.elements.errorLogin = $('.error-message')
+
+
+    page.commands.login = () => {
+        let user = {
+            username: page.elements.usnLogin.val(),
+            password: page.elements.pwdLogin.val()
+        }
+
+        $.ajax({
+            type: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: page.urls.login,
+            data: JSON.stringify(user)
+        }).done((resp) => {
+            console.log(resp)
+
+            AppBase.Notify.showSuccessAlert("Logged in successfully !");
+            if (resp.name === 'admin') {
+                setTimeout(function () {
+                    window.location.href = "/dashboard";
+                }, 1000);
+            } else {
+                setTimeout(function () {
+                    window.location.href = "/shop";
+                }, 1000);
+            }
+
+        }).fail(function (jqXHR) {
+            page.elements.frmLogin[0].reset();
+
+            if (jqXHR.responseJSON) {
+                if (jqXHR.responseJSON.message) {
+                    AppBase.Notify.showErrorAlert(jqXHR.responseJSON.message);
+                } else {
+                    let str = '<ul>';
+                    $.each(jqXHR.responseJSON, (k, v) => {
+                        str += `<li>${v}</li>`;
+                    })
+                    str += '</ul>'
+                    page.elements.errorLogin.append(str);
+                    page.elements.errorLogin.removeClass('hide').addClass('show');
+                }
+            } else {
+                AppBase.Notify.showErrorAlert("The email or password is incorrect, please check the information again");
+            }
+        });
+    }
+
+    page.elements.frmLogin.validate({
+        rules: {
+
+            username: {
+                required: true
+            },
+            password: {
+                required: true
+            }
+        },
+        messages: {
+            username: {
+                required: "Please enter your username."
+            },
+            password: {
+                required: "Please enter your password."
+            }
+        },
+        errorLabelContainer: "#frmLogin .error-message",
+        errorPlacement: function (error, element) {
+            error.appendTo("#frmLogin .error-message");
+        },
+        showErrors: function (errorMap, errorList) {
+            if (this.numberOfInvalids() > 0) {
+                $(".error-message").removeClass("hide").addClass("show");
+            } else {
+                $(".error-message").removeClass("show").addClass("hide").empty();
+                    $("#frmLogin input.error").removeClass("error");
+            }
+            this.defaultShowErrors();
+        },
+        submitHandler: function () {
+            page.commands.login();
+        }
+    })
+
+    page.initializeControlEvent = () => {
+
+        page.elements.btnLogin.on("click", function () {
+            page.elements.frmLogin.trigger('submit');
+            // page.commands.login();
+        });
+    }
+
+    $(() => {
+        page.initializeControlEvent();
+    });
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <title>Thanh toán || Nhà Hàng Cơm Niêu HTD</title>
+    <link rel="icon" href="/assets/images/logo_icon.png">
+
+    <th:block th:replace="/layout/header"/>
+    <style>
+        .btn-search:hover{
+            background-color: #231f40;
+            color: white;
+        }
+        .quantity-input{
+            padding: 2px 10px;
+        }
+        .address{
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!--=============================
+    TOPBAR START
+==============================-->
+<th:block th:replace="/layout/topbar"/>
+<!--=============================
+    TOPBAR END
+==============================-->
+<!--=============================
+    BREADCRUMB START
+==============================-->
+<section  class="tf__breadcrumb" style="background: url('/assets/images/counter_bg.jpg');">
+    <div class="tf__breadcrumb_overlay">
+        <div class="container">
+            <div class="tf__breadcrumb_text">
+                <h1>Giỏ hàng</h1>
+                <ul>
+                    <li><a href="/shop">Trang chủ</a></li>
+                    <li><a href="#">Giỏ hàng</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--=============================
+    BREADCRUMB END
+==============================-->
+
+
+<!--============================
+    CART VIEW START
+==============================-->
+<section class="tf__cart_view mt_100 xs_mt_70 mb_100 xs_mb_70" id="mdCart">
+    <div class="container">
+<!--        <div class="row">-->
+            <div class="col-lg-12 wow fadeInUp" data-wow-duration="1s">
+                <div class="tf__cart_list">
+                    <div class="table-responsive">
+                        <div class="modal-body" style=" padding: 6px; margin-bottom: 30px">
+                            <div class="modal-alert-danger hide">
+                            </div>
+                            <h3 style="margin-bottom: 10px; text-align: center">Giỏ hàng của bạn</h3>
+                            <table id="tbCart" class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        Id
+                                    </th>
+
+                                    <th>
+                                        Image
+                                    </th>
+
+                                    <th>
+                                        Title
+                                    </th>
+
+                                    <th>
+                                        Unit
+                                    </th>
+
+                                    <th>
+                                        price
+                                    </th>
+
+                                    <th>
+                                        quantity
+                                    </th>
+
+                                    <th>
+                                        total
+                                    </th>
+
+                                    <th>
+                                        <a class="clear_all" style="color: white">Clear </a>
+                                    </th>
+                                </tr>
+
+                                </thead>
+                                <tbody id="tbdCart">
+                                </tbody>
+                            </table><hr>
+
+                            <form method="post" id="frmPayment">
+                                <div class="row payment-form-cart">
+                                    <div class="col-8 locationRegion">
+                                        <div class="row address">
+                                            <div class="col-lg-6 form-group" hidden="hidden">
+                                                <label for="provinceCr" class="form-label">Province</label>
+                                                <select class="form-control" id="provinceCr" name="provinceCr"></select>
+                                                <div class="form-message"></div>
+                                            </div>
+                                            <div class="col-lg-6 form-group">
+                                                <label for="districtCr" class="form-label">District</label>
+                                                <select class="form-control" id="districtCr" name="districtCr" ></select>
+                                                <div class="form-message"></div>
+                                            </div>
+                                            <div class="col-lg-6 form-group">
+                                                <label for="wardCr" class="form-label">Ward</label>
+                                                <select class="form-control" id="wardCr" name="wardCr"></select>
+                                                <div class="form-message"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row address">
+
+                                            <div class="col-lg-12 form-group">
+                                                <label for="addressCr" class="form-label">Address</label>
+                                                <input type="text" class="form-control" id="addressCr" name="addressCr"
+                                                       placeholder="Enter address">
+                                                <div class="form-message"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 payment-cart-group">
+                                        <div class="payment row" style="margin-top: 50px;">
+                                            <div class="panel-default col-4">
+                                                <input class="payment_defult" value="momo" name="payment_method" type="radio"
+                                                       data-target="createp_account" />
+                                                <input class="payment_defult" value="cod" name="payment_method" type="radio"
+                                                       data-target="createp_account" />
+                                            </div>
+                                            <div class="panel-default col-6">
+
+                                                <label style="margin-right: 10px" data-toggle="collapse" data-target="#collapsedefult"
+                                                       aria-controls="collapsedefult">Momo</label>
+                                                <label data-toggle="collapse" data-target="#collapsedefult"
+                                                       aria-controls="collapsedefult">Thanh toán khi nhận hàng</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-12 wow fadeInUp" data-wow-duration="1s">
+                <div class="tf__cart_list_footer_button mt_50">
+                    <div class="row">
+                        <div class="col-xl-7 col-md-6">
+                            <div class="tf__cart_list_footer_button_img">
+                                <img src="/assets/images/dau-chien-trung-muoi-768x768.png" alt="cart offer"
+                                     class="img-fluid w-100">
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-md-6">
+                            <div class="tf__cart_list_footer_button_text">
+                                <h6>total cart</h6>
+                                <p><span>Subtotal:</span> <span id="subTotalAmount"></span></p>
+                                <p>delivery: <span>15.000 đ</span></p>
+                                <p><span>VAT( 10%):</span> <span id="vat"></span></p>
+                                <p class="total"><span>Total:</span> <span id="totalAmount"></span></p>
+                                <form>
+                                    <input type="text" placeholder="Coupon Code">
+                                    <button type="submit">apply</button>
+                                </form>
+                                <a type="button"  class="btn-search payment-cart">Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--============================
+    CART VIEW END
+==============================-->
+
+
+<!--=============================
+    FOOTER START
+==============================-->
+<th:block th:replace="layout/footer"/>
+<!--=============================
+    FOOTER END
+==============================-->
+
+
+<!--=============================
+    SCROLL BUTTON START
+==============================-->
+<div class="tf__scroll_btn"><i class="fas fa-hand-pointer"></i></div>
+<!--=============================
+    SCROLL BUTTON END
+==============================-->
+
+
+<!--jquery library js-->
+<th:block th:replace="layout/script"/>
+
+<script src="/assets/sweetalert2/sweetalert2.all.min.js"></script>
+
+
+<script>
+    const page = {
+        urls: {
+            getAllCategories: AppBase.API_CATEGORY,
+            getAllProducts: AppBase.API_PRODUCT,
+            getAllCartDetails: AppBase.API_CART_DETAIL,
+            getAddToCart: AppBase.API_ADD_TO_CART,
+            getPayment: AppBase.API_PAYMENT,
+            getDelete: AppBase.API_DELETED_CART_ITEM,
+            getChangeQuantity: AppBase.API_CHANGE_QUANTITY,
+            getSearch: AppBase.API_SEARCH_PRODUCT,
+
+            getAllProvinces: 'https://vapi.vnappmob.com/api/province/',
+            getAllDistricts: 'https://vapi.vnappmob.com/api/province/district/',
+            getAllWards: 'https://vapi.vnappmob.com/api/province/ward/'
+        },
+        elements: {},
+        commands: {},
+        dialogs: {
+            elements: {},
+            loadData: {},
+            commands: {}
+        },
+    }
+
+    page.elements.productCarts = $('#product-carts')
+    page.elements.relatedProductSlider = $('.related_product_slider')
+    page.elements.inputSearch = $('#search')
+    page.elements.btnSearch = $('.btn-search')
+
+
+    page.dialogs.elements.tbCart = $('#tbCart tbody')
+    page.dialogs.elements.modalCart = $('#mdCart')
+    page.dialogs.elements.totalAmount = $('#totalAmount')
+    page.dialogs.elements.vat = $('#vat')
+    page.dialogs.elements.subTotalAmount = $('#subTotalAmount')
+
+    page.dialogs.elements.btnAddCart = $('.btnAddCart')
+    page.elements.countCart = $('#count-cart')
+
+    page.dialogs.elements.payment = $('.payment-cart')
+    page.dialogs.elements.cancelPayment = $('.cancel-cart')
+
+    page.dialogs.elements.paymentDefult = $('#payment_defult')
+    page.dialogs.elements.frmPayment = $('#frmPayment')
+    page.dialogs.elements.changeQuantity = $('.changeQuantity')
+
+    page.elements.pagination = $('.pagination')
+
+
+    page.dialogs.elements.provinceCr = $('#provinceCr')
+    page.dialogs.elements.districtCr = $('#districtCr')
+    page.dialogs.elements.wardCr = $('#wardCr')
+    page.dialogs.elements.addressCr = $('#addressCr')
+
+    page.commands.getAllProducts = (pageProduct , pageSize) => {
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllProducts,
+            data: {
+                page: pageProduct,
+                pageSize: pageSize
+            }
+        })
+            .done((data) => {
+
+                page.commands.loadProduct(data.content);
+                page.commands.displayPagination(data.totalPages, data.number + 1);
+
+                page.commands.doAddToCart();
+                page.commands.showCart();
+
+            })
+            .fail((jqXHR) => {
+                console.log(jqXHR)
+            })
+    }
+
+    page.commands.loadProduct = (products) => {
+        page.elements.productCarts.empty();
+        page.elements.relatedProductSlider.empty();
+
+        $.each(products, (index, item) => {
+            const str = page.commands.renderProduct(item);
+            page.elements.productCarts.prepend(str)
+            page.elements.relatedProductSlider.prepend(str);
+        })
+
+        $('.related_product_slider').slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 4000,
+            dots: false,
+            arrows: true,
+            nextArrow: '<i class="far fa-long-arrow-right nextArrow"></i>',
+            prevArrow: '<i class="far fa-long-arrow-left prevArrow"></i>',
+
+            responsive: [
+                {
+                    breakpoint: 1400,
+                    settings: {
+                        slidesToShow: 4,
+                    }
+                },
+                {
+                    breakpoint: 1200,
+                    settings: {
+                        slidesToShow: 3,
+                    }
+                },
+                {
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: 2,
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2,
+                    }
+                },
+                {
+                    breakpoint: 576,
+                    settings: {
+                        arrows: false,
+                        slidesToShow: 1,
+                    }
+                }
+            ]
+        });
+    }
+
+    page.commands.displayPagination = (totalPages, currentPage) => {
+        page.elements.pagination.empty();
+
+        let previousBtn = '<li class="page-item"><a class="page-link" href="#" onclick="page.commands.getAllProducts(' + (currentPage - 1) + ', 10)">Previous</a></li>';
+        page.elements.pagination.append(previousBtn);
+
+        for (let i = 1; i <= totalPages; i++) {
+            let pageBtn = '<li class="page-item ' + (i === currentPage ? 'active' : '') + '"><a class="page-link" href="#" onclick="page.commands.getAllProducts(' + i + ', 10)">' + i + '</a></li>';
+            page.elements.pagination.append(pageBtn);
+        }
+
+        let nextBtn = '<li class="page-item"><a class="page-link" href="#" onclick="page.commands.getAllProducts(' + (currentPage + 1) + ', 10)">Next</a></li>';
+        page.elements.pagination.append(nextBtn);
+    };
+
+    page.commands.renderProduct = (obj) => {
+        const imageUrl = AppBase.BASE_URL_CLOUD_IMAGE + '/' + AppBase.IMAGE_SCALE_W_250_h_200_Q_90 + '/' + obj.avatar.fileFolder + '/' + obj.avatar.fileName;
+        const price = obj.price.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+        return `
+                <div class="col-xl-3 wow fadeInUp" data-wow-duration="1s">
+                <div class="tf__menu_item">
+                    <div class="tf__menu_item_img" title="product-detail" href="/shop/product-detail/${obj.id}">
+                        <img src="${imageUrl}" alt="menu" class="img-fluid w-100">
+                    </div>
+                    <div class="tf__menu_item_text">
+                        <a class="category" href="#">${obj.category.title}</a>
+                        <a class="title" title="Edit" href="/shop/product-detail/${obj.id}">${obj.title}</a>
+                    </div>
+                    <div class="tf__menu_item_text2">
+                            <p class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <i class="far fa-star"></i>
+                            <span>24</span>
+                        </p>
+                        <h5 class="price">${price}
+                        </h5>
+                        <input type="number" class="quantity-product" value="${obj.quantity}" hidden="true"></input>
+                    </div>
+                    <div class="tf__menu_item_text3">
+                        <a type="button" class="tf__add_to_cart btnAddCart" data-id="${obj.id}" href="#" data-bs-toggle="modal" data-bs-target="#cartModal">
+                            Add to cart
+                        </a>
+                        <ul class="d-flex flex-wrap justify-content-end">
+                            <li><a href="#"><i class="fal fa-heart"></i></a></li>
+                            <li><a href="menu_details.html"><i class="far fa-eye"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+           `;
+    }
+
+    page.commands.getAllCartDetail = () => {
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllCartDetails
+        })
+            .done((data) => {
+                let vat = 0;
+                let feeShip= 15000;
+                let subTotalAmount = 0
+                let totalAmount = 0;
+                let count = 0;
+                $.each(data, (index, item) => {
+                    const str = page.commands.renderCart(item);
+                    subTotalAmount = subTotalAmount + item.amount;
+                    page.dialogs.elements.tbCart.prepend(str)
+                    count = count + item.quantity
+                })
+                vat = (subTotalAmount * 10) / 100;
+                totalAmount = subTotalAmount + vat + feeShip;
+                page.elements.countCart.text(count)
+                page.dialogs.elements.totalAmount.text(totalAmount.toLocaleString('vi', {
+                    style: 'currency',
+                    currency: 'VND'
+                }));
+                page.dialogs.elements.subTotalAmount.text(subTotalAmount.toLocaleString('vi', {
+                    style: 'currency',
+                    currency: 'VND'
+                }));
+                page.dialogs.elements.vat.text(vat.toLocaleString('vi', {
+                    style: 'currency',
+                    currency: 'VND'
+                }));
+                page.commands.deleteProduct();
+                page.commands.changeQuantity();
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            })
+    }
+
+    page.commands.renderCart = (obj) => {
+        const imageUrl = AppBase.BASE_URL_CLOUD_IMAGE + '/' + AppBase.IMAGE_SCALE_W_100_h_80_Q_90 + '/' + obj.productDTO.avatar.fileFolder + '/' + obj.productDTO.avatar.fileName;
+        const price = obj.price.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+        const amount = obj.amount.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+        return `
+                <tr id="tr_${obj.id}">
+                    <td>
+                        <span class="product-id">${obj.id}</span>
+                    </td>
+                     <td class="col-2">
+                         <img src="${imageUrl}" style="max-width: 100%" class="card-img-top" alt="...">
+                    </td>
+                    <td>${obj.title}</td>
+
+                    <td>${obj.unit}</td>
+                    <td>
+                        <span class="price-obj" hidden="true">${obj.price}</span>
+                        <span class="price">${price}</span>
+                    </td>
+                    <td>
+                        <button type="button" class="changeQuantity" data-id="${obj.id}">
+                            <input class="quantity-input" name="quantity" min="1" max="100" value="${obj.quantity}" type="number">
+                        </button>
+                    </td>
+                    <td>
+                        <span class="amount">${amount}</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-danger delete" data-id="${obj.id}" >
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+    }
+
+    page.commands.getProductById = (productId) => {
+        return $.ajax({
+            type: 'GET',
+            url: page.url.getAllProduct + '/' + productId
+        });
+    }
+
+
+
+
+    // page.commands.showCart = () => {
+    //     $('.modal-cart').on('click', () => {
+    //         page.commands.addEventChangeProvince();
+    //         page.commands.addEventChangeDistrict();
+    //         page.dialogs.elements.modalCart.addClass('show');
+    //         page.dialogs.elements.modalCart.modal('show');
+    //         page.commands.closeFrmPayment();
+    //         $("#mdCart .modal-alert-danger").removeClass("show").addClass("hide").empty();
+    //     })
+    // }
+
+
+    page.commands.doAddToCart = () => {
+        $('.btn-addCart').on('click', function () {
+            let productId = $(this).data('id');
+            let cartItem = {
+                productId: productId,
+                quantity: 1
+            }
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: 'POST',
+                url: page.urls.getAddToCart,
+                data: JSON.stringify(cartItem)
+            })
+                .done((data) => {
+                    page.dialogs.elements.tbCart.empty();
+                    let vat = 0;
+                    let subTotalAmount = 0;
+                    let totalAmount = 0;
+                    let count = 0;
+                    $.each(data, (index, item) => {
+                        const str = page.commands.renderCart(item);
+                        subTotalAmount = subTotalAmount + item.amount;
+                        page.dialogs.elements.tbCart.prepend(str)
+                        count = count + item.quantity
+                    })
+                    vat = (subTotalAmount * 10) / 100;
+                    totalAmount = subTotalAmount + vat;
+                    page.elements.countCart.text(count)
+                    page.dialogs.elements.totalAmount.text(totalAmount.toLocaleString('vi', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }));
+                    page.dialogs.elements.subTotalAmount.text(subTotalAmount.toLocaleString('vi', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }));
+                    page.dialogs.elements.vat.text(vat.toLocaleString('vi', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }));
+                    page.commands.deleteProduct();
+                    page.commands.changeQuantity();
+                })
+                .fail((err) => {
+                    AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+                })
+        })
+    }
+
+    page.commands.deleteProduct = () => {
+        $('.delete').on('click', function () {
+            let cartDetailId = $(this).data('id')
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085D6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    page.dialogs.commands.doDelete(cartDetailId);
+                }
+            })
+        })
+    }
+
+    page.dialogs.commands.doDelete = (cartDetailId) => {
+        $.ajax({
+            type: "DELETE",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: page.urls.getDelete + '/' + cartDetailId,
+        }).done((data) => {
+
+            AppBase.SweetAlert.showSuccessAlert(AppBase.AlertMessageEn.SUCCESS_DELETED);
+
+            page.dialogs.elements.tbCart.empty();
+            let vat = 0;
+            let subTotalAmount = 0;
+            let totalAmount = 0;
+            let count = 0;
+            $.each(data, (index, item) => {
+                const str = page.commands.renderCart(item);
+                subTotalAmount = subTotalAmount + item.amount;
+                page.dialogs.elements.tbCart.prepend(str)
+                count = count + item.quantity
+            })
+            vat = (subTotalAmount * 10) / 100;
+            totalAmount = subTotalAmount + vat;
+            page.elements.countCart.text(count)
+            page.dialogs.elements.totalAmount.text(totalAmount.toLocaleString('vi', {
+                style: 'currency',
+                currency: 'VND'
+            }));
+            page.dialogs.elements.subTotalAmount.text(subTotalAmount.toLocaleString('vi', {
+                style: 'currency',
+                currency: 'VND'
+            }));
+            page.dialogs.elements.vat.text(vat.toLocaleString('vi', {
+                style: 'currency',
+                currency: 'VND'
+            }));
+            page.commands.deleteProduct();
+            page.commands.changeQuantity();
+
+            page.commands.handleImagePopup();
+
+        }).fail(function (jqXHR) {
+            AppBase.SweetAlert.showErrorAlert(jqXHR.responseJSON.message);
+        })
+    }
+
+
+    page.commands.closeFrmPayment = () => {
+        $('.btnClose').on('click', () => {
+            page.dialogs.elements.frmPayment.trigger("reset");
+            $("#mdCart .modal-alert-danger").removeClass("show").addClass("hide").empty();
+            $("#frmPayment input.error").removeClass("error");
+        })
+    }
+
+    page.commands.changeQuantity = () => {
+        $('.changeQuantity').on('click', function () {
+            let cartDetailId = $(this).data('id');
+            let quantity = $(this).find('.quantity-input').val()
+            if(Number(quantity) <= 0) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085D6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        page.dialogs.commands.doDelete(cartDetailId);
+                    }else {
+                        $('.quantity-input').val('1')
+                    }
+                })
+            }
+            else {
+                let cartDetail = {
+                    quantity: quantity
+                }
+                $.ajax({
+                    type: "PATCH",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    url: page.urls.getChangeQuantity + '/' + cartDetailId,
+                    data: JSON.stringify(cartDetail)
+                })
+                    .done((data) => {
+                        page.dialogs.elements.tbCart.empty();
+                        let vat = 0;
+                        let subTotalAmount = 0;
+                        let totalAmount = 0;
+                        let count = 0;
+                        $.each(data, (index, item) => {
+                            const str = page.commands.renderCart(item);
+                            subTotalAmount = subTotalAmount + item.amount;
+                            page.dialogs.elements.tbCart.prepend(str)
+                            count = count + item.quantity
+                        })
+                        vat = (subTotalAmount * 10) / 100;
+                        totalAmount = subTotalAmount + vat;
+                        page.elements.countCart.text(count)
+                        page.dialogs.elements.totalAmount.text(totalAmount.toLocaleString('vi', {
+                            style: 'currency',
+                            currency: 'VND'
+                        }));
+                        page.dialogs.elements.subTotalAmount.text(subTotalAmount.toLocaleString('vi', {
+                            style: 'currency',
+                            currency: 'VND'
+                        }));
+                        page.dialogs.elements.vat.text(vat.toLocaleString('vi', {
+                            style: 'currency',
+                            currency: 'VND'
+                        }));
+                        page.commands.deleteProduct();
+                        page.commands.changeQuantity();
+                    })
+                    .fail((err) => {
+                        console.log(err)
+                        AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+                    })
+            }
+        })
+    }
+
+
+
+
+
+
+    page.commands.getAllBillsDone = () => {
+        $.ajax({
+            type: 'GET',
+            url: page.urls.getAllBillsSHIPPING,
+        })
+            .done((data) => {
+                let totalAmount = 0;
+                $.each(data, (index, item) => {
+                    totalAmount = totalAmount + item.totalAmount;
+                    const str = page.commands.renderHistoryBill(item);
+                    const tr = $(str);
+                    page.elements.orderShipping.prepend(tr);
+                    tr.find('button').click(() => {
+                        // Lấy ra id của đơn hàng tương ứng
+                        const id = item.id;
+                        // Gọi hàm để cập nhật trạng thái của đơn hàng
+                        page.commands.getPaymentDONE(id);
+                        // Xóa order đó khỏi DOM
+                        tr.remove();
+                        // Thêm order đó vào page.elements.orderLoading
+                        const str2 = page.commands.renderHistoryBill(item);
+                        const tr2 = $(str2);
+                        page.elements.orderDone.prepend(tr2);
+                        tr2.find('button').click(() => {
+                            // Lấy ra id của đơn hàng tương ứng
+                            const id2 = item.id;
+                            // Gọi hàm để cập nhật trạng thái của đơn hàng
+                            page.commands.getPaymentDONE(id2);
+                            // Xóa order đó khỏi DOM
+                            tr2.remove();
+                        });
+                    });
+                });
+                page.elements.totalAmountRevenue.text(
+                    totalAmount.toLocaleString('vi', { style: 'currency', currency: 'VND' })
+                );
+                reloadPageData();
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            });
+    };
+
+
+    page.commands.getPayment = () => {
+        let pay = $('.payment_defult:checked').val();
+
+        let bill = new Bill();
+        if (pay === 'momo') {
+            bill = {
+                locationRegionReqDTO: {
+                    provinceId: page.dialogs.elements.provinceCr.val(),
+                    provinceName: page.dialogs.elements.provinceCr.find('option:selected').text(),
+                    districtId: page.dialogs.elements.districtCr.val(),
+                    districtName: page.dialogs.elements.districtCr.find('option:selected').text(),
+                    wardId: page.dialogs.elements.wardCr.val(),
+                    wardName: page.dialogs.elements.wardCr.find('option:selected').text(),
+                    address: page.dialogs.elements.addressCr.val()
+                },
+                status: "ORDER"
+            }
+        }
+        if (pay === 'cod') {
+            bill = {
+                locationRegionReqDTO: {
+                    provinceId: page.dialogs.elements.provinceCr.val(),
+                    provinceName: page.dialogs.elements.provinceCr.find('option:selected').text(),
+                    districtId: page.dialogs.elements.districtCr.val(),
+                    districtName: page.dialogs.elements.districtCr.find('option:selected').text(),
+                    wardId: page.dialogs.elements.wardCr.val(),
+                    wardName: page.dialogs.elements.wardCr.find('option:selected').text(),
+                    address: page.dialogs.elements.addressCr.val()
+                },
+                status: "ORDER"
+            }
+        }
+        console.log(JSON.stringify(bill))
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: 'POST',
+            url: page.urls.getPayment,
+            data: JSON.stringify(bill)
+        })
+            .done((data) => {
+                console.log(data)
+                AppBase.SweetAlert.showSuccessAlert(AppBase.AlertMessageEn.SUCCESS_PAYMENT);
+                page.dialogs.elements.tbCart.empty()
+                page.commands.getAllCartDetail();
+                page.dialogs.elements.modalCart.removeClass('show');
+                page.dialogs.elements.modalCart.modal('hide')
+
+                $('#totalAmount').text('');
+                page.dialogs.elements.frmPayment.trigger("reset");
+                $("#mdCart .modal-alert-danger").removeClass("show").addClass("hide").empty();
+                $("#frmPayment input.error").removeClass("error");
+            })
+            .fail((jqXHR) => {
+
+                AppBase.SweetAlert.showErrorAlert(jqXHR.responseJSON.message);
+            })
+    }
+
+    page.dialogs.loadData.getAllProvinces = () => {
+        return $.ajax({
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            type: 'GET',
+            url: page.urls.getAllProvinces,
+        })
+            .done((res) => {
+                const data = res.results
+                const province = data.find(item => item.province_id === '46'); // Tìm phần tử có province_id là 46
+                if (province) {
+                    const str = `<option value="${province.province_id}">${province.province_name}</option>`; // Tạo option với province_name tương ứng
+                    page.dialogs.elements.provinceCr.empty().append(str);
+                }
+                })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_400);
+            })
+    }
+
+    page.commands.addEventChangeProvince = () => {
+        page.dialogs.elements.provinceCr.on("change", function () {
+            let provinceId = $(this).val();
+            console.log(provinceId)
+            if (provinceId !== 0) {
+                page.dialogs.loadData.getAllDistricts(provinceId).then(() => {
+                    let districtId = page.dialogs.elements.districtCr.val();
+                    page.dialogs.loadData.getAllWards(districtId);
+                })
+            }
+        })
+    }
+
+
+    page.dialogs.loadData.getAllDistricts = (provinceId) => {
+        return $.ajax({
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            type: 'GET',
+            url: page.urls.getAllDistricts + provinceId,
+        })
+            .done((res) => {
+                const data = res.results
+                page.dialogs.elements.districtCr.empty();
+                $.each(data, (index, item) => {
+                    let str = `<option value="${item.district_id}">${item.district_name}</option>`;
+                    page.dialogs.elements.districtCr.append(str);
+                })
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_400);
+            })
+    }
+
+    page.commands.addEventChangeDistrict = () => {
+
+        page.dialogs.elements.districtCr.on("change", function () {
+            let districtId = $(this).val();
+            if (districtId !== 0) {
+                page.dialogs.loadData.getAllWards(districtId);
+            }
+
+        })
+    }
+
+    page.dialogs.loadData.getAllWards = (districtId) => {
+        return $.ajax({
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json'
+            },
+            type: 'GET',
+            url: page.urls.getAllWards + districtId,
+        })
+            .done((res) => {
+                const data = res.results
+                page.dialogs.elements.wardCr.empty();
+                $.each(data, (index, item) => {
+                    let str = `<option value="${item.ward_id}">${item.ward_name}</option>`;
+                    page.dialogs.elements.wardCr.append(str);
+                })
+            })
+            .fail((jqXHR) => {
+                AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_400);
+            })
+    }
+
+    page.commands.resetLocationRegion = () => {
+        page.dialogs.loadData.getAllProvinces().then(() => {
+            const provinceId = page.dialogs.elements.provinceCr.val()
+            page.dialogs.loadData.getAllDistricts(provinceId).then(() => {
+                const districtId = page.dialogs.elements.districtCr.val()
+                page.dialogs.loadData.getAllWards(districtId)
+            });
+        });
+    }
+
+    page.dialogs.elements.frmPayment.validate({
+        rules: {
+            payment_method: {
+                required: true,
+            },
+            provinceCr: {
+                required: true,
+            },
+            districtCr: {
+                required: true,
+            },
+            wardCr: {
+                required: true,
+            },
+            addressCr: {
+                required: true,
+                minlength: 5,
+                maxlength: 100
+            }
+        },
+        messages: {
+            payment_method: {
+                required: "Vui lòng chọn phương thức thanh toán.",
+            },
+            provinceCr: {
+                required: "Select province",
+            },
+            districtCr: {
+                required: "Select district",
+            },
+            wardCr: {
+                required: "Select ward"
+            },
+            addressCr: {
+                required: 'Địa chỉ không được để trống',
+                minlength: 'Địa chỉ không được nhỏ hơn ${0} ký tự',
+                maxlength: 'Địa chỉ không được quá ${0} ký tự'
+            }
+        },
+        errorLabelContainer: "#mdCart .modal-alert-danger",
+        errorPlacement: function (error, element) {
+            error.appendTo("#mdCart .modal-alert-danger");
+        },
+        showErrors: function (errorMap, errorList) {
+            if (this.numberOfInvalids() > 0) {
+                $("#mdCart .modal-alert-danger").removeClass("hide").addClass("show");
+            } else {
+                $("#mdCart .modal-alert-danger").removeClass("show").addClass("hide").empty();
+                $("#frmPayment input.error").removeClass("error");
+            }
+            this.defaultShowErrors();
+        },
+        submitHandler: function () {
+            page.commands.getPayment();
+        }
+    })
+
+
+    page.loadData = () => {
+        page.commands.getAllCartDetail();
+        page.commands.getAllProducts(1,8);
+        page.commands.addEventChangeProvince();
+        page.commands.addEventChangeDistrict();
+        page.commands.resetLocationRegion();
+
+    }
+
+    page.initializeControlEvent = () => {
+        page.dialogs.elements.payment.on('click', () => {
+            page.dialogs.elements.frmPayment.trigger('submit');
+        });
+
+        $("#search").on('keydown', (event) => {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                page.commands.search(1,8);
+            }
+        });
+        $('.btn-search').on('click', () => {
+            page.commands.search(1,8);
+        });
+    }
+
+    $(() => {
+        page.loadData();
+        page.initializeControlEvent();
+    })
+
+
+    // Hàm định dạng giá tiền thành 1.000.000 đ
+    function formatPrice(price) {
+        // Sử dụng hàm toLocaleString() để format số thành chuỗi có dấu chấm phân cách hàng nghìn
+        return parseFloat(price).toLocaleString() + " đ";
+    }
+
+    // Lấy giá trị từ input
+    var inputElement = document.querySelector(".current_price");
+    var inputValue = inputElement.value;
+
+    // Lấy đối tượng span
+    var spanElement = document.querySelector(".current_price-format");
+
+    // Gán giá trị đã format vào span
+    spanElement.innerText = formatPrice(inputValue);
+
+
+</script>
+</body>
+
+</html>

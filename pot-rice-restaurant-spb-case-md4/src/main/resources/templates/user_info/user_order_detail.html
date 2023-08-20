@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
+  <title>Chi tiết đơn hàng || Nhà Hàng Cơm Niêu HTD</title>
+  <link rel="icon" href="/assets/images/logo_icon.png">
+  <th:block th:replace="layout/header"/>
+<!--  <link rel="stylesheet" href="/assets/css/style11.css">-->
+</head>
+
+<body>
+
+<!--=============================
+    TOPBAR START
+==============================-->
+<th:block th:replace="layout/topbar"/>
+<!--=============================
+    BREADCRUMB START
+==============================-->
+<section class="tf__breadcrumb" style="background: url(/assets/images/counter_bg.jpg);">
+  <div class="tf__breadcrumb_overlay">
+    <div class="container">
+      <div class="tf__breadcrumb_text">
+        <h1>Trang cá nhân</h1>
+        <ul>
+          <li><a href="/shop">Trang chủ</a></li>
+          <li><a href="#">Trang chi tiết đơn hàng</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!--=============================
+    BREADCRUMB END
+==============================-->
+
+
+<!--=========================
+    DASHBOARD START
+==========================-->
+<section class="tf__dashboard mt_100 xs_mt_70 mb_100 xs_mb_70">
+  <div class="container">
+    <div class="tf__dashboard_area">
+      <div class="row">
+        <div class="col-xl-3 col-lg-4 wow fadeInUp" data-wow-duration="1s">
+
+          <th:block th:replace="/layout/user_layout_dashboard"/>
+          <div class="col-xl-9 col-lg-8 wow fadeInUp" data-wow-duration="1s">
+            <div class="tf__dashboard_content">
+              <div class="tf_dashboard_body">
+                <h3>Chi tiết đơn hàng</h3>
+                <div class="tf__invoice">
+                  <a class="go_back" href="/shop/my-order"><i
+                          class="fas fa-long-arrow-alt-left"></i> Trở về</a>
+
+                  <div class="tf__track_order">
+                    <ul>
+                      <li id="pending">Đang chờ xử lý</li>
+                      <li id="process">Đang xử lý</li>
+                      <li id="shipping">Đang được giao</li>
+                      <li id="completed">Đã được giao</li>
+                    </ul>
+                  </div>
+
+                  <div class="tf__invoice_header">
+                    <div class="header_address">
+                      <h4>Thông tin</h4>
+                      <p><b>Tên: </b> <span th:text="${user.fullName}"></span></p>
+                      <p><b>điện thoại: </b> <span th:text="${user.phone}"></span></p>
+                      <p><b>Địa chỉ:  </b> <span th:text="${bill.get(0).locationRegionDTO.provinceName}"></span> ,
+                        <span th:text="${bill.get(0).locationRegionDTO.districtName}"></span> ,
+                        <span th:text="${bill.get(0).locationRegionDTO.wardName}"></span> ,
+                        <span th:text="${bill.get(0).locationRegionDTO.address}"></span>
+                      </p>
+                    </div>
+                    <div class="header_address"  id="orderDetailBill">
+                        <p hidden="true"><b>ID Đơn hàng:</b> <span id="billId" th:text="${idBill}"> </span></p>
+                    </div>
+                  </div>
+
+                  <div class="tf__invoice_body">
+                    <div class="table-responsive">
+                      <table class="table table-striped" id="tbBill">
+                        <thead>
+                        <tr class="border_none">
+                          <th class="sl_no">ID</th>
+                          <th class="package">Tên</th>
+                          <th class="price">Giá</th>
+                          <th class="qnty">Số lượng</th>
+                          <th class="total">Tổng tiền</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                          <td class="package" colspan="3">
+                            <b>Tổng tạm tính</b>
+                          </td>
+                          <td class="qnty" >
+                            <b><span id="totalQuantity"></span></b>
+                          </td>
+                          <td class="total">
+                            <b><span id="subTotalAmount"></span></b>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="package coupon" colspan="3">
+                            <b>(+) VAT</b>
+                          </td>
+                          <td class="qnty">
+                            <b>10%</b>
+                          </td>
+                          <td class="total coupon">
+                            <b><span id="vat"></span></b>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="package coast" colspan="3">
+                            <b>(+) Phí vận chuyển</b>
+                          </td>
+                          <td class="qnty">
+                            <b></b>
+                          </td>
+                          <td class="total coast">
+                            <b>15.000 đ</b>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="package" colspan="3">
+                            <b>Tổng cộng</b>
+                          </td>
+                          <td class="qnty">
+                            <b></b>
+                          </td>
+                          <td class="total">
+                            <b><span id="totalAmount"></span></b>
+                          </td>
+                        </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+                  <button class="print_btn common_btn" onClick="window.print()"><i class="far fa-print"></i> In </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+<!--=========================
+    DASHBOARD END
+==========================-->
+
+
+<!--=============================
+    FOOTER START
+==============================-->
+<th:block th:replace="layout/footer"/>
+<!--=============================
+    FOOTER END
+==============================-->
+
+
+<!--=============================
+    SCROLL BUTTON START
+==============================-->
+<div class="tf__scroll_btn"><i class="fas fa-hand-pointer"></i></div>
+<!--=============================
+    SCROLL BUTTON END
+==============================-->
+
+
+<!--jquery library js-->
+<th:block th:replace="layout/script"/>
+
+
+<script>
+  const page = {
+    urls: {
+      getAllBills: AppBase.API_BILL,
+      getAllBillDetail: AppBase.API_BILL_DETAIL_BY_BILL,
+      getAllBillById: AppBase.API_BILL_BY_BILL,
+      getStatusBill: AppBase.API_STATUS_BILL,
+      getAllProvinces: 'https://vapi.vnappmob.com/api/province/',
+      getAllDistricts: 'https://vapi.vnappmob.com/api/province/district/',
+      getAllWards: 'https://vapi.vnappmob.com/api/province/ward/'
+    },
+    elements: {},
+    commands: {},
+    dialogs: {
+      elements: {},
+      loadData: {},
+      commands: {}
+    },
+  }
+
+
+  page.dialogs.elements.provinceCr = $('#provinceCr')
+  page.dialogs.elements.districtCr = $('#districtCr')
+  page.dialogs.elements.wardCr = $('#wardCr')
+  page.dialogs.elements.addressCr = $('#addressCr')
+
+  page.elements.tbBill = $('#tbBill tbody')
+
+  page.elements.totalAmountBill = $('#totalAmount-bill')
+  page.elements.tfInvoiceHeader = $('.tf__invoice_header')
+
+  page.dialogs.elements.orderDetail = $('#orderDetail tbody')
+  page.elements.orderDetailBill = $('#orderDetailBill')
+
+  page.dialogs.elements.totalAmount = $('#totalAmount')
+  page.dialogs.elements.vat = $('#vat')
+  page.dialogs.elements.subTotalAmount = $('#subTotalAmount')
+
+  let user = new User();
+  let status = $('#statusOrder').text();
+  let billId = $('#billId').text();
+  console.log(billId);
+
+
+  page.commands.getAllBillDetailsByBillId = () => {
+    $.ajax({
+      type: 'GET',
+      url: page.urls.getAllBillDetail +'/'+ billId
+    })
+    .done((data) => {
+      let feeShip = 15000;
+      let totalQuantity = 0;
+      let vat = 0;
+      let subTotalAmount = 0
+      let totalAmount = 0;
+      $.each(data, (index, item) => {
+        subTotalAmount = subTotalAmount + item.amount;
+        totalQuantity = totalQuantity + item.quantity;
+
+        const str = page.commands.renderHistoryBill(item);
+        page.elements.tbBill.prepend(str)
+        $("#totalQuantity").text(totalQuantity);
+
+        page.elements.totalAmountBill.text(totalAmount.toLocaleString('vi', {
+          style: 'currency',
+          currency: 'VND'
+        }));
+        vat = (subTotalAmount * 10) / 100;
+        totalAmount = subTotalAmount + vat +feeShip;
+        page.dialogs.elements.totalAmount.text(totalAmount.toLocaleString('vi', {
+          style: 'currency',
+          currency: 'VND'
+        }));
+        page.dialogs.elements.subTotalAmount.text(subTotalAmount.toLocaleString('vi', {
+          style: 'currency',
+          currency: 'VND'
+        }));
+        page.dialogs.elements.vat.text(vat.toLocaleString('vi', {
+          style: 'currency',
+          currency: 'VND'
+        }));
+      })
+
+    })
+    .fail((jqXHR) => {
+      console.log("123123")
+      AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+    })
+  }
+
+  page.commands.renderHistoryBill = (obj) => {
+    const price= obj.price.toLocaleString('vi', {style: 'currency', currency: 'VND'});
+    const amountDetail = (obj.price*obj.quantity).toLocaleString('vi', {style: 'currency', currency: 'VND'});
+    return `
+            <tr id="tr_${obj.id}">
+                    <td>
+                        <span class="product-id">${obj.id}</span>
+                    </td>
+                    <td>
+                        <span class="product-id">${obj.title}</span>
+                    </td>
+                    <td>
+                        <span class="province">${price}</span>
+                    </td>
+                    <td>${obj.quantity}</td>
+
+                    <td>
+                        <span class="amount">${amountDetail}</span>
+                    </td>
+                </tr>
+        `;
+  }
+
+  page.commands.renderHistoryBillDetail = (obj) => {
+    let buttonHTML = '';
+    let buttonColor = '';
+
+    const $liPending = $('#pending');
+    const $liProcess = $('#process');
+    const $liOnTheWay = $('#shipping');
+    const $liCompleted = $('#completed');
+    $liPending.removeClass('active');
+    $liProcess.removeClass('active');
+    $liOnTheWay.removeClass('active');
+    $liCompleted.removeClass('active');
+
+    if (obj.status === 'SHIPPING') {
+      buttonColor = 'orange';
+      buttonHTML = '<td><button class="acceptOrder" style="background-color: ' + buttonColor + ';">Xác nhận đơn</button></td>';
+    } else if (obj.status === 'DONE') {
+      buttonColor = 'green';
+      buttonHTML = '<td><button class="acceptOrder" style="background-color: ' + buttonColor + ';" disabled>Đã nhận đơn</button></td>';
+    } else {
+      buttonHTML = '<td><button class="acceptOrder" style="display: none;">Xác nhận đơn</button></td>';
+    }
+
+    if (obj.status === 'ORDER') {
+      $liPending.addClass('active');
+    } else if (obj.status === 'LOADING') {
+      $liProcess.addClass('active');
+    } else if (obj.status === 'SHIPPING') {
+      $liOnTheWay.addClass('active');
+    } else if (obj.status === 'DONE') {
+      $liCompleted.addClass('active');
+    }
+
+    return `
+    <tr id="tr_${obj.id}">
+        <tr>
+            <td>ID Đơn hàng:</td>
+            <td>${obj.id}</td>
+        </tr>
+        <tr>
+            <td>Ngày đặt:</td>
+            <td>${obj.createAt}</td>
+        </tr>
+        <tr>
+            <td>Tình trạng:</td>
+            <td>${obj.status}</td>
+        </tr>
+        ${buttonHTML}
+    </tr>
+  `;
+  };
+
+  page.commands.getPaymentDONE = (id) => {
+    const url = `${page.urls.getStatusBill}/${id}`;
+    const bill = {
+      status: 'DONE'
+    };
+    return $.ajax({
+      type: 'PATCH',
+      url: url,
+      data: JSON.stringify(bill),
+      contentType: 'application/json',
+    })
+      .done((data) => {
+      })
+      .fail((jqXHR, textStatus, errorThrown) => {
+        console.error('Error KKK:', errorThrown);
+      });
+  }
+
+  page.commands.getHistoryBillDetail = (billId) => {
+    $.ajax({
+      type: 'GET',
+      url: page.urls.getAllBillById + '/' + billId
+    })
+            .done((data) => {
+              let totalAmount = 0;
+              page.elements.orderDetailBill.empty();
+              $.each(data, (index, item) => {
+                const str3 = page.commands.renderHistoryBillDetail(item);
+                const tr3 = $(str3);
+                page.elements.orderDetailBill.prepend(tr3);
+
+                tr3.find('button').click(() => {
+                  tr3.remove();
+                  const id3 = item.id;
+                  page.commands.getPaymentDONE(id3).then((jqXHR)=>{
+                    page.commands.getHistoryBillDetail(billId);
+                  });
+                });
+              });
+            })
+            .fail((jqXHR) => {
+              AppBase.SweetAlert.showErrorAlert(AppBase.AlertMessageVi.ERROR_404);
+            });
+  };
+
+  page.loadData = () => {
+    page.commands.getHistoryBillDetail(billId);
+    page.commands.getAllBillDetailsByBillId();
+  }
+
+  page.initializeControlEvent = () => {
+
+  }
+
+  $(() => {
+    page.loadData();
+    page.initializeControlEvent();
+  })
+
+
+  const autoRefreshData = () => {
+    setInterval(() => {
+      page.commands.getHistoryBillDetail(billId);
+    }, 500);
+  };
+  autoRefreshData();
+
+</script>
+</body>
+
+</html>

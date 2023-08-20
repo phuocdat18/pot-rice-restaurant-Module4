@@ -1,0 +1,82 @@
+<th:block th:fragment="modalBillDetail">
+
+
+  <div class="modal fade" id="modalBillDetail" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+       data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Chi tiết đơn hàng</h1>
+          <button type="button" class="btn-close btnCloseMdBillDetail" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="modal-alert-danger hide">
+          </div>
+
+          <table id="tbBillDetail" class="table table-hover">
+            <thead class="text-center">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col" >Tên sản phẩm</th>
+              <th scope="col">Giá</th>
+              <th scope="col">Số lượng</th>
+              <th scope="col">Tổng tiền</th>
+
+            </tr>
+            </thead>
+            <tbody class="text-center">
+            </tbody>
+            <tfoot class="text-center">
+            <tr>
+              <td class="package" colspan="3">
+                <b>Tổng tạm tính</b>
+              </td>
+              <td class="qnty" >
+                <b><span id="totalQuantity"></span></b>
+              </td>
+              <td class="total">
+                <b><span id="subTotalAmount"></span></b>
+              </td>
+            </tr>
+            <tr>
+              <td class="package coupon" colspan="3">
+                <b>(+) VAT</b>
+              </td>
+              <td class="qnty">
+                <b>10%</b>
+              </td>
+              <td class="total coupon">
+                <b><span id="vat"></span></b>
+              </td>
+            </tr>
+            <tr>
+              <td class="package coast" colspan="3">
+                <b>(+) Phí vận chuyển</b>
+              </td>
+              <td class="qnty">
+                <b></b>
+              </td>
+              <td class="total coast">
+                <b>15.000 đ</b>
+              </td>
+            </tr>
+            <tr>
+              <td class="package" colspan="3">
+                <b>Tổng cộng</b>
+              </td>
+              <td class="qnty">
+                <b></b>
+              </td>
+              <td class="total">
+                <b><span id="totalAmountDetail"></span></b>
+              </td>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</th:block>

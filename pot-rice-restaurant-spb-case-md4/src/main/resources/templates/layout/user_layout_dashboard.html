@@ -1,0 +1,41 @@
+<th:block fragment="user_layout_dasboard">
+    <div class="tf__dashboard_menu">
+        <div class="dasboard_header">
+            <div class="dasboard_header_img">
+                <img src="/assets/images/avatar2.jpg" alt="user" class="img-fluid w-100">
+<!--                <label for="upload"><i class="far fa-camera"></i></label>-->
+<!--                <input type="file" id="upload" hidden>-->
+            </div>
+            <h2 th:text="${user.fullName}"></h2>
+        </div>
+        <ul>
+            <li>
+                <th:block th:if="${active} == myaccount">
+                    <a class="active" href="/shop/myaccount"><span><i class="fas fa-user"></i></span>
+                        Thông tin cá nhân</a>
+                </th:block>
+                <th:block th:if="${active} != myaccount">
+                    <a href="/shop/myaccount"><span><i class="fas fa-user"></i></span>
+                        Thông tin cá nhân</a>
+                </th:block>
+
+            </li>
+
+
+            <li>
+                <th:block th:if="${active} == my-order">
+                    <a class="active" href="/shop/my-order"><span><i class="fas fa-bags-shopping"></i></span>
+                        Đơn hàng của tôi</a>
+                </th:block>
+                <th:block th:if="${active} != my-order">
+                    <a href="/shop/my-order"><span><i class="fas fa-bags-shopping"></i></span>
+                        Đơn hàng của tôi</a>
+                </th:block>
+
+            </li>
+
+            <li><a href="/logout"><span> <i class="fas fa-sign-out-alt"></i></span> Đăng xuất</a></li>
+        </ul>
+    </div>
+    </div>
+</th:block>

@@ -1,0 +1,90 @@
+<th:block th:fragment="modalCreateProduct">
+  <!-- Modal -->
+  <div class="modal fade" id="modalCreateProduct" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Thêm sản phẩm</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+<!--          <div class="error-area hide"></div>-->
+          <div class="modal-alert-danger hide"></div>
+          <form method="post" id="frmCreateProduct" enctype="multipart/form-data">
+            <fieldset class="row g-3">
+              <div class="mb-3 col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-12 col-form-label">Tên sản phẩm</label>
+                  <div class="col-sm-12">
+                    <input type="text" id="productName" name="productName" class="form-control" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-lg-6">
+                    <label class="col-form-label">Giá</label>
+                    <div class="col-lg-12">
+                      <input type="text" id="productPrice" name="productPrice" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <label class="col-form-label">Đơn vị</label>
+                    <div class="col-lg-12">
+                      <input type="text" id="productUnit" name="productUnit" class="form-control" />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-lg-12 col-form-label">Loại</label>
+                  <div class="col-lg-12">
+                    <select class="form-select" name="category" id="categorySelectCreate">
+                      <option value="" selected disabled>Chọn phân loại</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-12 col-form-label">Mô tả</label>
+                  <div class="col-sm-12">
+                    <input type="text" class="form-control" id="description" name="productDescription" />
+                    <input hidden="hidden" type="number" class="form-control" id="quantity" name="quantity"  value="100"/>
+
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3 col-md-6">
+                <section>
+                  <div class="wrapper">
+                    <div class="image-preview">
+                      <canvas id="canvasCreate"></canvas>
+                    </div>
+                      <div class="content" style="opacity: 1;">
+                      <div class="icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                      </div>
+                      <div class="text">
+                        No file chosen, yet!
+                      </div>
+                      <div class="text">
+                        Max file size = 2MB
+                      </div>
+                    </div>
+                    <div class="clear-image-preview">
+                      <i class="fas fa-times"></i>
+                    </div>
+                    <div class="file-name">
+                      Thay đổi
+                    </div>
+                  </div>
+                  <input type="file" id="imageFile" accept="image/jpeg, image/png" hidden />
+                </section>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+          <button type="button" class="btn btn-outline-primary" id="btnCreate">Thêm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
